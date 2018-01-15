@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Chez Rimbault</title>
+    <link rel="stylesheet"
+          href="assets/css/bootstrap.min.css"
+          integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy">
+    <link rel="stylesheet"
+          href="assets/css/styles.css">
+</head>
+<body>
+<body>
+
+<header>
+    <div class="bg-dark collapse" id="navbarHeader" style="">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 py-4">
+                    <h4 class="text-white">À propos</h4>
+                    <p class="text-muted">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Nulla auctor aliquam ligula, ac pellentesque nisi. Nam
+                        dapibus, quam vitae commodo condimentum, justo metus
+                        scelerisque velit, at maximus purus tellus in nisi.
+                        Nullam nulla ligula, faucibus a est ut, suscipit semper
+                        mi. Vestibulum lacus erat, dictum at justo ac, finibus
+                        convallis nisi. Morbi gravida efficitur orci a tempor.
+                        Sed eget dignissim ipsum. Phasellus finibus eleifend
+                        felis, ultricies sodales orci.
+                    </p>
+                </div>
+                <div class="col-sm-4 py-4">
+                    <h4 class="text-white">Contact</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="assets/jar" class="text-white">
+                            Archives JAR
+                        </a></li>
+                        <li><a href="assets/img" class="text-white">
+                            Archives Photos
+                        </a></li>
+                        <li><a href="mailto:orimb1@yahoo.fr" class="text-white">
+                            orimb1@yahoo.fr
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar fixed-top navbar-dark bg-dark">
+        <div class="container d-flex justify-content-between">
+            <a href="/" class="navbar-brand">Chez Rimbault</a>
+            <button class="navbar-toggler collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarHeader"
+                    aria-controls="navbarHeader"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main role="main">
+
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Chez Rimbault</h1>
+            <p class="lead">Something short and leading about the
+                collection below—its contents, the creator, etc. Make it short
+                and sweet, but not too short so folks don't simply skip over it
+                entirely.</p>
+            <p>
+                <a href="https://bistrotsdeparis.blogspot.fr/"
+                   class="btn btn-primary">Blog café de Paris</a>
+            </p>
+        </div>
+    </section>
+
+
+    <div class="album text-muted">
+        <div class="container">
+            <div class="row" id="gallery">
+                <div class="card" onclick="getGallery('peillon')">
+                    <h4>Peillon</h4>
+                    <img src="assets/img/portal/peillon.jpg">
+                    <p class="card-text">
+                        Vivamus hendrerit nisl a lorem cursus, ac mattis est
+                        auctor. Praesent mattis porttitor venenatis.
+                    </p>
+                </div>
+                <div class="card" onclick="getGallery('prague')">
+                    <h4>Prague</h4>
+                    <img src="assets/img/portal/prague.jpg" id="prague">
+                    <p class="card-text">
+                        Ut varius sit amet dolor et tincidunt. Maecenas suscipit
+                        sem eros, sit amet dignissim lectus luctus ullamcorper.
+                        Etiam accumsan condimentum elit et tincidunt.
+                    </p>
+                </div>
+                <div class="card" onclick="getGallery('alsace')">
+                    <h4>Alsace</h4>
+                    <img src="assets/img/portal/alsace.jpg" id="alsace">
+                    <p class="card-text">
+                        Nunc ac varius ex. Praesent ornare metus nec erat
+                        pharetra, quis fermentum mauris consequat. Vestibulum
+                        eget laoreet arcu. Phasellus lacinia neque orci, eget
+                        condimentum justo volutpat eu.
+                    </p>
+                </div>
+                <div class="card" onclick="getGallery('presles')">
+                    <h4>Presles</h4>
+                    <img src="assets/img/portal/presles.jpg" id="presles">
+                    <p class="card-text">
+                        Praesent laoreet vitae dolor volutpat bibendum. Donec
+                        tempus diam fermentum, ornare justo a, volutpat libero.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<footer class="text-muted">
+    <div class="container">
+        <p class="float-right">
+            <a href="#">Back to top</a>
+        </p>
+        <p>© <a href="https://getbootstrap.com">Bootstrap</a></p>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+</body>
+</html>
