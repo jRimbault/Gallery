@@ -21,6 +21,7 @@ function buildImgCard(id, name) {
     let img = $('<img>');
     img.attr('src', 'assets/img/' + id + '/thumbnails/' + name);
     img.attr('title', toTitleCase(title));
+    img.css('max-width', '100%');
     img.appendTo(link);
     link.appendTo(card);
     return card;
@@ -34,6 +35,8 @@ function getGallery(id) {
             let card = buildImgCard(id, o);
             card.appendTo(gallery);
         });
+        history.pushState(window.state, id);
+        window.location = '#' + id;
     });
 }
 
