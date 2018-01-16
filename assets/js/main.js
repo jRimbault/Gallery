@@ -1,24 +1,28 @@
 'use strict';
 
-function toTitleCase(input) {
-    if (!input) return '';
-    return input
-        .split(' ')
-        .map(i => i[0].toUpperCase() + i.substring(1).toLowerCase())
-        .join(' ');
-}
+Object.assign(String.prototype, {
+    toTitleCase()
+    {
+        return this
+            .split(' ')
+            .map(i => i[0].toUpperCase() + i.substring(1).toLowerCase())
+            .join(' ');
+    },
+    removeExtension()
+    {
+        return this.replace(/\.[^/.]+$/, "");
+    }
+});
 
-function removeExtension(input) {
-    return input.replace(/\.[^/.]+$/, "");
-}
-
-function getLocation() {
+function getLocation()
+{
     let location = window.location.hash.replace("#", "");
     if (location === '') return location;
-    return toTitleCase(location);
+    return location.toTitleCase();
 }
 
-function breadcrumbs() {
+function breadcrumbs()
+{
     let title = $('#breadcrumbs');
     let location = getLocation();
     title.text('Chez Rimbault');
@@ -27,78 +31,85 @@ function breadcrumbs() {
     }
 }
 
-function buildCardImg(id, name) {
+function buildCardImg(gallery, filename)
+{
     let img = $('<img>');
     img.attr('class', 'card-img-top');
-    img.attr('data-src', 'assets/img/' + id + '/' + name);
-    img.attr('title', toTitleCase(removeExtension(name)));
+    img.attr('data-src', 'assets/img/' + gallery + '/' + filename);
+    img.attr('title', filename.removeExtension().toTitleCase());
     return img;
 }
 
-function buildImgLink(id, name) {
+function buildImgLink(gallery, filename)
+{
     let link = $('<a>');
-    link.attr('href', 'assets/img/' + id + '/' + name);
-    link.attr('id', toTitleCase(removeExtension(name)));
+    link.attr('href', 'assets/img/' + gallery + '/' + filename);
+    link.attr('id', filename.removeExtension().toTitleCase());
     return link;
 }
 
-function buildCard(id, name) {
+function buildCard(gallery, filename)
+{
     let card = $('<div>');
     card.attr('class', 'card text-white bg-dark mb-3');
 
-    let link = buildImgLink(id, name);
-    let img = buildCardImg(id, name);
+    let link = buildImgLink(gallery, filename);
+    let img = buildCardImg(gallery, filename);
     img.appendTo(link);
     link.appendTo(card);
 
     return card;
 }
 
-function displayGallery() {
+function displayGallery()
+{
     [].forEach.call(document.querySelectorAll('img[data-src]'), img => {
         img.setAttribute('src', img.getAttribute('data-src'));
-        img.onload = function () {
+        img.onload = () => {
             img.removeAttribute('data-src');
         };
     });
 }
 
-function getGallery(id) {
-    $.getJSON('assets/?' + id, json => {
+function getGallery(galleryName)
+{
+    $.getJSON('assets/?' + galleryName, json => {
         let gallery = $('#gallery');
         gallery.empty();
-        json.forEach(name => {
-            let card = buildCard(id, name);
+        json.forEach(filename => {
+            let card = buildCard(galleryName, filename);
             card.appendTo(gallery);
         });
         displayGallery();
-        history.pushState(window.state, id);
-        window.location = '#' + id;
+        history.pushState(window.state, galleryName);
+        window.location = '#' + galleryName;
         breadcrumbs();
     });
 }
 
-function buildCardBody(name) {
+function buildCardBody(filename)
+{
     let body = $('<div>').attr('class', 'card-img-overlay');
     let title = $('<h5>').attr('class', 'card-title');
-    title.text(toTitleCase(removeExtension(name)));
+    title.text(filename.removeExtension().toTitleCase());
     title.appendTo(body);
 
     return body;
 }
 
-function homepage() {
+function homepage()
+{
     $.getJSON('assets/?portal', json => {
         let gallery = $('#gallery');
         gallery.empty();
-        json.forEach(name => {
+        json.forEach(filename => {
             let card = $('<div>')
                 .attr('class', 'card text-white bg-dark')
-                .attr('onclick', 'getGallery("' + removeExtension(name) + '")');
+                .attr('onclick', 'getGallery("' + filename.removeExtension() + '")');
             let img = $('<img>')
-                .attr('src', 'assets/img/' + name)
+                .attr('src', 'assets/img/' + filename)
                 .attr('class', 'card-img-top');
-            let body = buildCardBody(name);
+            let body = buildCardBody(filename);
             img.appendTo(card);
             body.appendTo(card);
             card.appendTo(gallery);
