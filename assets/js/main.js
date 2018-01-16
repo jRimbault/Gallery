@@ -26,7 +26,7 @@ function buildImgLink(id, name) {
     return link;
 }
 
-function buildImgCard(id, name) {
+function buildCard(id, name) {
     let card = $('<div>');
     card.attr('class', 'card');
 
@@ -39,7 +39,7 @@ function buildImgCard(id, name) {
 }
 
 function displayGallery() {
-    [].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
+    [].forEach.call(document.querySelectorAll('img[data-src]'), img => {
         img.setAttribute('src', img.getAttribute('data-src'));
         img.onload = function () {
             img.removeAttribute('data-src');
@@ -52,7 +52,7 @@ function getGallery(id) {
         let gallery = $('#gallery');
         gallery.empty();
         json.thumbnails.forEach(o => {
-            let card = buildImgCard(id, o);
+            let card = buildCard(id, o);
             card.appendTo(gallery);
         });
         displayGallery();
