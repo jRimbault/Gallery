@@ -44,12 +44,17 @@ body {
     background-color: #343a40 !important;
 }
 
-.card h4 {
+.card .card-title {
     color: #ffffff;
 }
 
-.card > img {
-    margin-bottom: .75rem;
+.card img {
+    opacity: 1;
+    transition: opacity 0.3s;
+}
+
+.card img[data-src] {
+    opacity: 0;
 }
 
 .card-text {

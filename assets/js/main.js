@@ -14,7 +14,7 @@ function removeExtension(input) {
 function buildCardImg(id, name) {
     let img = $('<img>');
     img.attr('class', 'card-img-top');
-    img.attr('src', 'assets/img/' + id + '/thumbnails/' + name);
+    img.attr('data-src', 'assets/img/' + id + '/thumbnails/' + name);
     img.attr('title', toTitleCase(removeExtension(name)));
     return img;
 }
@@ -38,6 +38,15 @@ function buildImgCard(id, name) {
     return card;
 }
 
+function displayGallery() {
+    [].forEach.call(document.querySelectorAll('img[data-src]'), function (img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = function () {
+            img.removeAttribute('data-src');
+        };
+    });
+}
+
 function getGallery(id) {
     $.getJSON('assets/?' + id, json => {
         let gallery = $('#gallery');
@@ -46,6 +55,7 @@ function getGallery(id) {
             let card = buildImgCard(id, o);
             card.appendTo(gallery);
         });
+        displayGallery();
         history.pushState(window.state, id);
         window.location = '#' + id;
     });
