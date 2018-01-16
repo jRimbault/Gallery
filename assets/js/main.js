@@ -107,5 +107,10 @@ function homepage() {
 }
 
 $(document).ready(() => {
-    homepage();
+    let location = getLocation().toLowerCase();
+    if (location) {
+        getGallery(location);
+    } else {
+        homepage();
+    }
 });

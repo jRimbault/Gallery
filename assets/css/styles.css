@@ -1,4 +1,8 @@
 
+a, button.navbar-toggler {
+    outline: 0;
+}
+
 main {
     padding-top: 6rem;
     padding-bottom: 3em;
