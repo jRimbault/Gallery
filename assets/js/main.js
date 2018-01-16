@@ -1,6 +1,7 @@
 'use strict';
 
 function toTitleCase(input) {
+    if (!input) return '';
     return input
         .split(' ')
         .map(i => i[0].toUpperCase() + i.substring(1).toLowerCase())
@@ -29,7 +30,7 @@ function breadcrumbs() {
 function buildCardImg(id, name) {
     let img = $('<img>');
     img.attr('class', 'card-img-top');
-    img.attr('data-src', 'assets/img/' + id + '/thumbnails/' + name);
+    img.attr('data-src', 'assets/img/' + id + '/' + name);
     img.attr('title', toTitleCase(removeExtension(name)));
     return img;
 }
@@ -66,7 +67,7 @@ function getGallery(id) {
     $.getJSON('assets/?' + id, json => {
         let gallery = $('#gallery');
         gallery.empty();
-        json.thumbnails.forEach(name => {
+        json.forEach(name => {
             let card = buildCard(id, name);
             card.appendTo(gallery);
         });
@@ -95,7 +96,7 @@ function homepage() {
                 .attr('class', 'card text-white bg-dark')
                 .attr('onclick', 'getGallery("' + removeExtension(name) + '")');
             let img = $('<img>')
-                .attr('src', 'assets/img/portal/' + name)
+                .attr('src', 'assets/img/' + name)
                 .attr('class', 'card-img-top');
             let body = buildCardBody(name);
             img.appendTo(card);

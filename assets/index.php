@@ -9,7 +9,7 @@ if (isset($_GET)) {
                 jsonResponse(getThumbnails(__DIR__ . '/img'));
                 break 2;
             case 'portal':
-                jsonResponse(scanDirRec(__DIR__ . '/img/portal'));
+                jsonResponse(getPortal(__DIR__ . '/img/'));
                 break 2;
             default:
                 jsonResponse(scanDirRec(__DIR__ . '/img')[$key]);

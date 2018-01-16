@@ -1,6 +1,6 @@
 
-a, button.navbar-toggler {
-    outline: 0;
+a, button {
+    outline: 0 !important;
 }
 
 main {

@@ -13,7 +13,7 @@ function scanDirRec($dir)
     $result = [];
     $array = scandir($dir);
     foreach ($array as $key => $value) {
-        if (!in_array($value, array(".", ".."))) {
+        if (!in_array($value, [".", ".."])) {
             if (is_dir($dir . DIRECTORY_SEPARATOR . $value)) {
                 $result[$value] = scanDirRec($dir . DIRECTORY_SEPARATOR . $value);
             } else {
@@ -32,6 +32,19 @@ function getThumbnails($dir)
     foreach ($array as $key => $value) {
         if (isset($value['thumbnails'])) {
             $result[$key] = $value['thumbnails'];
+        }
+    }
+
+    return $result;
+}
+
+function getPortal($dir)
+{
+    $array = scanDirRec($dir);
+    $result = [];
+    foreach ($array as $key => $value) {
+        if (is_numeric($key) && !in_array($value, ['.gitkeep'])) {
+            $result[] = $value;
         }
     }
 

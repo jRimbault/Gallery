@@ -1,3 +1,4 @@
 backup/
 .idea/
 assets/img/
+!assets/img/.gitkeep
