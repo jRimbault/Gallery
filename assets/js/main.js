@@ -1,5 +1,9 @@
 'use strict';
 
+/**
+ * Mostly for fun, I extended the native String class
+ * I shouldn't do that.
+ */
 Object.assign(String.prototype, {
     toTitleCase()
     {
@@ -14,6 +18,10 @@ Object.assign(String.prototype, {
     }
 });
 
+/**
+ * We're using that to make decisions about what to display
+ * @returns String
+ */
 function getLocation()
 {
     let location = window.location.hash.replace("#", "");
@@ -21,6 +29,9 @@ function getLocation()
     return location.toTitleCase();
 }
 
+/**
+ * Used to show to the users where he is
+ */
 function breadcrumbs()
 {
     let title = $('#breadcrumbs');
@@ -31,6 +42,13 @@ function breadcrumbs()
     }
 }
 
+/**
+ * Responsible for building the img element of a card which is part of
+ * a gallery of cards of pictures
+ * @param gallery
+ * @param filename
+ * @returns {jQuery|HTMLElement}
+ */
 function buildCardImg(gallery, filename)
 {
     let img = $('<img>');
@@ -40,6 +58,12 @@ function buildCardImg(gallery, filename)
     return img;
 }
 
+/**
+ * Responsible for link a card to an image file
+ * @param gallery
+ * @param filename
+ * @returns {jQuery|HTMLElement}
+ */
 function buildImgLink(gallery, filename)
 {
     let link = $('<a>');
@@ -48,6 +72,12 @@ function buildImgLink(gallery, filename)
     return link;
 }
 
+/**
+ * Links together buildCardImg and buildImgLink to make a whole bootstrap card
+ * @param gallery
+ * @param filename
+ * @returns {jQuery|HTMLElement}
+ */
 function buildCard(gallery, filename)
 {
     let card = $('<div>');
@@ -61,6 +91,11 @@ function buildCard(gallery, filename)
     return card;
 }
 
+/**
+ * We don't want the DOM to reflow each time an image finishes loading
+ * So, each img tag is loaded first with the data-src attribute, then replaced
+ * with the normal src attribute
+ */
 function displayGallery()
 {
     [].forEach.call(document.querySelectorAll('img[data-src]'), img => {
@@ -71,8 +106,12 @@ function displayGallery()
     });
 }
 
-function getGallery(galleryName)
+/**
+ * Used to build the gallery of cards of images
+ */
+function getGallery()
 {
+    let galleryName = getLocation().toLowerCase();
     $.getJSON('assets/?' + galleryName, json => {
         let gallery = $('#gallery');
         gallery.empty();
@@ -86,6 +125,12 @@ function getGallery(galleryName)
     });
 }
 
+/**
+ * Portal cards are specials, they have an overlayed caption
+ * This is responsible for building that overlay
+ * @param filename
+ * @returns {jQuery|HTMLElement}
+ */
 function buildCardBody(filename)
 {
     let body = $('<div>').attr('class', 'card-img-overlay');
@@ -96,38 +141,51 @@ function buildCardBody(filename)
     return body;
 }
 
+/**
+ * Responsible for building the portal cards and links
+ * @param filename
+ * @returns {jQuery|HTMLElement}
+ */
+function buildPortalCard(filename)
+{
+    let link = $('<a>').attr('href', '#' + filename.removeExtension());
+    let card = $('<div>').attr('class', 'card text-white bg-dark');
+    let img = $('<img>')
+        .attr('data-src', 'assets/img/' + filename)
+        .attr('class', 'card-img-top');
+    let body = buildCardBody(filename);
+    img.appendTo(card);
+    body.appendTo(card);
+    card.appendTo(link);
+    return link;
+}
+
+/**
+ * Displays the homepage
+ */
 function homepage()
 {
     $.getJSON('assets/?portal', json => {
         let gallery = $('#gallery');
         gallery.empty();
         json.forEach(filename => {
-            let link = $('<a>').attr('href', '#' + filename.removeExtension());
-            let card = $('<div>').attr('class', 'card text-white bg-dark');
-            let img = $('<img>')
-                .attr('src', 'assets/img/' + filename)
-                .attr('class', 'card-img-top');
-            let body = buildCardBody(filename);
-            img.appendTo(card);
-            body.appendTo(card);
-            card.appendTo(link);
-            link.appendTo(gallery);
+            let card = buildPortalCard(filename);
+            card.appendTo(gallery);
         });
+        displayGallery();
     });
 }
 
-function init()
+/** init functions */
+function main()
 {
-    let location = getLocation().toLowerCase();
-    if (location) {
-        getGallery(location);
+    if (getLocation()) {
+        getGallery();
     } else {
         homepage();
     }
     breadcrumbs();
 }
 
-$(document).ready(() => {
-    init();
-    $(window).on('hashchange', init);
-});
+$(document).ready(main);
+$(window).on('hashchange', main);
