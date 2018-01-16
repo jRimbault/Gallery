@@ -83,14 +83,13 @@ function getGallery(galleryName)
         displayGallery();
         history.pushState(window.state, galleryName);
         window.location = '#' + galleryName;
-        breadcrumbs();
     });
 }
 
 function buildCardBody(filename)
 {
     let body = $('<div>').attr('class', 'card-img-overlay');
-    let title = $('<h5>').attr('class', 'card-title');
+    let title = $('<h4>').attr('class', 'card-title');
     title.text(filename.removeExtension().toTitleCase());
     title.appendTo(body);
 
@@ -103,26 +102,32 @@ function homepage()
         let gallery = $('#gallery');
         gallery.empty();
         json.forEach(filename => {
-            let card = $('<div>')
-                .attr('class', 'card text-white bg-dark')
-                .attr('onclick', 'getGallery("' + filename.removeExtension() + '")');
+            let link = $('<a>').attr('href', '#' + filename.removeExtension());
+            let card = $('<div>').attr('class', 'card text-white bg-dark');
             let img = $('<img>')
                 .attr('src', 'assets/img/' + filename)
                 .attr('class', 'card-img-top');
             let body = buildCardBody(filename);
             img.appendTo(card);
             body.appendTo(card);
-            card.appendTo(gallery);
+            card.appendTo(link);
+            link.appendTo(gallery);
         });
-        breadcrumbs();
     });
 }
 
-$(document).ready(() => {
+function init()
+{
     let location = getLocation().toLowerCase();
     if (location) {
         getGallery(location);
     } else {
         homepage();
     }
+    breadcrumbs();
+}
+
+$(document).ready(() => {
+    init();
+    $(window).on('hashchange', init);
 });
