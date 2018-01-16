@@ -1,50 +1,15 @@
-body {
-    background-color: #343a40 !important;
-}
 
-.navbar {
-    margin-bottom: 0;
-    background-color: #2e3133;
-}
-
-.jumbotron {
+main {
     padding-top: 6rem;
-    padding-bottom: 6rem;
-    margin-bottom: 0;
-    background-color: #333333;
+    padding-bottom: 3em;
 }
 
-.jumbotron p:last-child {
-    margin-bottom: 0;
-}
-
-.jumbotron-heading {
-    font-weight: 300;
-    color: #ffffff;
-}
-
-.jumbotron p {
-    color: #dddddd;
-}
-
-.jumbotron .container {
-    max-width: 40rem;
-}
-
-.album {
-    padding-top: 6rem;
-    padding-bottom: 3rem;
-    background-color: #333333;
+.bg-dark {
+    background-color: #212529 !important;
 }
 
 .card {
     cursor: pointer;
-    background-color: #343a40 !important;
-}
-
-.card .card-title {
-    color: #ffffff;
-    margin-bottom: 0;
 }
 
 .card img {
@@ -56,21 +21,7 @@ body {
     opacity: 0;
 }
 
-.card-text {
-    font-size: 85%;
-    color: #dddddd;
-}
-
 footer {
     padding-top: 3rem;
     padding-bottom: 3rem;
-    background-color: #343a40 !important;
-}
-
-footer p {
-    margin-bottom: .25rem;
-}
-
-footer a {
-    color: #dddddd;
 }

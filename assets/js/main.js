@@ -11,6 +11,21 @@ function removeExtension(input) {
     return input.replace(/\.[^/.]+$/, "");
 }
 
+function getLocation() {
+    let location = window.location.hash.replace("#", "");
+    if (location === '') return location;
+    return toTitleCase(location);
+}
+
+function breadcrumbs() {
+    let title = $('#breadcrumbs');
+    let location = getLocation();
+    title.text('Chez Rimbault');
+    if (location !== '') {
+        title.text('Chez Rimbault > ' + location);
+    }
+}
+
 function buildCardImg(id, name) {
     let img = $('<img>');
     img.attr('class', 'card-img-top');
@@ -28,7 +43,7 @@ function buildImgLink(id, name) {
 
 function buildCard(id, name) {
     let card = $('<div>');
-    card.attr('class', 'card');
+    card.attr('class', 'card text-white bg-dark mb-3');
 
     let link = buildImgLink(id, name);
     let img = buildCardImg(id, name);
@@ -63,7 +78,7 @@ function getGallery(id) {
 }
 
 function buildCardBody(name) {
-    let body = $('<div>').attr('class', 'card-body');
+    let body = $('<div>').attr('class', 'card-img-overlay');
     let title = $('<h5>').attr('class', 'card-title');
     title.text(toTitleCase(removeExtension(name)));
     title.appendTo(body);
@@ -77,7 +92,7 @@ function homepage() {
         gallery.empty();
         json.forEach(name => {
             let card = $('<div>')
-                .attr('class', 'card')
+                .attr('class', 'card text-white bg-dark')
                 .attr('onclick', 'getGallery("' + removeExtension(name) + '")');
             let img = $('<img>')
                 .attr('src', 'assets/img/portal/' + name)
@@ -89,21 +104,6 @@ function homepage() {
         });
         breadcrumbs();
     });
-}
-
-function getLocation() {
-    let location = window.location.hash.replace("#", "");
-    if (location === '') return location;
-    return toTitleCase(location);
-}
-
-function breadcrumbs() {
-    let title = $('#breadcrumbs');
-    let location = getLocation();
-    title.text('Chez Rimbault');
-    if (location !== '') {
-        title.text('Chez Rimbault > ' + location);
-    }
 }
 
 $(document).ready(() => {
