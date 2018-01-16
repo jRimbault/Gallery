@@ -38,14 +38,13 @@ body {
 }
 
 .card {
-    margin-bottom: 2rem;
-    border: 0;
     cursor: pointer;
     background-color: #343a40 !important;
 }
 
 .card .card-title {
     color: #ffffff;
+    margin-bottom: 0;
 }
 
 .card img {

@@ -51,38 +51,61 @@ function getGallery(id) {
     $.getJSON('assets/?' + id, json => {
         let gallery = $('#gallery');
         gallery.empty();
-        json.thumbnails.forEach(o => {
-            let card = buildCard(id, o);
+        json.thumbnails.forEach(name => {
+            let card = buildCard(id, name);
             card.appendTo(gallery);
         });
         displayGallery();
         history.pushState(window.state, id);
         window.location = '#' + id;
+        breadcrumbs();
     });
 }
 
-function init() {
+function buildCardBody(name) {
+    let body = $('<div>').attr('class', 'card-body');
+    let title = $('<h5>').attr('class', 'card-title');
+    title.text(toTitleCase(removeExtension(name)));
+    title.appendTo(body);
+
+    return body;
+}
+
+function homepage() {
     $.getJSON('assets/?portal', json => {
         let gallery = $('#gallery');
         gallery.empty();
-        json.forEach(o => {
-            let card = $('<div>');
-            let title = removeExtension(name);
-            card.attr('class', 'card');
-            let link = $('<a>');
-            link.attr('href', 'assets/img/' + name);
-            link.attr('id', title);
-            let img = $('<img>');
-            img.attr('src', 'assets/img/' + name);
-            img.attr('title', toTitleCase(title));
-            img.appendTo(link);
-            link.appendTo(card);
-            card.appendTo('body');
+        json.forEach(name => {
+            let card = $('<div>')
+                .attr('class', 'card')
+                .attr('onclick', 'getGallery("' + removeExtension(name) + '")');
+            let img = $('<img>')
+                .attr('src', 'assets/img/portal/' + name)
+                .attr('class', 'card-img-top');
+            let body = buildCardBody(name);
+            img.appendTo(card);
+            body.appendTo(card);
+            card.appendTo(gallery);
         });
+        breadcrumbs();
     });
 }
 
-$(document).ready(() => {
-    //init();
-});
+function getLocation() {
+    let location = window.location.hash.replace("#", "");
+    if (location === '') return location;
+    return toTitleCase(location);
+}
 
+function breadcrumbs() {
+    let title = $('#breadcrumbs');
+    let location = getLocation();
+    title.text('Chez Rimbault');
+    if (location !== '') {
+        title.text('Chez Rimbault > ' + location);
+    }
+}
+
+$(document).ready(() => {
+    homepage();
+});

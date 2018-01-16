@@ -55,7 +55,10 @@
     </div>
     <div class="navbar fixed-top navbar-dark bg-dark">
         <div class="container d-flex justify-content-between">
-            <a href="/" class="navbar-brand">Chez Rimbault</a>
+            <a href="#" class="navbar-brand" onclick="homepage()"
+               id="breadcrumbs">
+                Chez Rimbault
+            </a>
             <button class="navbar-toggler collapsed"
                     type="button"
                     data-toggle="collapse"
@@ -90,59 +93,7 @@
     <div class="album text-muted">
         <div class="container">
             <div class="card-columns" id="gallery">
-                <div class="card" onclick="getGallery('peillon')">
-                    <img src="assets/img/portal/peillon.jpg"
-                         id="peillon" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Peillon</h5>
-                        <p class="card-text">
-                            Vivamus hendrerit nisl a lorem cursus, ac mattis est
-                            auctor. Praesent mattis porttitor venenatis.
-                        </p>
-                    </div>
-                </div>
-                <div class="card" onclick="getGallery('prague')">
-                    <img src="assets/img/portal/prague.jpg"
-                         id="prague" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Prague</h5>
-                        <p class="card-text">
-                            Ut varius sit amet dolor et tincidunt. Maecenas
-                            suscipit
-                            sem eros, sit amet dignissim lectus luctus
-                            ullamcorper.
-                            Etiam accumsan condimentum elit et tincidunt.
-                        </p>
-                    </div>
-                </div>
-                <div class="card" onclick="getGallery('alsace')">
-                    <img src="assets/img/portal/alsace.jpg"
-                         id="alsace" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Alsace</h5>
-                        <p class="card-text">
-                            Nunc ac varius ex. Praesent ornare metus nec erat
-                            pharetra, quis fermentum mauris consequat.
-                            Vestibulum
-                            eget laoreet arcu. Phasellus lacinia neque orci,
-                            eget
-                            condimentum justo volutpat eu.
-                        </p>
-                    </div>
-                </div>
-                <div class="card" onclick="getGallery('presles')">
-                    <img src="assets/img/portal/presles.jpg"
-                         id="presles" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">Presles</h5>
-                        <p class="card-text">
-                            Praesent laoreet vitae dolor volutpat bibendum.
-                            Donec
-                            tempus diam fermentum, ornare justo a, volutpat
-                            libero.
-                        </p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
