@@ -30,8 +30,20 @@ $c = parse_ini_file('public.conf.ini', true);
           href="assets/css/ekko-lightbox-5.3.0.min.css">
     <link rel="stylesheet"
           href="assets/css/styles.css">
+    <?php
+    if (isset($c['SITE']['background']) &&
+        ctype_xdigit($c['SITE']['background']) &&
+        strlen($c['SITE']['background']) === 6) {
+        ?>
+        <style type="text/css">
+            .bg-dark {
+                background-color: <?php echo '#' . $c['SITE']['background']; ?> !important;
+            }
+        </style>
+        <?php
+    }
+    ?>
 </head>
-<body>
 <body class="bg-dark">
 
 <header>
@@ -47,7 +59,6 @@ $c = parse_ini_file('public.conf.ini', true);
                 <div class="col-sm-4 py-4">
                     <h4 class="text-white">Contact</h4>
                     <?php echo makeLinks($c) ?>
-                    ?>
                 </div>
             </div>
         </div>

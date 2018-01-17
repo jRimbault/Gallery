@@ -8,6 +8,8 @@ Fichier de configuration `public.conf.ini` situé à la racine:
 title = "Titre du site"
 about = "Texte à propos du site, sans retour à ligne"
 email = "mail@example.org"
+; devrait être sombre, cf color-hex.com
+background = "212529"
 
 ; commentaire
 ; liste de liens à afficher dans la section "À propos"
