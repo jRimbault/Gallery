@@ -2,11 +2,14 @@
 /**
  * @author: jRimbault
  * @date:   2018-01-15
- * @last modified by:   jRimbault
- * @last lodified time: 2018-01-15
  */
 
 define('__ROOT__', __DIR__);
+$c = parse_ini_file(
+    __ROOT__ . DIRECTORY_SEPARATOR . 'public.conf.ini',
+    true
+);
+
 define('__IMGDIR__', __ROOT__ . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR . 'img');
 
 function recursiveScandir($dir)
@@ -70,7 +73,7 @@ function makeThumbnails($script, $dir)
     $folders = getGalleryFolders($dir);
     foreach ($folders as $folder) {
         $target = $dir . DIRECTORY_SEPARATOR . $folder;
-        $command = '/bin/bash ' .  $script . ' ' . $target;
+        $command = '/bin/bash ' . $script . ' ' . $target;
         shell_exec($command);
     }
     die('Should be done');

@@ -2,9 +2,20 @@
 /**
  * @author: jRimbault
  * @date:   2018-01-15
- * @last modified by:   jRimbault
- * @last lodified time: 2018-01-15
  */
+
+function makeLinks($c = [])
+{
+    $html = '<ul class="list-unstyled">';
+    for ($i = 0; $i < count($c['LINK']['url']); $i += 1) {
+        $html .= '<li><a href="' . $c['LINK']['url'][$i] . '" class="text-white">' . $c['LINK']['text'][$i] . '</a></li>';
+    }
+    $html .= '<li><a href="mailto:' . $c['SITE']['email'] . '" class="text-white">' . $c['SITE']['email'] . '</a></li>';
+    return $html . '</ul>';
+}
+
+$c = parse_ini_file('public.conf.ini', true);
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -12,7 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Chez Rimbault</title>
+    <title><?php echo $c['SITE']['title'] ?></title>
     <link rel="stylesheet"
           href="assets/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -30,34 +41,13 @@
                 <div class="col-sm-8 py-4">
                     <h4 class="text-white">À propos</h4>
                     <p class="text-muted">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Nulla auctor aliquam ligula, ac pellentesque nisi. Nam
-                        dapibus, quam vitae commodo condimentum, justo metus
-                        scelerisque velit, at maximus purus tellus in nisi.
-                        Nullam nulla ligula, faucibus a est ut, suscipit semper
-                        mi. Vestibulum lacus erat, dictum at justo ac, finibus
-                        convallis nisi. Morbi gravida efficitur orci a tempor.
-                        Sed eget dignissim ipsum. Phasellus finibus eleifend
-                        felis, ultricies sodales orci.
+                        <?php echo $c['SITE']['about'] ?>
                     </p>
                 </div>
                 <div class="col-sm-4 py-4">
                     <h4 class="text-white">Contact</h4>
-                    <ul class="list-unstyled">
-                        <li><a href="https://bistrotsdeparis.blogspot.fr/"
-                               class="text-white">
-                                Blog café de Paris
-                            </a></li>
-                        <li><a href="assets/jar" class="text-white">
-                                Archives JAR
-                            </a></li>
-                        <li><a href="assets/img" class="text-white">
-                                Archives Photos
-                            </a></li>
-                        <li><a href="mailto:orimb1@yahoo.fr" class="text-white">
-                                orimb1@yahoo.fr
-                            </a></li>
-                    </ul>
+                    <?php echo makeLinks($c) ?>
+                    ?>
                 </div>
             </div>
         </div>
