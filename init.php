@@ -70,7 +70,7 @@ function makeThumbnails($script, $dir)
     $folders = getGalleryFolders($dir);
     foreach ($folders as $folder) {
         $target = $dir . DIRECTORY_SEPARATOR . $folder;
-        $command = $script . ' ' . $target;
+        $command = '/bin/bash ' .  $script . ' ' . $target;
         shell_exec($command);
     }
     die('Should be done');

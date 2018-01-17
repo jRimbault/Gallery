@@ -10,7 +10,7 @@ if (isset($_GET)) {
                 break 2;
             case 'make':
                 makeThumbnails(
-                    __ROOT__ . DIRECTORY_SEPARATOR . 'makethumbnails . sh',
+                    __ROOT__ . DIRECTORY_SEPARATOR . 'makethumbnails.sh',
                     __IMGDIR__
                 );
                 break 2;
