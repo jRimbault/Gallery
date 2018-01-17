@@ -34,11 +34,12 @@ function getLocation()
  */
 function breadcrumbs()
 {
-    let title = $('#breadcrumbs');
-    let location = getLocation();
-    title.text('Chez Rimbault');
-    if (location !== '') {
-        title.text('Chez Rimbault > ' + location);
+    let title = $('title');
+    $('#title').text(title.text());
+    let bc = $('#breadcrumbs');
+    bc.text('');
+    if (getLocation()) {
+        bc.text('> ' + getLocation());
     }
 }
 
