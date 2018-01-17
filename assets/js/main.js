@@ -53,7 +53,7 @@ function buildCardImg(gallery, filename)
 {
     let img = $('<img>');
     img.attr('class', 'card-img-top');
-    img.attr('data-src', 'assets/img/' + gallery + '/' + filename);
+    img.attr('data-src', 'assets/img/thumbnails/' + gallery + '/' + filename);
     img.attr('title', filename.removeExtension().toTitleCase());
     return img;
 }

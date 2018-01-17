@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
-#/ Usage: makethumbnails.sh <directory>
+#/ Usage: makethumbnails.sh <directory full of jpg>
 #/ Description: make a HTML index for an image directory
 #/ Examples:
+#/     ./makethumbnails.sh <directory full of jpg>
 #/ Options:
 #/     --help  display this help
 usage() {
@@ -16,11 +17,11 @@ main() {
   {
     jpgs=($(ls "$1"/*.jpg 2> /dev/null))
   } || {
-    echo "Error, see the logs" &&
     echo "No jpgs in $1"
+    exit 0
   }
 
-  thumbnails="$1"/thumbnails
+  thumbnails="$1/../thumbnails/$(basename $1)"
 
   mkdir -p "$thumbnails"
 
@@ -29,15 +30,18 @@ main() {
     converted="$jpg"
 
     if [[ ! -f "$thumbnails"/"$converted" ]]; then
-      convert "$1"/"$jpg" -resize 380x240 "$thumbnails"/"$converted" &&
+      convert "$1/$jpg" -resize 320x240 "$thumbnails/$converted" &&
       echo "$jpg resized"
     else
-      echo "$converted exists already"
+      echo "Thumbnail for $jpg exists already"
     fi
-    echo "Found '$1/$jpg'"
   done
-
-  echo "Done"
 }
+
+echo "$@"
+
+if [[ $# -lt 1 ]]; then
+  exit 1
+fi
 
 main "$@"
