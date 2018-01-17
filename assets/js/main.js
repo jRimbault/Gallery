@@ -84,6 +84,7 @@ function buildCard(gallery, filename)
 {
     let card = $('<div>');
     card.attr('class', 'card text-white bg-dark mb-3');
+    card.attr('hidden', 'true');
 
     let link = buildImgLink(gallery, filename);
     let img = buildCardImg(gallery, filename);
@@ -104,6 +105,7 @@ function displayGallery()
         img.setAttribute('src', img.getAttribute('data-src'));
         img.onload = () => {
             img.removeAttribute('data-src');
+            img.parentNode.parentNode.removeAttribute('hidden');
         };
     });
 }

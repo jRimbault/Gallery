@@ -15,7 +15,13 @@ if (isset($_GET)) {
                 );
                 break 2;
             default:
-                jsonResponse(recursiveScandir(__IMGDIR__)[$key]);
+                if (in_array($key, getGalleryFolders(__IMGDIR__))) {
+                    jsonResponse(recursiveScandir(__IMGDIR__)[$key]);
+                }
+                jsonResponse([
+                    'status' => 404,
+                    'message' => "No '$key' gallery",
+                ], 404);
                 break 2;
         }
     }
