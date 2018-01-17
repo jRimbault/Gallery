@@ -124,8 +124,6 @@ function getGallery()
             card.appendTo(gallery);
         });
         displayGallery();
-        history.pushState(window.state, galleryName);
-        window.location = '#' + galleryName;
     });
 }
 
@@ -180,6 +178,21 @@ function homepage()
     });
 }
 
+/**
+ * This doesn't do real history pushState, it just updates the
+ * window.location (url)
+ * The listener on 'hashchange' and the browser
+ * manage the history
+ * Each time the window.location is updated the browser will
+ * add the previous window.location to the history
+ * Thus we don't need to handle history explicitly
+ */
+function updateHistory()
+{
+    let galleryName = getLocation().toLowerCase();
+    window.location = '#' + galleryName;
+}
+
 /** init functions */
 function main()
 {
@@ -189,6 +202,7 @@ function main()
         homepage();
     }
     breadcrumbs();
+    updateHistory();
 }
 
 $(document).ready(main);
