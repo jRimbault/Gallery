@@ -9,12 +9,6 @@ if (isset($_GET)) {
             case 'portal':
                 jsonResponse(getPortal(__IMGDIR__));
                 break 2;
-            case 'make':
-                generateThumbnails(
-                    __ROOT__ . 'makethumbnails.sh',
-                    __IMGDIR__
-                );
-                break 2;
             default:
                 if (in_array($key, getGalleryFolders(__IMGDIR__))) {
                     $directory = __IMGDIR__ . $key . DIRECTORY_SEPARATOR . 'thumbnails';
