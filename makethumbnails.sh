@@ -21,7 +21,7 @@ main() {
     exit 0
   }
 
-  thumbnails="$1/../thumbnails/$(basename $1)"
+  thumbnails="$1/thumbnails"
 
   mkdir -p "$thumbnails"
 

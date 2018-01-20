@@ -4,17 +4,8 @@
  * @date:   2018-01-15
  */
 
-function makeLinks($c = [])
-{
-    $html = '<ul class="list-unstyled">';
-    for ($i = 0; $i < count($c['LINK']['url']); $i += 1) {
-        $html .= '<li><a href="' . $c['LINK']['url'][$i] . '" class="text-white">' . $c['LINK']['text'][$i] . '</a></li>';
-    }
-    $html .= '<li><a href="mailto:' . $c['SITE']['email'] . '" class="text-white">' . $c['SITE']['email'] . '</a></li>';
-    return $html . '</ul>';
-}
-
-$c = parse_ini_file('public.conf.ini', true);
+require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
+require_once __ROOT__ . 'functions.php';
 
 ?>
 <!DOCTYPE html>
@@ -23,26 +14,20 @@ $c = parse_ini_file('public.conf.ini', true);
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php echo $c['SITE']['title'] ?></title>
+    <title><?php echo __CONF__['SITE']['title']; ?></title>
     <link rel="stylesheet"
           href="assets/css/bootstrap.min.css">
     <link rel="stylesheet"
           href="assets/css/ekko-lightbox-5.3.0.min.css">
     <link rel="stylesheet"
           href="assets/css/styles.css">
-    <?php
-    if (isset($c['SITE']['background']) &&
-        ctype_xdigit($c['SITE']['background']) &&
-        strlen($c['SITE']['background']) === 6) {
-        ?>
-        <style type="text/css">
-            .bg-dark {
-                background-color: <?php echo '#' . $c['SITE']['background']; ?> !important;
-            }
-        </style>
-        <?php
-    }
-    ?>
+    <style type="text/css">
+    <?php if (isCssColor(__CONF__['SITE']['background'])) { ?>
+        .bg-dark {
+            background-color: <?php echo '#' . __CONF__['SITE']['background']; ?> !important;
+        }
+    <?php } ?>
+    </style>
 </head>
 <body class="bg-dark">
 
@@ -53,12 +38,12 @@ $c = parse_ini_file('public.conf.ini', true);
                 <div class="col-sm-8 py-4">
                     <h4 class="text-white">À propos</h4>
                     <p class="text-muted">
-                        <?php echo $c['SITE']['about'] ?>
+                        <?php echo __CONF__['SITE']['about'] ?>
                     </p>
                 </div>
                 <div class="col-sm-4 py-4">
                     <h4 class="text-white">Contact</h4>
-                    <?php echo makeLinks($c) ?>
+                    <?php echo makeLinks() ?>
                 </div>
             </div>
         </div>

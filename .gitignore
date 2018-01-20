@@ -1,5 +1,11 @@
 backup/
 .idea/
+jar/*
+jar/
 assets/img/*
 !assets/img/.gitkeep
-public.conf.ini
+conf.ini
+log/*
+!log/.gitkeep
+web/gallery/*
+!web/gallery/.gitkeep

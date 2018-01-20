@@ -1,6 +1,7 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
+require_once __ROOT__ . 'functions.php';
 
 if (isset($_GET)) {
     foreach ($_GET as $key => $value) {
@@ -9,14 +10,15 @@ if (isset($_GET)) {
                 jsonResponse(getPortal(__IMGDIR__));
                 break 2;
             case 'make':
-                makeThumbnails(
-                    __ROOT__ . DIRECTORY_SEPARATOR . 'makethumbnails.sh',
+                generateThumbnails(
+                    __ROOT__ . 'makethumbnails.sh',
                     __IMGDIR__
                 );
                 break 2;
             default:
                 if (in_array($key, getGalleryFolders(__IMGDIR__))) {
-                    jsonResponse(recursiveScandir(__IMGDIR__)[$key]);
+                    $directory = __IMGDIR__ . $key . DIRECTORY_SEPARATOR . 'thumbnails';
+                    jsonResponse(recursiveScandir($directory));
                 }
                 jsonResponse([
                     'status' => 404,

@@ -1,5 +1,8 @@
 'use strict';
 
+const galleryDirectory = 'gallery/';
+const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
+
 /**
  * Mostly for fun, I extended the native String class
  * I shouldn't do that.
@@ -54,7 +57,7 @@ function buildCardImg(gallery, filename)
 {
     let img = $('<img>');
     img.attr('class', 'card-img-top');
-    img.attr('data-src', 'assets/img/thumbnails/' + gallery + '/' + filename);
+    img.attr('data-src', thumbnailsDirectory(gallery) + filename);
     img.attr('title', filename.removeExtension().toTitleCase());
     return img;
 }
@@ -68,7 +71,7 @@ function buildCardImg(gallery, filename)
 function buildImgLink(gallery, filename)
 {
     let link = $('<a>');
-    link.attr('href', 'assets/img/' + gallery + '/' + filename);
+    link.attr('href', galleryDirectory + gallery + '/' + filename);
     link.attr('id', filename.removeExtension().toTitleCase());
     link.attr('data-toggle', 'lightbox');
     link.attr('data-gallery', gallery);
@@ -154,7 +157,7 @@ function buildPortalCard(filename)
     let link = $('<a>').attr('href', '#' + filename.removeExtension());
     let card = $('<div>').attr('class', 'card text-white bg-dark');
     let img = $('<img>')
-        .attr('data-src', 'assets/img/' + filename)
+        .attr('data-src', galleryDirectory + filename)
         .attr('class', 'card-img-top');
     let body = buildCardBody(filename);
     img.appendTo(card);

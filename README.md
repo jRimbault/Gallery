@@ -2,7 +2,7 @@
 
 Faite pour Olivier Rimbault par Jacques Rimbault.
 
-Fichier de configuration `public.conf.ini` situé à la racine:
+Fichier de configuration `conf.ini` situé à la racine:
 ```ini
 [SITE]
 title = "Titre du site"
@@ -24,18 +24,18 @@ text[] = "Archives Photos"
 ```
 
 Pour ajouter une galerie de photos mettre:
-- un dossier nommé `vacances` dans le dossier `assets/img/`
-- une image nommé `vacances.jpg` dans le dossier `assets/img/`
+- un dossier nommé `vacances` dans le dossier `gallery`
+- une image nommé `vacances.jpg` dans le dossier `gallery`
 
 Sur un système linux, pour créer les miniatures de chaque image,
 installer `imagemagick` et
 utiliser le script `makethumbnails.sh`:
 ```bash
-./makethumbnails.sh assets/img/vacances
+./makethumbnails.sh web/gallery/vacances
 ```
 
 Sur Windows utiliser un programme comme [IrfanView][0] (ou similaire), et
-générer des images de 320x240 pixels maximum, placer-les dans le dossier `assets/img/thumbnails/vacances`.
+générer des images de 320x240 pixels maximum, placer-les dans le dossier `gallery/vacances/thumbnails`.
 
 
 
