@@ -7,6 +7,8 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
 require_once __ROOT__ . 'functions.php';
 
+$conf = __CONF__;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -14,7 +16,7 @@ require_once __ROOT__ . 'functions.php';
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php echo __CONF__['SITE']['title']; ?></title>
+    <title><?php echo $conf['SITE']['title']; ?></title>
     <link rel="stylesheet"
           href="assets/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -22,9 +24,14 @@ require_once __ROOT__ . 'functions.php';
     <link rel="stylesheet"
           href="assets/css/styles.css">
     <style type="text/css">
-    <?php if (isCssColor(__CONF__['SITE']['background'])) { ?>
+    <?php if (isset($conf['SITE']['background']) && isHexColor($conf['SITE']['background'])) { ?>
         .bg-dark {
-            background-color: <?php echo '#' . __CONF__['SITE']['background']; ?> !important;
+            background-color: <?php echo '#' . $conf['SITE']['background']; ?> !important;
+        }
+    <?php } ?>
+    <?php if (isset($conf['SITE']['lightbox']) && isHexColor($conf['SITE']['lightbox'])) { ?>
+        .bg-dark {
+            background-color: <?php echo '#' . $conf['SITE']['lightbox']; ?> !important;
         }
     <?php } ?>
     </style>
@@ -38,7 +45,7 @@ require_once __ROOT__ . 'functions.php';
                 <div class="col-sm-8 py-4">
                     <h4 class="text-white">À propos</h4>
                     <p class="text-muted">
-                        <?php echo __CONF__['SITE']['about'] ?>
+                        <?php echo $conf['SITE']['about'] ?>
                     </p>
                 </div>
                 <div class="col-sm-4 py-4">

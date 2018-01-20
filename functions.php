@@ -32,7 +32,7 @@ function getPortal($dir)
 
 function jsonResponse($array, $code = 200)
 {
-    header('Content-Type: text/json');
+    header('Content-Type: application/json');
     http_response_code($code);
     die(json_encode($array));
 }
@@ -80,9 +80,8 @@ function makeLinks()
     return $html . '</ul>';
 }
 
-function isCssColor($input)
+function isHexColor($input)
 {
-    if (!isset($input)) return false;
     if (!ctype_xdigit($input)) return false;
     if (!in_array(strlen($input), [3, 6])) return false;
     return true;
