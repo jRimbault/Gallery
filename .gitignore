@@ -11,3 +11,4 @@ log/*
 web/gallery/*
 !web/gallery/.gitkeep
 web/assets/img
+!var/.gitkeep

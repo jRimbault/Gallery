@@ -4,8 +4,8 @@
  * @date:   2018-01-15
  */
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
-require_once __ROOT__ . 'functions.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'init.php';
+require_once __SRCDIR__ . 'functions.php';
 
 ?>
 <!DOCTYPE html>
