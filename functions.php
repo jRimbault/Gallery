@@ -69,13 +69,14 @@ function generateThumbnails($script, $dir)
 
 function makeLinks()
 {
+    global $conf;
     $html = '<ul class="list-unstyled">';
-    for ($i = 0; $i < count(__CONF__['LINK']['url']); $i += 1) {
-        $html .= '<li><a href="' . __CONF__['LINK']['url'][$i] . '" class="text-white">';
-        $html .= __CONF__['LINK']['text'][$i] . '</a></li>';
+    for ($i = 0; $i < count($conf['LINK']['url']); $i += 1) {
+        $html .= '<li><a href="' . $conf['LINK']['url'][$i] . '" class="text-white">';
+        $html .= $conf['LINK']['text'][$i] . '</a></li>';
     }
-    $html .= '<li><a href="mailto:' . __CONF__['SITE']['email'] . '" class="text-white">';
-    $html .= __CONF__['SITE']['email'] . '</a></li>';
+    $html .= '<li><a href="mailto:' . $conf['SITE']['email'] . '" class="text-white">';
+    $html .= $conf['SITE']['email'] . '</a></li>';
 
     return $html . '</ul>';
 }

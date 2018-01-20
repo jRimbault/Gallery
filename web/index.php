@@ -7,8 +7,6 @@
 require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'init.php';
 require_once __ROOT__ . 'functions.php';
 
-$conf = __CONF__;
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
