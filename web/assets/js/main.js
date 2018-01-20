@@ -8,11 +8,14 @@ const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
  * I shouldn't do that.
  */
 Object.assign(String.prototype, {
+    title() {
+        return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
+    },
     toTitleCase()
     {
         return this
             .split(' ')
-            .map(i => i[0].toUpperCase() + i.substring(1).toLowerCase())
+            .map(i => i.title())
             .join(' ');
     },
     removeExtension()

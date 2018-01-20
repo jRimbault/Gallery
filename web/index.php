@@ -30,7 +30,7 @@ $conf = __CONF__;
         }
     <?php } ?>
     <?php if (isset($conf['SITE']['lightbox']) && isHexColor($conf['SITE']['lightbox'])) { ?>
-        .bg-dark {
+        .ekko-lightbox .modal-content {
             background-color: <?php echo '#' . $conf['SITE']['lightbox']; ?> !important;
         }
     <?php } ?>

@@ -5,7 +5,9 @@ jar/
 assets/img/*
 !assets/img/.gitkeep
 conf.ini
+public.conf.ini
 log/*
 !log/.gitkeep
 web/gallery/*
 !web/gallery/.gitkeep
+web/assets/img
