@@ -16,9 +16,9 @@ require_once __SRCDIR__ . 'functions.php';
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?php echo $conf['SITE']['title']; ?></title>
     <link rel="stylesheet"
-          href="assets/css/bootstrap.min.css">
+          href="assets/lib/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="assets/css/ekko-lightbox-5.3.0.min.css">
+          href="assets/lib/css/ekko-lightbox-5.3.0.min.css">
     <link rel="stylesheet"
           href="assets/css/styles.css">
     <style type="text/css">
@@ -104,10 +104,10 @@ require_once __SRCDIR__ . 'functions.php';
     </div>
 </footer>
 
-<script src="assets/js/jquery-3.2.1.min.js"></script>
-<script src="assets/js/popper-1.12.9.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/ekko-lightbox-5.3.0.min.js"></script>
+<script src="assets/lib/js/jquery-3.2.1.min.js"></script>
+<script src="assets/lib/js/popper-1.12.9.min.js"></script>
+<script src="assets/lib/js/bootstrap.min.js"></script>
+<script src="assets/lib/js/ekko-lightbox-5.3.0.min.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>
