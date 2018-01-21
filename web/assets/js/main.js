@@ -59,7 +59,7 @@ function breadcrumbs()
 function buildCardImg(gallery, filename)
 {
     let img = $('<img>');
-    img.attr('class', 'card-img-top');
+    img.attr('class', 'card-img-top rounded');
     img.attr('data-src', thumbnailsDirectory(gallery) + filename);
     img.attr('title', filename.removeExtension().toTitleCase());
     return img;
@@ -161,7 +161,7 @@ function buildPortalCard(filename)
     let card = $('<div>').attr('class', 'card text-white bg-dark');
     let img = $('<img>')
         .attr('data-src', galleryDirectory + filename)
-        .attr('class', 'card-img-top');
+        .attr('class', 'card-img-top rounded');
     let body = buildCardBody(filename);
     img.appendTo(card);
     body.appendTo(card);
