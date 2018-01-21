@@ -1,5 +1,22 @@
 <?php
 
+function class_autoloader($class)
+{
+    $directories = [
+        __SRCDIR__ . 'Utils' . DIRECTORY_SEPARATOR,
+    ];
+
+    foreach ($directories as $dir) {
+        $file = $dir . $class . '.php';
+        if (file_exists($file)) {
+            require_once $file;
+            break;
+        }
+    }
+}
+
+spl_autoload_register('class_autoloader');
+
 function recursiveScandir($dir)
 {
     $result = [];
@@ -65,20 +82,6 @@ function generateThumbnails($script, $dir)
         shell_exec($command);
     }
     die('Should be done');
-}
-
-function makeLinks()
-{
-    global $conf;
-    $html = '<ul class="list-unstyled">';
-    for ($i = 0; $i < count($conf['LINK']['url']); $i += 1) {
-        $html .= '<li><a href="' . $conf['LINK']['url'][$i] . '" class="text-white">';
-        $html .= $conf['LINK']['text'][$i] . '</a></li>';
-    }
-    $html .= '<li><a href="mailto:' . $conf['SITE']['email'] . '" class="text-white">';
-    $html .= $conf['SITE']['email'] . '</a></li>';
-
-    return $html . '</ul>';
 }
 
 function isHexColor($input)

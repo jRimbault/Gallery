@@ -4,8 +4,20 @@
  * @date:   2018-01-15
  */
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'init.php';
-require_once __SRCDIR__ . 'functions.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'constants.init.php';
+
+function makeLinks($conf)
+{
+    $html = '<ul class="list-unstyled">';
+    for ($i = 0; $i < count($conf->getLink()); $i += 1) {
+        $html .= '<li><a href="' . $conf->getLink()[$i]['url'] . '" class="text-white">';
+        $html .= $conf->getLink()[$i]['text'] . '</a></li>';
+    }
+    $html .= '<li><a href="mailto:' . $conf->getEmail() . '" class="text-white">';
+    $html .= $conf->getEmail() . '</a></li>';
+
+    return $html . '</ul>';
+}
 
 ?>
 <!DOCTYPE html>
@@ -14,7 +26,7 @@ require_once __SRCDIR__ . 'functions.php';
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title><?php echo $conf['SITE']['title']; ?></title>
+    <title><?php echo $conf->getTitle(); ?></title>
     <link rel="stylesheet"
           href="assets/lib/css/bootstrap.min.css">
     <link rel="stylesheet"
@@ -22,14 +34,14 @@ require_once __SRCDIR__ . 'functions.php';
     <link rel="stylesheet"
           href="assets/css/styles.css">
     <style type="text/css">
-    <?php if (isset($conf['SITE']['background']) && isHexColor($conf['SITE']['background'])) { ?>
+    <?php if (isHexColor($conf->getBackground())) { ?>
         .bg-dark {
-            background-color: <?php echo '#' . $conf['SITE']['background']; ?> !important;
+            background-color: <?php echo '#' . $conf->getBackground(); ?> !important;
         }
     <?php } ?>
-    <?php if (isset($conf['SITE']['lightbox']) && isHexColor($conf['SITE']['lightbox'])) { ?>
+    <?php if (isHexColor($conf->getLightbox())) { ?>
         .ekko-lightbox .modal-content {
-            background-color: <?php echo '#' . $conf['SITE']['lightbox']; ?> !important;
+            background-color: <?php echo '#' . $conf->getLightbox(); ?> !important;
         }
     <?php } ?>
     </style>
@@ -43,12 +55,12 @@ require_once __SRCDIR__ . 'functions.php';
                 <div class="col-sm-8 py-4">
                     <h4 class="text-white">À propos</h4>
                     <p class="text-muted">
-                        <?php echo $conf['SITE']['about'] ?>
+                        <?php echo $conf->getAbout() ?>
                     </p>
                 </div>
                 <div class="col-sm-4 py-4">
                     <h4 class="text-white">Contact</h4>
-                    <?php echo makeLinks() ?>
+                    <?php echo makeLinks($conf) ?>
                 </div>
             </div>
         </div>

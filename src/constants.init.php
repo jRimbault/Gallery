@@ -9,6 +9,8 @@ define('__SRCDIR__', __ROOT__ . 'src' . DIRECTORY_SEPARATOR);
 define('__VARDIR__', __ROOT__ . 'var' . DIRECTORY_SEPARATOR);
 define('__WEBDIR__', __ROOT__ . 'web' . DIRECTORY_SEPARATOR);
 define('__IMGDIR__', __WEBDIR__ . 'gallery' . DIRECTORY_SEPARATOR);
-
-$conf = parse_ini_file(__VARDIR__ . 'conf.ini', true);
 ini_set('error_log', __ROOT__ . 'log/php_error.log');
+
+require_once __SRCDIR__ . 'functions.php';
+
+$conf = new Config(__VARDIR__ . 'conf.ini');
