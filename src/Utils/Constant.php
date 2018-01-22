@@ -1,11 +1,11 @@
 <?php
 
-//namespace App\Utils;
+namespace Utils;
 
 
 class Constant
 {
-    const ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' .DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
+    const ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR;
     const SRC = Constant::ROOT . 'src' . DIRECTORY_SEPARATOR;
     const VAR = Constant::ROOT . 'var' . DIRECTORY_SEPARATOR;
     const WEB = Constant::ROOT . 'public' . DIRECTORY_SEPARATOR;

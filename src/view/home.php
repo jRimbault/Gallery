@@ -4,6 +4,9 @@
  * @date:   2018-01-15
  */
 
+use Utils\Constant;
+use Utils\Config;
+
 $conf = new Config(Constant::CONFIG . 'app.ini');
 
 function makeLinks($conf)
@@ -41,16 +44,18 @@ function isHexColor($input)
     <link rel="stylesheet"
           href="assets/css/styles.css">
     <style type="text/css">
-    <?php if (isHexColor($conf->getBackground())) { ?>
+        <?php if (isHexColor($conf->getBackground())) { ?>
         .bg-dark {
             background-color: <?php echo '#' . $conf->getBackground(); ?> !important;
         }
-    <?php } ?>
-    <?php if (isHexColor($conf->getLightbox())) { ?>
+
+        <?php } ?>
+        <?php if (isHexColor($conf->getLightbox())) { ?>
         .ekko-lightbox .modal-content {
             background-color: <?php echo '#' . $conf->getLightbox(); ?> !important;
         }
-    <?php } ?>
+
+        <?php } ?>
     </style>
 </head>
 <body class="bg-dark">

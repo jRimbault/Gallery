@@ -8,7 +8,8 @@ const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
  * I shouldn't do that.
  */
 Object.assign(String.prototype, {
-    title() {
+    title()
+    {
         return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
     },
     toTitleCase()
@@ -216,7 +217,7 @@ $(document).ready(main);
 $(window).on('hashchange', main);
 
 /** lightbox */
-$(document).on('click', '[data-toggle="lightbox"]', function(event) {
+$(document).on('click', '[data-toggle="lightbox"]', function (event) {
     event.preventDefault();
     $(this).ekkoLightbox({
         showArrows: false
