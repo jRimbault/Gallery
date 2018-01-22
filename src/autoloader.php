@@ -16,3 +16,5 @@ function class_autoloader($class)
 }
 
 spl_autoload_register('class_autoloader');
+
+ini_set('error_log', Constant::LOG . 'php_error.log');

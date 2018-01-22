@@ -1,11 +1,11 @@
 <?php
 
+require_once '../src/autoloader.php';
+
 use Utils\Config;
 use Utils\Constant;
 use Utils\Router;
 use Utils\Scan;
-
-require_once '../src/autoloader.php';
 
 $conf = new Config(Constant::CONFIG . 'app.ini');
 $router = new Router();

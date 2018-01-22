@@ -11,7 +11,6 @@ class Config
     {
         $this->conf = parse_ini_file($filename, true);
         $this->setLinks();
-        ini_set('error_log', Constant::LOG . 'php_error.log');
     }
 
     private function setLinks()
