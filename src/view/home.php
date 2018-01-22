@@ -7,7 +7,7 @@
 use Utils\Constant;
 use Utils\Config;
 
-$conf = new Config(Constant::CONFIG . 'app.ini');
+global $conf;
 
 function makeLinks($conf)
 {

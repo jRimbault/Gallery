@@ -1,5 +1,8 @@
 <?php
 
+use Utils\Constant;
+use Utils\Config;
+
 function class_autoloader($class)
 {
     $directories = [
@@ -18,3 +21,5 @@ function class_autoloader($class)
 spl_autoload_register('class_autoloader');
 
 ini_set('error_log', Constant::LOG . 'php_error.log');
+
+$conf = new Config(Constant::CONFIG . 'app.ini');
