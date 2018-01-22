@@ -14,7 +14,6 @@ $router->get('/portals', 'portal');
 
 $scanner = new Scan(Constant::GALLERY);
 
-$portals = $scanner->getPortals();
-foreach ($portals as $portal) {
+foreach ($scanner->getPortals() as $portal) {
     $router->get('/' . $portal, 'gallery');
 }
