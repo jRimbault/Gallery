@@ -4,4 +4,9 @@ use Utils\Json;
 use Utils\Scan;
 use Utils\Constant;
 
-Json::response(Scan::portals(Constant::GALLERY));
+$scanner = new Scan(Constant::GALLERY);
+
+Json::response(array_map(function($value) {
+    return $value . '.jpg';
+}, $scanner->getPortals()));
+

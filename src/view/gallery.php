@@ -1,7 +1,9 @@
 <?php
 
 use Utils\Json;
-Use Utils\Scan;
 use Utils\Constant;
+use Utils\Scan;
 
-Json::response(Scan::recursive(Constant::GALLERY . trim($_SERVER['REQUEST_URI'], '/') . '/thumbnails'));
+$scanner = new Scan(Constant::GALLERY);
+
+Json::response($scanner->getGallery(trim($_SERVER['REQUEST_URI'], '/')));

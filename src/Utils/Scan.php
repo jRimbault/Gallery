@@ -5,52 +5,43 @@ namespace Utils;
 
 class Scan
 {
-    public static function getGalleryFolders($dir)
+    private $dir;
+    private static $excluded = [
+        '.',
+        '..',
+        '.gitkeep',
+        'thumbnails',
+    ];
+
+    public function __construct($dir)
     {
-        $array = scandir($dir);
-        return array_filter($array, 'self::filterArrayForThumbnails');
+        $this->dir = $dir;
     }
 
-    public static function filterArrayForThumbnails($value)
+    private function filterPortal($value)
     {
-        $excluded = [
-            '.',
-            '..',
-            '.gitkeep',
-            'thumbnails',
-        ];
-        if (in_array($value, $excluded)) return false;
+        if (in_array($value, self::$excluded)) return false;
         if (strpos($value, '.') !== false) return false;
         return true;
     }
 
-    public static function recursive($dir)
+    private function filterGallery($value)
     {
-        $result = [];
-        $array = scandir($dir);
-        foreach ($array as $key => $value) {
-            if (!in_array($value, ['.', '..'])) {
-                if (is_dir($dir . DIRECTORY_SEPARATOR . $value)) {
-                    $result[$value] = self::recursive($dir . DIRECTORY_SEPARATOR . $value);
-                } else {
-                    $result[] = $value;
-                }
-            }
-        }
-
-        return $result;
+        if (in_array($value, self::$excluded)) return false;
+        return true;
     }
 
-    public static function portals($dir)
+    public function getPortals()
     {
-        $array = self::recursive($dir);
-        $result = [];
-        foreach ($array as $key => $value) {
-            if (is_numeric($key) && !in_array($value, ['.gitkeep', 'thumbnails'])) {
-                $result[] = $value;
-            }
-        }
+        return array_values(
+            array_filter(scandir($this->dir), 'self::filterPortal')
+        );
+    }
 
-        return $result;
+    public function getGallery($portal)
+    {
+        return array_values(
+            array_filter(scandir($this->dir . $portal), 'self::filterGallery')
+        );
     }
 }

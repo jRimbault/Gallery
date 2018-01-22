@@ -12,8 +12,9 @@ $router->get('/', 'home');
 
 $router->get('/assets/portal', 'portal');
 
-$portals = Scan::getGalleryFolders(Constant::GALLERY);
+$scanner = new Scan(Constant::GALLERY);
 
+$portals = $scanner->getPortals();
 foreach ($portals as $portal) {
     $router->get('/' . $portal, 'gallery');
 }
