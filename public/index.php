@@ -10,7 +10,7 @@ $router = new Router();
 
 $router->get('/', 'home');
 
-$router->get('/assets/portal', 'portal');
+$router->get('/portals', 'portal');
 
 $scanner = new Scan(Constant::GALLERY);
 
