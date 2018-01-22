@@ -4,7 +4,7 @@
  * @date:   2018-01-15
  */
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'constants.init.php';
+$conf = new Config(Constant::CONFIG . 'app.ini');
 
 function makeLinks($conf)
 {
@@ -17,6 +17,13 @@ function makeLinks($conf)
     $html .= $conf->getEmail() . '</a></li>';
 
     return $html . '</ul>';
+}
+
+function isHexColor($input)
+{
+    if (!ctype_xdigit($input)) return false;
+    if (!in_array(strlen($input), [3, 6])) return false;
+    return true;
 }
 
 ?>
