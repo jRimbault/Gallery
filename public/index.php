@@ -9,6 +9,7 @@ use Utils\Scan;
 $route = new Router();
 $route->get('/', 'home');
 $route->get('/portals', 'portal');
+$route->get('/assets/css/styles.css', 'styles.css');
 
 $scanner = new Scan(Constant::GALLERY);
 

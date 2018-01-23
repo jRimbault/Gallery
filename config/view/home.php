@@ -4,7 +4,6 @@
  * @date:   2018-01-15
  */
 
-use Utils\Constant;
 use Utils\Config;
 
 global $conf;
@@ -22,13 +21,6 @@ function makeLinks($conf)
     return $html . '</ul>';
 }
 
-function isHexColor($input)
-{
-    if (!ctype_xdigit($input)) return false;
-    if (!in_array(strlen($input), [3, 6])) return false;
-    return true;
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,20 +35,6 @@ function isHexColor($input)
           href="assets/lib/css/ekko-lightbox-5.3.0.min.css">
     <link rel="stylesheet"
           href="assets/css/styles.css">
-    <style type="text/css">
-        <?php if (isHexColor($conf->getBackground())) { ?>
-        .bg-dark {
-            background-color: <?php echo '#' . $conf->getBackground(); ?> !important;
-        }
-
-        <?php } ?>
-        <?php if (isHexColor($conf->getLightbox())) { ?>
-        .ekko-lightbox .modal-content {
-            background-color: <?php echo '#' . $conf->getLightbox(); ?> !important;
-        }
-
-        <?php } ?>
-    </style>
 </head>
 <body class="bg-dark">
 
@@ -120,7 +98,7 @@ function isHexColor($input)
             ©
             <a href="https://getbootstrap.com" class="text-white">Bootstrap,</a>
             adapté par
-            <a href="https://jrimbault.github.io/" class="text-white">Jacques
+            <a href="https://jrimbault.github.io" class="text-white">Jacques
                 Rimbault</a>
         </p>
     </div>
