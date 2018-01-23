@@ -1,6 +1,6 @@
 <?php
 
-use Utils\Json;
+use Utils\Http\Json;
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     Json::Response([

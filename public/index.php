@@ -4,7 +4,7 @@ require_once '../src/autoloader.php';
 
 use Utils\Http\Router;
 use Utils\Constant;
-use Utils\Scan;
+use Utils\Filesystem\Scan;
 
 $route = new Router();
 $route->get('/', 'base/home');

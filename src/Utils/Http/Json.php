@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils;
+namespace Utils\Http;
 
 
 class Json
