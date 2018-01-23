@@ -1,17 +1,18 @@
 <?php
 
-namespace Utils;
+namespace Utils\Http;
+
+use Utils\Http\Request;
+use Utils\Constant;
 
 
 class Router
 {
-    private $uri;
-    private $method;
+    private $request;
 
     public function __construct()
     {
-        $this->uri = trim($this->getURI(), '/');
-        $this->method = $this->getMethod();
+        $this->request = new Request();
     }
 
     /**
@@ -21,10 +22,10 @@ class Router
      */
     private function checkMethod($method)
     {
-        if (is_string($method) && $method === $this->method) {
+        if (is_string($method) && $method === $this->request->getMethod()) {
             return true;
         }
-        if (is_array($method) && in_array($this->method, $method)) {
+        if (is_array($method) && in_array($this->request->getMethod(), $method)) {
             return true;
         }
         return false;
@@ -39,25 +40,25 @@ class Router
     {
         if (is_string($route)) {
             $route = trim($route, '/');
-            if ($route === $this->uri) {
+            if ($route === $this->request->getURI()) {
                 return true;
             }
         }
         if (is_array($route)) {
-            array_walk($route, function($value) {
+            array_walk($route, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->uri, $route)) {
+            if (in_array($this->request->getURI(), $route)) {
                 return true;
-        }
+            }
         }
         return false;
     }
 
     /**
      * Defines a new route
-     * @param string|array $route  request uri to access the ressource
-     * @param string       $file   view file handling the request
+     * @param string|array $route request uri to access the ressource
+     * @param string $file view file handling the request
      * @param string|array $method list of methods authorized to access the ressource
      */
     public function get($route, $file, $method = 'GET')
@@ -75,18 +76,5 @@ class Router
     {
         require_once Constant::CONFIG . 'view/error/404.php';
         die();
-    }
-
-    /**
-     * Magic getter for $_SERVER['REQUEST_*']
-     * This should go into a Request class if I really want it
-     */
-    public function __call($method, $params)
-    {
-        if (strncasecmp($method, 'get', 3) !== 0) return;
-        $var = strtoupper(substr($method, 3));
-        if (!isset($_SERVER['REQUEST_' . $var])) return;
-
-        return $_SERVER['REQUEST_' . $var];
     }
 }

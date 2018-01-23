@@ -2,7 +2,7 @@
 
 require_once '../src/autoloader.php';
 
-use Utils\Router;
+use Utils\Http\Router;
 use Utils\Constant;
 use Utils\Scan;
 
