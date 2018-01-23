@@ -5,13 +5,13 @@ namespace Utils;
 
 class Router
 {
-    private $request;
+    private $uri;
     private $method;
 
     public function __construct()
     {
-        $this->request = trim($_SERVER['REQUEST_URI'], '/');
-        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->uri = trim($this->getURI(), '/');
+        $this->method = $this->getMethod();
     }
 
     /**
@@ -37,12 +37,19 @@ class Router
      */
     private function checkRoute($route)
     {
-        $route = trim($route, '/');
-        if (is_string($route) && $route === $this->request) {
-            return true;
+        if (is_string($route)) {
+            $route = trim($route, '/');
+            if ($route === $this->uri) {
+                return true;
+            }
         }
-        if (is_array($route) && in_array($this->request, $route)) {
-            return true;
+        if (is_array($route)) {
+            array_walk($route, function($value) {
+                return trim($value, '/');
+            });
+            if (in_array($this->uri, $route)) {
+                return true;
+        }
         }
         return false;
     }
@@ -68,5 +75,14 @@ class Router
     {
         require_once Constant::CONFIG . 'view/error/404.php';
         die();
+    }
+
+    public function __call($method, $params)
+    {
+        if (strncasecmp($method, 'get', 3) !== 0) return;
+        $var = strtoupper(substr($method, 3));
+        if (!isset($_SERVER['REQUEST_' . $var])) return;
+
+        return $_SERVER['REQUEST_' . $var];
     }
 }

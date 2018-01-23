@@ -13,8 +13,6 @@ $route->get('/assets/css/styles.css', 'assets/styles.css');
 
 $scanner = new Scan(Constant::GALLERY);
 
-foreach ($scanner->getPortals() as $portal) {
-    $route->get('/' . $portal, 'json/gallery', 'POST');
-}
+$route->get($scanner->getPortals(), 'json/gallery', 'POST');
 
 $route->notFound();
