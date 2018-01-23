@@ -6,14 +6,14 @@ use Utils\Router;
 use Utils\Constant;
 use Utils\Scan;
 
-$router = new Router();
-
-$router->get('/', 'home');
-
-$router->get('/portals', 'portal');
+$route = new Router();
+$route->get('/', 'home');
+$route->get('/portals', 'portal');
 
 $scanner = new Scan(Constant::GALLERY);
 
 foreach ($scanner->getPortals() as $portal) {
-    $router->get('/' . $portal, 'gallery');
+    $route->get('/' . $portal, 'gallery');
 }
+
+$route->notFound();

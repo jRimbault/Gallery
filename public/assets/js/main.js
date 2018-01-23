@@ -217,9 +217,9 @@ $(document).ready(main);
 $(window).on('hashchange', main);
 
 /** lightbox */
-$(document).on('click', '[data-toggle="lightbox"]', function (event) {
-    event.preventDefault();
-    $(this).ekkoLightbox({
-        showArrows: false
-    });
-});
+// $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+//     event.preventDefault();
+//     $(this).ekkoLightbox({
+//         showArrows: false
+//     });
+// });

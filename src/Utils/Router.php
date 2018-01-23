@@ -10,15 +10,21 @@ class Router
     public function __construct()
     {
         $uri = trim($_SERVER['REQUEST_URI'], '/');
-        // $uri = explode('/', $uri);
         $this->request = $uri;
     }
 
     public function get($route, $file)
     {
         if ($this->request == trim($route, '/')) {
-            require_once Constant::SRC . 'view/' . $file . '.php';
+            require_once Constant::CONFIG . 'view/' . $file . '.php';
             die();
         }
+    }
+
+    public function notFound()
+    {
+        http_response_code(404);
+        require_once Constant::CONFIG . 'view/404.php';
+        die();
     }
 }

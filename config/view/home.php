@@ -67,12 +67,12 @@ function isHexColor($input)
                 <div class="col-sm-8 py-4">
                     <h4 class="text-white">À propos</h4>
                     <p class="text-muted">
-                        <?php echo $conf->getAbout() ?>
+                        <?php echo $conf->getAbout(); ?>
                     </p>
                 </div>
                 <div class="col-sm-4 py-4">
                     <h4 class="text-white">Contact</h4>
-                    <?php echo makeLinks($conf) ?>
+                    <?php echo makeLinks($conf); ?>
                 </div>
             </div>
         </div>
@@ -98,13 +98,11 @@ function isHexColor($input)
 
 <main role="main">
 
-
     <!--<section class="jumbotron text-center" id="lead">
         <div class="container">
             <h1 class="jumbotron-heading">Chez Rimbault</h1>
         </div>
     </section>-->
-
 
     <div class="album text-muted">
         <div class="container">
