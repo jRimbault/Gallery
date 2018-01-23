@@ -7,14 +7,14 @@ use Utils\Constant;
 use Utils\Scan;
 
 $route = new Router();
-$route->get('/', 'home');
-$route->get('/portals', 'portal', 'POST');
-$route->get('/assets/css/styles.css', 'styles.css');
+$route->get('/', 'base/home');
+$route->get('/portals', 'json/portal', 'POST');
+$route->get('/assets/css/styles.css', 'assets/styles.css');
 
 $scanner = new Scan(Constant::GALLERY);
 
 foreach ($scanner->getPortals() as $portal) {
-    $route->get('/' . $portal, 'gallery', 'POST');
+    $route->get('/' . $portal, 'json/gallery', 'POST');
 }
 
 $route->notFound();

@@ -66,7 +66,7 @@ class Router
      */
     public function notFound()
     {
-        require_once Constant::CONFIG . 'view/404.php';
+        require_once Constant::CONFIG . 'view/error/404.php';
         die();
     }
 }
