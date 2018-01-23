@@ -77,6 +77,10 @@ class Router
         die();
     }
 
+    /**
+     * Magic getter for $_SERVER['REQUEST_*']
+     * This should go into a Request class if I really want it
+     */
     public function __call($method, $params)
     {
         if (strncasecmp($method, 'get', 3) !== 0) return;
