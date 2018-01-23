@@ -1,3 +1,16 @@
+<?php
+
+use Utils\Json;
+
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    Json::Response([
+        'status' => 404,
+        'message' => 'Not found',
+    ], 404);
+}
+
+http_response_code(404);
+?>
 <!doctype html>
 <html>
 <head>

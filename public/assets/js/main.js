@@ -124,7 +124,7 @@ function displayGallery()
 function getGallery()
 {
     let galleryName = getLocation().toLowerCase();
-    $.getJSON(galleryName, json => {
+    $.post(galleryName, json => {
         let gallery = $('#gallery');
         gallery.empty();
         json.forEach(filename => {
@@ -175,7 +175,7 @@ function buildPortalCard(filename)
  */
 function homepage()
 {
-    $.getJSON('portals', json => {
+    $.post('portals', json => {
         let gallery = $('#gallery');
         gallery.empty();
         json.forEach(filename => {
