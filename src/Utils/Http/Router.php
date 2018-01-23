@@ -6,14 +6,10 @@ use Utils\Http\Request;
 use Utils\Constant;
 
 
-class Router
+class Router extends Request
 {
-    private $request;
-
     public function __construct()
-    {
-        $this->request = new Request();
-    }
+    {}
 
     /**
      * Dedicated function to checking the method because $method
@@ -22,10 +18,10 @@ class Router
      */
     private function checkMethod($method)
     {
-        if (is_string($method) && $method === $this->request->getMethod()) {
+        if (is_string($method) && $method === $this->getMethod()) {
             return true;
         }
-        if (is_array($method) && in_array($this->request->getMethod(), $method)) {
+        if (is_array($method) && in_array($this->getMethod(), $method)) {
             return true;
         }
         return false;
@@ -40,7 +36,7 @@ class Router
     {
         if (is_string($route)) {
             $route = trim($route, '/');
-            if ($route === $this->request->getURI()) {
+            if ($route === $this->getURI()) {
                 return true;
             }
         }
@@ -48,7 +44,7 @@ class Router
             array_walk($route, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->request->getURI(), $route)) {
+            if (in_array($this->getURI(), $route)) {
                 return true;
             }
         }

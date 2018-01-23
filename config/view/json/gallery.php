@@ -6,4 +6,4 @@ use Utils\Scan;
 
 $scanner = new Scan(Constant::GALLERY);
 
-Json::Response($scanner->getGallery(trim($_SERVER['REQUEST_URI'], '/')));
+Json::Response($scanner->getGallery($this->getURI()));
