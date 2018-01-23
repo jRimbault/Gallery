@@ -17,7 +17,7 @@ http_response_code(404);
     <meta charset="UTF-8">
     <title>404 Error</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type="text/css">
+    <style rel="stylesheet">
         @-webkit-keyframes pulse {
             0% {
                 -webkit-transform: translate(16px, 16px) scale(0.6);
@@ -82,9 +82,8 @@ http_response_code(404);
         body {
             display: flex;
             justify-content: center;
-            font-family: 'Lato Medium', sans-serif;
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             color: rgba(0,0,0,0.6);
-            background-color: #23232e;
             -webkit-touch-callout: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -105,33 +104,38 @@ http_response_code(404);
                 flex-direction: column;
             }
         }
-        .message h2, .message p {
+        .message .brand, .message p {
             margin: 0;
             text-align: center;
             line-height: 1.5em;
         }
-        .message h2 {
-            font-weight: 600;
-            font-size: 1.3em;
-            color: #4285f4;
+        .message .brand {
+            font-size: 1.25rem;
+            color: #fff;
+            text-decoration: none;
         }
         .message p {
             font-size: 0.9em;
-            color: #dddddd;
+            color: #ddd;
+        }
+        .bg-dark {
+            background-color: #343a40;
         }
     </style>
+    <link rel="stylesheet"
+          href="assets/css/styles.css">
 </head>
-<body>
+<body class="bg-dark">
 <div class="center">
     <div class="message">
         <svg class="svg">
             <svg viewBox="0 0 80 80">
-                <circle class="pulse" cx="40" cy="40" r="20" fill="transparent" stroke="#4285f4"></circle>
-                <circle class="compact" cx="40" cy="40" r="20" fill="#4285f4"></circle>
+                <circle class="pulse" cx="40" cy="40" r="20" fill="transparent" stroke="#fff"></circle>
+                <circle class="compact" cx="40" cy="40" r="20" fill="#fff"></circle>
             </svg>
         </svg>
         <div>
-            <h2>Error 404.</h2>
+            <a class="brand" href="/">Error 404.</a>
             <p>This ressource does not exists.</p>
         </div>
     </div>
