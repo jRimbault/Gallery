@@ -18,7 +18,7 @@ class Scan
         $this->dir = $dir;
     }
 
-    private function filterPortal($value)
+    private function filterGalleriesName($value)
     {
         if (in_array($value, self::$excluded)) return false;
         if (strpos($value, '.') !== false) return false;
@@ -31,10 +31,10 @@ class Scan
         return true;
     }
 
-    public function getPortals()
+    public function getGalleries()
     {
         return array_values(
-            array_filter(scandir($this->dir), 'self::filterPortal')
+            array_filter(scandir($this->dir), 'self::filterGalleriesName')
         );
     }
 

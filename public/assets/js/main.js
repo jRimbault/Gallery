@@ -175,7 +175,7 @@ function buildPortalCard(filename)
  */
 function homepage()
 {
-    $.post('portals', json => {
+    $.post('galleries', json => {
         let gallery = $('#gallery');
         gallery.empty();
         json.forEach(filename => {

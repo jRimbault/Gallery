@@ -1,67 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-if (php_sapi_name() !== 'cli') {
-    fwrite(STDERR, 'This script must invoked from the command line'.PHP_EOL);
-    exit(1);
-}
-
 require_once __DIR__ . '/../src/autoloader.php';
 
-use Utils\Constant;
-use Utils\Filesystem\Scan;
+use Utils\Console;
 
 
-function tidy_args($argv)
-{
-    $cli = [];
-    foreach ($argv as $arg) {
-        $e = explode('=', $arg);
-        $cli[$e[0]] = true;
-        if (count($e) == 2) {
-            $cli[$e[0]] = $e[1];
-        }
-    }
-
-    return $cli;
-}
-
-function make_thumbnail($image, $path)
-{
-    $imagepath = $path . DIRECTORY_SEPARATOR;
-    $thumbpath = $path . DIRECTORY_SEPARATOR . 'thumbnails' . DIRECTORY_SEPARATOR;
-    mkdir($thumbpath, 0755);
-    if (is_file($thumbpath . $image)) {
-        fwrite(STDERR, "Thumbnail for $image already exists" . PHP_EOL);
-        return;
-    }
-    if (!is_file($imagepath . $image)) {
-        fwrite(STDERR, "$imagepath/$image doesn't exist" . PHP_EOL);
-        return;
-    }
-    try {
-        $thumb = new Imagick($imagepath . $image);
-    } catch (Exception $e) {
-        fwrite(STDERR, $e->getMessage() . PHP_EOL);
-        exit(2);
-    }
-    $thumb->resizeImage(320,240,Imagick::FILTER_LANCZOS,1);
-    $thumb->writeImage($thumbpath . $image);
-    $thumb->destroy();
-}
-
-function main($argv)
-{
-    $cli = tidy_args($argv);
-    if ($cli['makethumb']) {
-        $scanner = new Scan(Constant::GALLERY);
-        foreach ($scanner->getPortals() as $portal) {
-            foreach($scanner->getGallery($portal) as $image) {
-                make_thumbnail($image, Constant::GALLERY . $portal);
-            }
-        }
-    }
-    exit(0);
-}
-
-main($argv);
+new Console($argv);
