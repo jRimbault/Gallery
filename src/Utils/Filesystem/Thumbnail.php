@@ -51,36 +51,53 @@ class Thumbnail
         return Constant::GALLERY . $this->gallery . DIRECTORY_SEPARATOR;
     }
 
-    public static function makeThumbnails()
+    public static function makeThumbnails($gallery = true)
     {
         $scanner = new Scan(Constant::GALLERY);
         Console::message('Scanning the galleries...');
-        $counter = 0;
-        foreach ($scanner->getGalleries() as $gallery) {
-            self::galleryState($gallery, $scanner);
-            foreach ($scanner->getGallery($gallery) as $image) {
-                $thumb = new Thumbnail($gallery, $image);
-                try {
-                    if ($thumb->make()) {
-                        $counter += 1;
-                    }
-                } catch (\Exception $e) {
-                    Console::error($e->getMessage());
-                }
+        if ($gallery !== true) {
+            self::makeThumbnailsOf($gallery, $scanner);
+        } else {
+            foreach ($scanner->getGalleries() as $gallery) {
+                self::makeThumbnailsOf($gallery, $scanner);
             }
-            Console::message("  $counter thumbnails generated");
-            $counter = 0;
         }
     }
 
-    public static function deleteThumbnails()
+    private static function makeThumbnailsOf($gallery, $scanner)
+    {
+        $counter = 0;
+        self::galleryState($gallery, $scanner);
+        foreach ($scanner->getGallery($gallery) as $image) {
+            $thumb = new Thumbnail($gallery, $image);
+            try {
+                if ($thumb->make()) {
+                    $counter += 1;
+                }
+            } catch (\Exception $e) {
+                Console::error($e->getMessage());
+            }
+        }
+        Console::message("  $counter thumbnails generated");
+    }
+
+    public static function deleteThumbnails($gallery = true)
     {
         $scanner = new Scan(Constant::GALLERY);
-        foreach ($scanner->getGalleries() as $gallery) {
-            foreach ($scanner->getGallery($gallery) as $image) {
-                $path = Constant::GALLERY . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
-                File::deleteFiles($path);
+        if ($gallery !== true) {
+            self::deleteThumbnailsOf($gallery, $scanner);
+        } else {
+            foreach ($scanner->getGalleries() as $gallery) {
+                self::deleteThumbnailsOf($gallery, $scanner);
             }
+        }
+    }
+
+    private static function deleteThumbnailsOf($gallery, $scanner)
+    {
+        foreach ($scanner->getGallery($gallery) as $image) {
+            $path = Constant::GALLERY . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
+            File::deleteFiles($path);
         }
     }
 

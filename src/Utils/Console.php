@@ -9,6 +9,34 @@ class Console
 {
     private $option;
 
+    private function help()
+    {
+?>
+Script Name: console
+Author: jRimbault
+
+Description:
+  Script de gestion du site web
+
+Usage: php bin/console option=<x>
+
+Options:
+  help        montre ce message d'aide
+  makethumb   génère les thumbnails pour toutes les galeries
+  deletethumb supprime les thumbnails pour toutes les galeries
+
+Exemples:
+  php bin/console makethumb
+    génère tous les thumbnails
+  php bin/console makethumb=vacance
+    génère les thumbnails pour la galerie "vacance"
+  php bin/console deletethumb
+    supprime tous les thumbnails
+  php bin/console deletethumb=vacance
+    supprime les thumbnails pour la galerie "vacance"
+<?php
+    }
+
     public static function error($input)
     {
         fwrite(STDERR, $input . PHP_EOL);
@@ -44,11 +72,14 @@ class Console
             exit(1);
         }
         $this->setOptions($argv);
+        if ($this->getHelp()) {
+            $this->help();
+        }
         if ($this->getMakeThumb()) {
-            Thumbnail::makeThumbnails();
+            Thumbnail::makeThumbnails($this->getMakeThumb());
         }
         if ($this->getDeleteThumb()) {
-            Thumbnail::deleteThumbnails();
+            Thumbnail::deleteThumbnails($this->getDeleteThumb());
         }
     }
 
