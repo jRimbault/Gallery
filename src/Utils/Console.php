@@ -2,9 +2,10 @@
 
 namespace Utils;
 
+use Utils\Constant;
 use Utils\Filesystem\Scan;
 use Utils\Filesystem\Thumbnail;
-
+use Utils\Filesystem\File;
 
 class Console
 {
@@ -45,8 +46,11 @@ class Console
             exit(1);
         }
         $this->setOptions($argv);
-        if ($this->getMakethumb()) {
+        if ($this->getMakeThumb()) {
             $this->makeThumbnails();
+        }
+        if ($this->getDeleteThumb()) {
+            $this->deleteThumbnails();
         }
     }
 
@@ -63,23 +67,39 @@ class Console
     {
         $scanner = new Scan(Constant::GALLERY);
         $this->message('Scanning the galleries...');
+        $counter = 0;
         foreach ($scanner->getGalleries() as $gallery) {
-            $this->message('- ' . ucfirst($gallery));
-            $thumbDir = Constant::GALLERY . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
-            if (!file_exists($thumbDir)) {
-                mkdir($thumbDir, 0755);
-            }
+            $this->galleryState($gallery, $scanner);
             foreach ($scanner->getGallery($gallery) as $image) {
+                $thumb = new Thumbnail($gallery, $image);
                 try {
-                    $thumb = new Thumbnail($gallery, $image);
                     if ($thumb->make()) {
-                        $this->message("Thumbnail of $image made");
+                        $counter += 1;
                     }
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     $this->error($e->getMessage());
                 }
             }
-            $this->message('  ' . count($scanner->getGallery($gallery)) . ' pictures');
+            $this->message("  $counter thumbnails generated");
+            $counter = 0;
         }
+    }
+
+    private function deleteThumbnails()
+    {
+        $scanner = new Scan(Constant::GALLERY);
+        foreach ($scanner->getGalleries() as $gallery) {
+            foreach ($scanner->getGallery($gallery) as $image) {
+                $path = Constant::GALLERY . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
+                File::deleteFiles($path);
+            }
+        }
+    }
+
+    private function galleryState($gallery, $scanner)
+    {
+        $msg = '- ' . ucfirst($gallery);
+        $msg .= ' (' . count($scanner->getGallery($gallery)) . ')';
+        $this->message($msg);
     }
 }

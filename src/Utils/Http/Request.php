@@ -6,7 +6,8 @@ namespace Utils\Http;
 class Request
 {
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Magic getter for $_SERVER['REQUEST_*']

@@ -9,7 +9,8 @@ use Utils\Constant;
 class Router extends Request
 {
     public function __construct()
-    {}
+    {
+    }
 
     /**
      * Dedicated function to checking the method because $method
