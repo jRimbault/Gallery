@@ -1,6 +1,9 @@
 <?php
 
-require_once '../src/autoloader.php';
+ini_set('error_log', '../var/log/php_error.log');
+
+require_once '../src/autoload.php';
+require_once '../vendor/autoload.php';
 
 use Utils\Http\Router;
 use Utils\Constant;

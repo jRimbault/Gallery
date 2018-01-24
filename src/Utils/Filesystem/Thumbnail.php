@@ -5,7 +5,7 @@ namespace Utils\Filesystem;
 use Utils\Constant;
 use Utils\Console;
 use Utils\Filesystem\File;
-
+use Imagick;
 
 class Thumbnail
 {
@@ -23,8 +23,8 @@ class Thumbnail
         $path = $this->thumbnailPath();
         if (is_file($path)) return false;
         try {
-            $thumbnail = new \Imagick($this->imagePath());
-            $thumbnail->resizeImage($width, $height, \Imagick::FILTER_LANCZOS, 1, true);
+            $thumbnail = new Imagick($this->imagePath());
+            $thumbnail->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 1, true);
             $thumbnail->writeImage($path);
             $thumbnail->destroy();
         } catch (\Exception $e) {

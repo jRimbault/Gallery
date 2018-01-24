@@ -8,3 +8,4 @@ public/gallery/*
 !public/gallery/.gitkeep
 !var/.gitkeep
 !config/.gitkeep
+vendor/
