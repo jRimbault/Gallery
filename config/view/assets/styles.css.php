@@ -3,6 +3,7 @@
 header('Content-Type: text/css');
 
 use Utils\Config;
+use Utils\Constant;
 
 global $conf;
 
@@ -13,32 +14,13 @@ function isHexColor($input)
     return true;
 }
 
-?>
-a, button {
-    outline: 0 !important;
-}
+require_once Constant::CONFIG . 'view/assets/static/styles.css';
 
-main {
-    padding-top: 6rem;
-    padding-bottom: 3em;
-}
-
-.navbar-brand {
-    margin-right: 0;
-}
-
-footer {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-
-<?php
 if (isHexColor($conf->getBackground())) {
 ?>
 .bg-dark {
     background-color: #<?php echo $conf->getBackground(); ?> !important;
 }
-
 <?php
 }
 if (isHexColor($conf->getLightbox())) {
@@ -46,6 +28,5 @@ if (isHexColor($conf->getLightbox())) {
 .ekko-lightbox .modal-content {
     background-color: #<?php echo $conf->getLightbox(); ?> !important;
 }
-
 <?php
 }

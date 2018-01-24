@@ -1,26 +1,18 @@
-'use strict';
-
-const galleryDirectory = 'gallery/';
-const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
-
 /**
  * Mostly for fun, I extended the native String class
  * I shouldn't do that.
  */
 Object.assign(String.prototype, {
-    title()
-    {
+    title() {
         return this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
     },
-    toTitleCase()
-    {
+    toTitleCase() {
         return this
             .split(' ')
             .map(i => i.title())
             .join(' ');
     },
-    removeExtension()
-    {
+    removeExtension() {
         return this.replace(/\.[^/.]+$/, "");
     }
 });
@@ -29,8 +21,7 @@ Object.assign(String.prototype, {
  * We're using that to make decisions about what to display
  * @returns String
  */
-function getLocation()
-{
+function getLocation() {
     let location = window.location.hash.replace("#", "");
     if (location === '') return location;
     return location.toTitleCase();
@@ -39,8 +30,7 @@ function getLocation()
 /**
  * Used to show to the users where he is
  */
-function breadcrumbs()
-{
+function breadcrumbs() {
     let title = $('title');
     $('#title').text(title.text());
     let bc = $('#breadcrumbs');
@@ -57,8 +47,7 @@ function breadcrumbs()
  * @param filename
  * @returns {jQuery|HTMLElement}
  */
-function buildCardImg(gallery, filename)
-{
+function buildCardImg(gallery, filename) {
     let img = $('<img>');
     img.attr('class', 'card-img-top rounded');
     img.attr('data-src', thumbnailsDirectory(gallery) + filename);
@@ -72,8 +61,7 @@ function buildCardImg(gallery, filename)
  * @param filename
  * @returns {jQuery|HTMLElement}
  */
-function buildImgLink(gallery, filename)
-{
+function buildImgLink(gallery, filename) {
     let link = $('<a>');
     link.attr('href', galleryDirectory + gallery + '/' + filename);
     link.attr('id', filename.removeExtension().toTitleCase());
@@ -88,8 +76,7 @@ function buildImgLink(gallery, filename)
  * @param filename
  * @returns {jQuery|HTMLElement}
  */
-function buildCard(gallery, filename)
-{
+function buildCard(gallery, filename) {
     let card = $('<div>');
     card.attr('class', 'card text-white bg-dark mb-3');
     card.attr('hidden', 'true');
@@ -107,8 +94,7 @@ function buildCard(gallery, filename)
  * So, each img tag is loaded first with the data-src attribute, then replaced
  * with the normal src attribute
  */
-function displayGallery()
-{
+function displayGallery() {
     [].forEach.call(document.querySelectorAll('img[data-src]'), img => {
         img.setAttribute('src', img.getAttribute('data-src'));
         img.onload = () => {
@@ -121,8 +107,7 @@ function displayGallery()
 /**
  * Used to build the gallery of cards of images
  */
-function getGallery()
-{
+function getGallery() {
     let galleryName = getLocation().toLowerCase();
     $.post(galleryName, json => {
         let gallery = $('#gallery');
@@ -141,8 +126,7 @@ function getGallery()
  * @param filename
  * @returns {jQuery|HTMLElement}
  */
-function buildCardBody(filename)
-{
+function buildCardBody(filename) {
     let body = $('<div>').attr('class', 'card-img-overlay');
     let title = $('<h4>').attr('class', 'card-title');
     title.text(filename.removeExtension().toTitleCase());
@@ -156,8 +140,7 @@ function buildCardBody(filename)
  * @param filename
  * @returns {jQuery|HTMLElement}
  */
-function buildPortalCard(filename)
-{
+function buildPortalCard(filename) {
     let link = $('<a>').attr('href', '#' + filename.removeExtension());
     let card = $('<div>').attr('class', 'card text-white bg-dark');
     let img = $('<img>')
@@ -173,8 +156,7 @@ function buildPortalCard(filename)
 /**
  * Displays the homepage
  */
-function homepage()
-{
+function homepage() {
     $.post('galleries', json => {
         let gallery = $('#gallery');
         gallery.empty();
@@ -195,15 +177,13 @@ function homepage()
  * add the previous window.location to the history
  * Thus we don't need to handle history explicitly
  */
-function updateHistory()
-{
+function updateHistory() {
     let galleryName = getLocation().toLowerCase();
     window.location = '#' + galleryName;
 }
 
 /** init functions */
-function main()
-{
+function main() {
     if (getLocation()) {
         getGallery();
     } else {
@@ -217,9 +197,11 @@ $(document).ready(main);
 $(window).on('hashchange', main);
 
 /** lightbox */
-// $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-//     event.preventDefault();
-//     $(this).ekkoLightbox({
-//         showArrows: false
-//     });
-// });
+if (theater === true) {
+    $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+        event.preventDefault();
+        $(this).ekkoLightbox({
+            showArrows: false
+        });
+    });
+}

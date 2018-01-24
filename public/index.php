@@ -10,6 +10,7 @@ $route = new Router();
 $route->get('/', 'base/home');
 $route->get('/galleries', 'json/galleries', 'POST');
 $route->get('/assets/css/styles.css', 'assets/styles.css');
+$route->get('/assets/js/main.js', 'assets/main.js');
 
 $scanner = new Scan(Constant::GALLERY);
 
