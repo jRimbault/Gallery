@@ -15,7 +15,7 @@ http_response_code(404);
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>404 Error</title>
+    <title>Error 404</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style rel="stylesheet">
         @-webkit-keyframes pulse {
@@ -84,11 +84,6 @@ http_response_code(404);
             justify-content: center;
             font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
             color: rgba(0,0,0,0.6);
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
         }
         .center {
             padding: 20px;
@@ -116,7 +111,7 @@ http_response_code(404);
         }
         .message p {
             font-size: 0.9em;
-            color: #ddd;
+            color: #868e96 !important;
         }
         .bg-dark {
             background-color: #343a40;
@@ -135,8 +130,8 @@ http_response_code(404);
             </svg>
         </svg>
         <div>
-            <a class="brand" href="/">Error 404.</a>
-            <p>This ressource does not exists.</p>
+            <a class="brand" href="/">404 Not found</a>
+            <p>This ressource does not exists</p>
         </div>
     </div>
 </div>
