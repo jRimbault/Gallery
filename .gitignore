@@ -10,3 +10,4 @@ public/gallery/*
 !config/.gitkeep
 vendor/
 tests/
+public/assets/lib/*

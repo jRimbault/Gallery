@@ -30,9 +30,9 @@ function makeLinks($conf)
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title><?php echo $conf->getTitle(); ?></title>
     <link rel="stylesheet"
-          href="assets/lib/css/bootstrap.min.css">
+          href="assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="assets/lib/css/ekko-lightbox-5.3.0.min.css">
+          href="assets/css/ekko-lightbox-5.3.0.min.css">
     <link rel="stylesheet"
           href="assets/css/styles.css">
 </head>
@@ -104,10 +104,10 @@ function makeLinks($conf)
     </div>
 </footer>
 
-<script src="assets/lib/js/jquery-3.2.1.min.js"></script>
-<script src="assets/lib/js/popper-1.12.9.min.js"></script>
-<script src="assets/lib/js/bootstrap.min.js"></script>
-<script src="assets/lib/js/ekko-lightbox-5.3.0.min.js"></script>
+<script src="assets/lib/jquery/jquery.min.js"></script>
+<script src="assets/js/popper-1.12.9.min.js"></script>
+<script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/ekko-lightbox-5.3.0.min.js"></script>
 <script src="assets/js/main.js"></script>
 
 </body>

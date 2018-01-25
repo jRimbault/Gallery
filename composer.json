@@ -3,12 +3,19 @@
     "description": "projet pour s'amuser tout seul",
     "require": {
         "gregwar/image": "2.*",
-        "nikic/fast-route": "^1.2"
+        "nikic/fast-route": "^1.2",
+        "twbs/bootstrap": "4.0.0",
+        "components/jquery": "3.2.1"
     },
     "autoload": {
         "psr-4": {
             "Gallery\\": "src/"
         }
     },
-    "license": "MIT"
+    "license": "MIT",
+    "scripts": {
+        "post-update-cmd": [
+            "Gallery\\Utils\\Filesystem\\File::Deploy"
+        ]
+    }
 }
