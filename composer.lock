@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9847a39bab2c409844dcb1f72ab3049f",
-    "content-hash": "8c7d164ef49f8caf2ae17432447fc8f6",
+    "hash": "6eecba68f31c2bbe1ac21250d5cb4893",
+    "content-hash": "ac434c4d598c3d724adb7308a53e9d08",
     "packages": [
         {
             "name": "gregwar/cache",

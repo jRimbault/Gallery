@@ -1,4 +1,6 @@
 {
+    "name": "galerie/chez-rimbault",
+    "description": "projet pour s'amuser tout seul",
     "require": {
         "gregwar/image": "2.*"
     },
@@ -6,5 +8,6 @@
         "psr-4": {
             "Gallery\\": "src/"
         }
-    }
+    },
+    "license": "MIT"
 }
