@@ -1,5 +1,10 @@
 {
     "require": {
-        "calcinai/php-imagick": "^0.1.2"
+        "gregwar/image": "2.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Gallery\\": "src/"
+        }
     }
 }

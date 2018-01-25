@@ -1,7 +1,7 @@
 <?php
 
-use Utils\Config;
-use Utils\Constant;
+use Gallery\Utils\Config;
+use Gallery\Utils\Constant;
 
 header('Content-Type: application/javascript');
 

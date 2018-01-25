@@ -4,29 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1f96015534e345ceb3d92b18ff33a8b",
+    "hash": "9847a39bab2c409844dcb1f72ab3049f",
+    "content-hash": "8c7d164ef49f8caf2ae17432447fc8f6",
     "packages": [
         {
-            "name": "calcinai/php-imagick",
-            "version": "v0.1.2",
+            "name": "gregwar/cache",
+            "version": "v1.0.12",
+            "target-dir": "Gregwar/Cache",
             "source": {
                 "type": "git",
-                "url": "https://github.com/calcinai/php-imagick.git",
-                "reference": "001530b19560b9862ffe78c3ae29ad5dc2549e6d"
+                "url": "https://github.com/Gregwar/Cache.git",
+                "reference": "305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/calcinai/php-imagick/zipball/001530b19560b9862ffe78c3ae29ad5dc2549e6d",
-                "reference": "001530b19560b9862ffe78c3ae29ad5dc2549e6d",
+                "url": "https://api.github.com/repos/Gregwar/Cache/zipball/305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3",
+                "reference": "305d0f5a12c0beecbbd7e1de236f59f39e0c0ac3",
                 "shasum": ""
             },
-            "suggest": {
-                "ext-imagick": "Native extension"
+            "require": {
+                "php": ">=5.3"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Imagick": "src/"
+                    "Gregwar\\Cache": ""
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -35,12 +37,70 @@
             ],
             "authors": [
                 {
-                    "name": "Michael Calcinai",
-                    "email": "michael@calcin.ai"
+                    "name": "Gregwar",
+                    "email": "g.passault@gmail.com"
                 }
             ],
-            "description": "PHP wrapper for command line ImageMagick utils compatible with PECL::Imagick",
-            "time": "2016-12-22T15:09:47+00:00"
+            "description": "A lightweight file-system cache system",
+            "keywords": [
+                "cache",
+                "caching",
+                "file-system",
+                "system"
+            ],
+            "time": "2016-09-23 08:16:04"
+        },
+        {
+            "name": "gregwar/image",
+            "version": "v2.0.21",
+            "target-dir": "Gregwar/Image",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Gregwar/Image.git",
+                "reference": "c9899e4c71009338f89a8c63c12c681692533ede"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Gregwar/Image/zipball/c9899e4c71009338f89a8c63c12c681692533ede",
+                "reference": "c9899e4c71009338f89a8c63c12c681692533ede",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "gregwar/cache": "^1.0.6",
+                "php": "^5.3 || ^7.0"
+            },
+            "require-dev": {
+                "sllh/php-cs-fixer-styleci-bridge": "~1.0",
+                "symfony/phpunit-bridge": "^2.7.4 || ^3.0"
+            },
+            "suggest": {
+                "behat/transliterator": "Transliterator provides ability to set non-latin1 pretty names"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Gregwar\\Image": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Grégoire Passault",
+                    "email": "g.passault@gmail.com",
+                    "homepage": "http://www.gregwar.com/"
+                }
+            ],
+            "description": "Image handling",
+            "homepage": "https://github.com/Gregwar/Image",
+            "keywords": [
+                "gd",
+                "image"
+            ],
+            "time": "2017-01-24 09:29:39"
         }
     ],
     "packages-dev": [],

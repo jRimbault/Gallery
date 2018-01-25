@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils\Http;
+namespace Gallery\Utils\Http;
 
 
 class Json

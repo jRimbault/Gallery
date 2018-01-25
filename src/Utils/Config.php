@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils;
+namespace Gallery\Utils;
 
 
 class Config

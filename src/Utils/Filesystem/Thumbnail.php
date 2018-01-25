@@ -1,11 +1,12 @@
 <?php
 
-namespace Utils\Filesystem;
+namespace Gallery\Utils\Filesystem;
 
-use Utils\Constant;
-use Utils\Console;
-use Utils\Filesystem\File;
-use Imagick;
+use Gallery\Utils\Constant;
+use Gallery\Utils\Console;
+use Gallery\Utils\Filesystem\File;
+use Gregwar\Image\Image;
+
 
 class Thumbnail
 {
@@ -23,10 +24,9 @@ class Thumbnail
         $path = $this->thumbnailPath();
         if (is_file($path)) return false;
         try {
-            $thumbnail = new Imagick($this->imagePath());
-            $thumbnail->resizeImage($width, $height, Imagick::FILTER_LANCZOS, 1, true);
-            $thumbnail->writeImage($path);
-            $thumbnail->destroy();
+            Image::open($this->imagePath())
+                ->cropResize($width, $height)
+                ->save($path);
         } catch (\Exception $e) {
             throw $e;
         }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Utils;
+namespace Gallery\Utils;
 
-use Utils\Filesystem\Thumbnail;
+use Gallery\Utils\Filesystem\Thumbnail;
 
 
 class Console

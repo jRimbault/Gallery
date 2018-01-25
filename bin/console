@@ -1,9 +1,9 @@
 #!/usr/bin/env php
 <?php
 
-require_once __DIR__ . '/../src/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-use Utils\Console;
+use Gallery\Utils\Console;
 
 
 new Console($argv);

@@ -2,13 +2,14 @@
 
 ini_set('error_log', '../var/log/php_error.log');
 
-require_once '../src/autoload.php';
 require_once '../vendor/autoload.php';
 
-use Utils\Http\Router;
-use Utils\Constant;
-use Utils\Filesystem\Scan;
+use Gallery\Utils\Constant;
+use Gallery\Utils\Filesystem\Scan;
+use Gallery\Utils\Http\Router;
+use Gallery\Utils\Config;
 
+$conf = new Config(Constant::CONFIG . 'app.ini');
 $route = new Router();
 $route->get('/', 'base/home');
 $route->get('/galleries', 'json/galleries', 'POST');

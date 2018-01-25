@@ -1,8 +1,8 @@
 <?php
 
-use Utils\Http\Json;
-use Utils\Constant;
-use Utils\Filesystem\Scan;
+use Gallery\Utils\Http\Json;
+use Gallery\Utils\Constant;
+use Gallery\Utils\Filesystem\Scan;
 
 $scanner = new Scan(Constant::GALLERY);
 

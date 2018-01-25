@@ -1,9 +1,9 @@
 <?php
 
-namespace Utils\Http;
+namespace Gallery\Utils\Http;
 
-use Utils\Http\Request;
-use Utils\Constant;
+use Gallery\Utils\Http\Request;
+use Gallery\Utils\Constant;
 
 
 class Router extends Request

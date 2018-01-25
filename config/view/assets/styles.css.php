@@ -2,8 +2,8 @@
 
 header('Content-Type: text/css');
 
-use Utils\Config;
-use Utils\Constant;
+use Gallery\Utils\Config;
+use Gallery\Utils\Constant;
 
 global $conf;
 

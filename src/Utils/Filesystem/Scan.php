@@ -1,6 +1,6 @@
 <?php
 
-namespace Utils\Filesystem;
+namespace Gallery\Utils\Filesystem;
 
 
 class Scan
