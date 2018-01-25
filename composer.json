@@ -2,7 +2,8 @@
     "name": "galerie/chez-rimbault",
     "description": "projet pour s'amuser tout seul",
     "require": {
-        "gregwar/image": "2.*"
+        "gregwar/image": "2.*",
+        "nikic/fast-route": "^1.2"
     },
     "autoload": {
         "psr-4": {
