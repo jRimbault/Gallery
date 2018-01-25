@@ -1,8 +1,11 @@
 <?php
 
-use Utils\Http\Json;
+use Gallery\Utils\Http\Json;
+use Gallery\Utils\Http\Request;
 
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+$request = new Request();
+
+if ($request->getMethod() !== 'GET') {
     Json::Response([
         'status' => 404,
         'message' => 'Not found',

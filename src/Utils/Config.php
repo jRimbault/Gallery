@@ -10,7 +10,7 @@ class Config
     private $conf;
     private static $instance;
 
-    public function __construct($filename)
+    private function __construct($filename)
     {
         $this->conf = parse_ini_file($filename, true);
         $this->setLinks();
@@ -26,6 +26,7 @@ class Config
 
     private function setLinks()
     {
+        if (!isset($this->conf['LINK']['url'])) return;
         $links = [];
         for ($i = 0; $i < count($this->conf['LINK']['url']); $i += 1) {
             $links[$i]['url'] = $this->conf['LINK']['url'][$i];

@@ -7,9 +7,8 @@ require_once '../vendor/autoload.php';
 use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
 use Gallery\Utils\Http\Router;
-use Gallery\Utils\Config;
 
-$conf = Config::Instance();
+
 $route = new Router();
 $route->get('/', 'base/home');
 $route->get('/galleries', 'json/galleries', 'POST');
@@ -20,4 +19,4 @@ $scanner = new Scan(Path::Gallery());
 
 $route->get($scanner->getGalleries(), 'json/gallery', 'POST');
 
-$route->notFound();
+$route->notFound('/error/404');

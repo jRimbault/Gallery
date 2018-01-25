@@ -9,3 +9,4 @@ public/gallery/*
 !var/.gitkeep
 !config/.gitkeep
 vendor/
+tests/

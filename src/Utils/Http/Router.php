@@ -69,9 +69,9 @@ class Router extends Request
     /**
      * Return a 404 error to the client
      */
-    public function notFound()
+    public function notFound($file)
     {
-        require_once Path::View() . '/error/404.php';
+        require_once Path::View() . $file . '.php';
         die();
     }
 }

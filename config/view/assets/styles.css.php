@@ -5,7 +5,7 @@ header('Content-Type: text/css');
 use Gallery\Utils\Config;
 use Gallery\Path;
 
-global $conf;
+$conf = Config::Instance();
 
 function isHexColor($input)
 {

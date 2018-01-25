@@ -4,9 +4,9 @@
  * @date:   2018-01-15
  */
 
-use Utils\Config;
+use Gallery\Utils\Config;
 
-global $conf;
+$conf = Config::Instance();
 
 function makeLinks($conf)
 {
