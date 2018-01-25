@@ -14,7 +14,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "post-update-cmd": [
+        "post-install-cmd": [
             "Gallery\\Utils\\Filesystem\\File::Deploy"
         ]
     }

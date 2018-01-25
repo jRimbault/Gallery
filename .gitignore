@@ -11,3 +11,4 @@ public/gallery/*
 vendor/
 tests/
 public/assets/lib/*
+!public/assets/lib/.gitkeep

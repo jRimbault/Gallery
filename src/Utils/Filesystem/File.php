@@ -26,13 +26,13 @@ class File
         $src = Path::Root() . '/vendor/components/jquery';
         $dst = Path::Root() . '/public/assets/lib/jquery';
         if (!self::rcopy($src, $dst)) {
-            echo "Couldn't install Bootstrap properly";
+            echo "Couldn't install Bootstrap properly" . PHP_EOL;
         }
         /** Bootstrap */
         $src = Path::Root() . '/vendor/twbs/bootstrap/dist';
         $dst = Path::Root() . '/public/assets/lib/bootstrap';
         if (!self::rcopy($src, $dst)) {
-            echo "Couldn't install Bootstrap properly";
+            echo "Couldn't install Bootstrap properly" . PHP_EOL;
         }
     }
 
