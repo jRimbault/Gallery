@@ -3,7 +3,7 @@
 namespace Gallery\Utils\Http;
 
 use Gallery\Utils\Http\Request;
-use Gallery\Utils\Constant;
+use Gallery\Path;
 
 
 class Router extends Request
@@ -62,7 +62,7 @@ class Router extends Request
     {
         if (!$this->checkMethod($method)) return;
         if (!$this->checkRoute($route)) return;
-        require_once Constant::CONFIG . 'view/' . $file . '.php';
+        require_once Path::View() . '/' . $file . '.php';
         die();
     }
 
@@ -71,7 +71,7 @@ class Router extends Request
      */
     public function notFound()
     {
-        require_once Constant::CONFIG . 'view/error/404.php';
+        require_once Path::View() . '/error/404.php';
         die();
     }
 }

@@ -3,7 +3,7 @@
 header('Content-Type: text/css');
 
 use Gallery\Utils\Config;
-use Gallery\Utils\Constant;
+use Gallery\Path;
 
 global $conf;
 
@@ -14,7 +14,7 @@ function isHexColor($input)
     return true;
 }
 
-require_once Constant::CONFIG . 'view/assets/static/styles.css';
+require_once Path::View() . '/assets/static/styles.css';
 
 if (isHexColor($conf->getBackground())) {
 ?>

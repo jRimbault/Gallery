@@ -1,17 +1,13 @@
 <?php
 
 use Gallery\Utils\Config;
-use Gallery\Utils\Constant;
+use Gallery\Path;
 
 header('Content-Type: application/javascript');
 
-$array = explode(
-    DIRECTORY_SEPARATOR,
-    trim(Constant::GALLERY, DIRECTORY_SEPARATOR)
-);
-$gallery = $array[count($array) - 1] . '/';
+$gallery = basename(Path::Gallery()) . '/';
 
-global $conf;
+$conf = Config::Instance();
 
 ?>
 'use strict';
@@ -21,4 +17,4 @@ const galleryDirectory = '<?php echo $gallery; ?>';
 const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
 
 <?php
-require_once Constant::CONFIG . 'view/assets/static/main.js';
+require_once Path::View() . '/assets/static/main.js';

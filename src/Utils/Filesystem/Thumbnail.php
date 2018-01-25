@@ -2,7 +2,7 @@
 
 namespace Gallery\Utils\Filesystem;
 
-use Gallery\Utils\Constant;
+use Gallery\Path;
 use Gallery\Utils\Console;
 use Gallery\Utils\Filesystem\File;
 use Gregwar\Image\Image;
@@ -48,12 +48,12 @@ class Thumbnail
 
     private function galleryPath()
     {
-        return Constant::GALLERY . $this->gallery . DIRECTORY_SEPARATOR;
+        return Path::Gallery() . DIRECTORY_SEPARATOR . $this->gallery . DIRECTORY_SEPARATOR;
     }
 
     public static function makeThumbnails($gallery = true)
     {
-        $scanner = new Scan(Constant::GALLERY);
+        $scanner = new Scan(Path::Gallery());
         Console::message('Scanning the galleries...');
         if ($gallery !== true) {
             self::makeThumbnailsOf($gallery, $scanner);
@@ -83,7 +83,7 @@ class Thumbnail
 
     public static function deleteThumbnails($gallery = true)
     {
-        $scanner = new Scan(Constant::GALLERY);
+        $scanner = new Scan(Path::Gallery());
         if ($gallery !== true) {
             self::deleteThumbnailsOf($gallery, $scanner);
         } else {
@@ -96,7 +96,7 @@ class Thumbnail
     private static function deleteThumbnailsOf($gallery, $scanner)
     {
         foreach ($scanner->getGallery($gallery) as $image) {
-            $path = Constant::GALLERY . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
+            $path = Path::Gallery() . DIRECTORY_SEPARATOR . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
             File::deleteFiles($path);
         }
     }

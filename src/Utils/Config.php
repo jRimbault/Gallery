@@ -2,15 +2,26 @@
 
 namespace Gallery\Utils;
 
+use Gallery\Path;
+
 
 class Config
 {
     private $conf;
+    private static $instance;
 
     public function __construct($filename)
     {
         $this->conf = parse_ini_file($filename, true);
         $this->setLinks();
+    }
+
+    public static function Instance()
+    {
+        if (!isset(self::$instance)) {
+            self::$instance = new self(Path::Root() . '/config/app.ini');
+        }
+        return self::$instance;
     }
 
     private function setLinks()

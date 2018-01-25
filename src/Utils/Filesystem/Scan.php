@@ -41,7 +41,7 @@ class Scan
     public function getGallery($portal)
     {
         return array_values(
-            array_filter(scandir($this->dir . $portal), 'self::filterGallery')
+            array_filter(scandir($this->dir . DIRECTORY_SEPARATOR . $portal), 'self::filterGallery')
         );
     }
 }
