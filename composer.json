@@ -15,7 +15,9 @@
     "license": "MIT",
     "scripts": {
         "post-install-cmd": [
-            "Gallery\\Utils\\Filesystem\\File::Deploy"
+            "Gallery\\Utils\\Deploy::Conf",
+            "Gallery\\Utils\\Deploy::jQuery",
+            "Gallery\\Utils\\Deploy::Bootstrap"
         ]
     }
 }
