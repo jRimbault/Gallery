@@ -71,12 +71,12 @@ http_response_code(404);
             height: 72px;
         }
         .pulse {
-            -webkit-animation: pulse 1s ease infinite;
-            animation: pulse 1s ease infinite;
+            -webkit-animation: pulse 2s ease infinite;
+            animation: pulse 2s ease infinite;
         }
         .compact {
-            -webkit-animation: compact 1s ease infinite;
-            animation: compact 1s ease infinite;
+            -webkit-animation: compact 2s ease infinite;
+            animation: compact 2s ease infinite;
         }
         html, body {
             height: 100%;
@@ -104,7 +104,6 @@ http_response_code(404);
         }
         .message .brand, .message p {
             margin: 0;
-            text-align: center;
             line-height: 1.5em;
         }
         .message .brand {
