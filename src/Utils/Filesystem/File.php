@@ -24,41 +24,37 @@ class File
     {
         /** jQuery */
         $src = Path::Root() . '/vendor/components/jquery';
-        $dst = Path::Root() . '/public/assets/lib/jquery';
-        if (!self::rcopy($src, $dst)) {
-            echo "Couldn't install Bootstrap properly" . PHP_EOL;
+        $dst = Path::AssetsLib() . '/jquery';
+        if (self::rcopy($src, $dst)) {
+            echo "  jQuery deployed" . PHP_EOL;
+        } else {
+            echo "  Couldn't install jQuery properly" . PHP_EOL;
         }
         /** Bootstrap */
         $src = Path::Root() . '/vendor/twbs/bootstrap/dist';
-        $dst = Path::Root() . '/public/assets/lib/bootstrap';
-        if (!self::rcopy($src, $dst)) {
-            echo "Couldn't install Bootstrap properly" . PHP_EOL;
+        $dst = Path::AssetsLib() . '/bootstrap';
+        if (self::rcopy($src, $dst)) {
+            echo "  Bootstrap deployed" . PHP_EOL;
+        } else {
+            echo "  Couldn't install Bootstrap properly" . PHP_EOL;
         }
     }
 
-    /** Stolen from a comment on the php manual */
+    /** Mostly stolen from a comment on the php manual */
     private static function rcopy($src, $dst)
     {
-        // If source is not a directory stop processing
-        if (!is_dir($src)) return false;
-
-        // If the destination directory does not exist create it
-        if (!is_dir($dst)) {
-            if (!mkdir($dst)) {
-                // If the destination directory could not be created stop processing
-                return false;
+        if (is_dir($src)) {
+            @mkdir($dst, 0755, true);
+            foreach (scandir($src) as $file) {
+                if ($file != '.' && $file != '..') {
+                    self::rcopy("$src/$file", "$dst/$file");
+                }
             }
+            return true;
+        } else if (is_file($src)) {
+            @copy($src, $dst);
+            return true;
         }
-
-        // Open the source directory to read in files
-        $i = new \DirectoryIterator($src);
-        foreach ($i as $f) {
-            if ($f->isFile()) {
-                copy($f->getRealPath(), "$dst/" . $f->getFilename());
-            } else if (!$f->isDot() && $f->isDir()) {
-                self::rcopy($f->getRealPath(), "$dst/$f");
-            }
-        }
-        return true;
+        return false;
     }
 }
