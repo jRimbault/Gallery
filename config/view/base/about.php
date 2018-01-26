@@ -14,7 +14,7 @@ require_once 'inc/head.php';
 <body class="bg-dark">
 <?php
 require_once 'inc/header.php';
-require_once 'home/main.php';
+require_once 'about/main.php';
 require_once 'inc/footer.php';
 require_once 'inc/scripts.php';
 ?>
