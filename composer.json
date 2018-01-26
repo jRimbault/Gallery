@@ -2,6 +2,7 @@
     "name": "galerie/chez-rimbault",
     "description": "projet pour s'amuser tout seul",
     "require": {
+        "php": "^7.0",
         "gregwar/image": "2.*",
         "nikic/fast-route": "^1.2",
         "twbs/bootstrap": "4.0.0",
@@ -14,7 +15,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "post-install-cmd": [
+        "post-update-cmd": [
             "Gallery\\Utils\\Deploy::Conf",
             "Gallery\\Utils\\Deploy::jQuery",
             "Gallery\\Utils\\Deploy::Bootstrap"
