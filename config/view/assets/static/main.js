@@ -109,14 +109,25 @@ function displayGallery() {
  */
 function getGallery() {
     let galleryName = getLocation().toLowerCase();
+    let gallery = $('#gallery');
     $.post(galleryName, json => {
-        let gallery = $('#gallery');
         gallery.empty();
+        gallery.attr('class', 'card-columns')
         json.forEach(filename => {
             let card = buildCard(galleryName, filename);
             card.appendTo(gallery);
         });
         displayGallery();
+    }).fail(xhr => {
+        gallery.empty();
+        gallery.attr('class', 'text-center');
+        let title = $('<h3>');
+        let link = $('<a>');
+        link.attr('href', '#');
+        link.attr('class', 'text-center text-white brand');
+        link.text('No gallery named: ' + galleryName);
+        link.appendTo(title);
+        title.appendTo(gallery);
     });
 }
 
@@ -160,6 +171,7 @@ function homepage() {
     $.post('galleries', json => {
         let gallery = $('#gallery');
         gallery.empty();
+        gallery.attr('class', 'card-columns')
         json.forEach(filename => {
             let card = buildPortalCard(filename);
             card.appendTo(gallery);

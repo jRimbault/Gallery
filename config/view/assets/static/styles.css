@@ -1,5 +1,6 @@
 a, button {
     outline: 0 !important;
+    text-decoration: none !important;
 }
 main {
     padding-top: 6rem;
