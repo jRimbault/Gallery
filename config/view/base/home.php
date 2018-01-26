@@ -17,6 +17,9 @@ require_once 'inc/header.php';
 require_once 'home/main.php';
 require_once 'inc/footer.php';
 require_once 'inc/scripts.php';
+if ($conf->getDev()) {
+    require_once 'inc/dev-ribbon.html';
+}
 ?>
 </body>
 </html>
