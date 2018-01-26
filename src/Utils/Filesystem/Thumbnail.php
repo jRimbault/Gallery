@@ -19,7 +19,7 @@ class Thumbnail
         $this->image = $image;
     }
 
-    public function make($width = 320, $height = 240)
+    public function make($width = 640, $height = 480)
     {
         $path = $this->thumbnailPath();
         if (is_file($path)) return false;
