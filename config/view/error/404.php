@@ -120,7 +120,7 @@ http_response_code(404);
         }
     </style>
     <link rel="stylesheet"
-          href="assets/css/styles.css">
+          href="/assets/css/styles.css">
 </head>
 <body class="bg-dark">
 <div class="center">
