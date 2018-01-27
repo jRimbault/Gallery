@@ -3,7 +3,7 @@
     "description": "projet pour s'amuser tout seul",
     "require": {
         "php": "^7.0",
-        "gregwar/image": "2.*",
+        "ext-imagick": "*",
         "nikic/fast-route": "^1.2",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1"
