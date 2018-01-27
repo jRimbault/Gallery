@@ -1,42 +1,72 @@
-# Galerie photo
+# Gallery
 
-Faite pour Olivier Rimbault par Jacques Rimbault.
+Made for Olivier Rimbault by Jacques Rimbault.
 
-Fichier de configuration `conf.ini` situé à la racine:
-```ini
-[SITE]
-title = "Titre du site"
-about = "Texte à propos du site, sans retour à ligne"
-email = "mail@example.org"
-; devrait être sombre, cf color-hex.com
-background = "212529"
+## Install
 
-; commentaire
-; liste de liens à afficher dans la section "À propos"
-; une url doit toujours être accompagnée d'un text
-[LINK]
-url[] = "https://bistrotsdeparis.blogspot.fr/"
-text[] = "Cafés de Paris"
-url[] = "assets/jar"
-text[] = "Archives JAR"
-url[] = "assets/img"
-text[] = "Archives Photos"
-```
+Clone the repository:
 
-Pour ajouter une galerie de photos mettre:
-- un dossier nommé `vacances` dans le dossier `gallery`
-- une image nommé `vacances.jpg` dans le dossier `gallery`
-
-Sur un système linux, pour créer les miniatures de chaque image,
-installer `imagemagick` et
-utiliser le script `makethumbnails.sh`:
 ```bash
-./makethumbnails.sh web/gallery/vacances
+git clone https://git.jrimbault.io/jRimbault/rimbault.eu.git
+cd rimbault.eu
+composer install
 ```
 
-Sur Windows utiliser un programme comme [IrfanView][0] (ou similaire), et
-générer des images de 320x240 pixels maximum, placer-les dans le dossier `gallery/vacances/thumbnails`.
+If necessary, install the `ext-imagick` for PHP:
 
+```bash
+# example for apt based distro
+apt install php-imagick
+phpenmod imagick
+```
 
+## Server
 
-[0]: http://www.irfanview.com/
+For Apache2:
+- Set the document root of your host to the `public` directory
+- Allow `.htaccess`
+- Enable the mod `rewrite`:
+
+```bash
+a2enmod rewrite
+```
+
+Example configuration:
+```conf
+[...]
+ServerName localhost
+DocumentRoot /path/rimbault.eu/public
+<Directory /path/rimbault.eu/public>
+    AllowOverride All
+</Directory>
+ErrorLog /path/rimbault.eu/var/log/error.log
+CustomLog /path/rimbault.eu/var/log/apache.log combined
+[...]
+```
+
+## Add a Gallery
+
+In the `public/gallery`:
+- add a folder named `example` with your pictures in it
+- add a `.jpg` named `example.jpg`
+
+```
+public/gallery
+├── example
+│   └── ...
+├── album
+│   └── ...
+├── example.jpg
+└── album.jpg
+```
+
+Run the script to generate the thumbnails:
+
+```bash
+php bin/console makethumb
+```
+
+## Configuration
+
+After installation a file `config/app.ini` should have been made.  
+You can change the available options there.
