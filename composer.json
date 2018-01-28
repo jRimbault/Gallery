@@ -1,10 +1,9 @@
 {
-    "name": "galerie/chez-rimbault",
+    "name": "jRimbault/Gallery",
     "description": "projet pour s'amuser tout seul",
     "require": {
         "php": "^7.0",
         "ext-imagick": "*",
-        "nikic/fast-route": "^1.2",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1"
     },
