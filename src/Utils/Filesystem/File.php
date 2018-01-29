@@ -5,12 +5,11 @@ namespace Gallery\Utils\Filesystem;
 
 class File
 {
-    public static function deleteFiles($target)
+    public static function rremove($target)
     {
         if (is_dir($target)) {
-            $files = glob($target . '*', GLOB_MARK);
-            foreach ($files as $file) {
-                self::deleteFiles($file);
+            foreach (array_diff(scandir($target), ['.','..']) as $file) {
+                self::rremove("$target/$file");
             }
             rmdir($target);
         } else if (is_file($target)) {
@@ -23,10 +22,8 @@ class File
     {
         if (is_dir($src)) {
             @mkdir($dst, 0755, true);
-            foreach (scandir($src) as $file) {
-                if ($file != '.' && $file != '..') {
-                    self::rcopy("$src/$file", "$dst/$file");
-                }
+            foreach (array_diff(scandir($src), ['.','..']) as $file) {
+                self::rcopy("$src/$file", "$dst/$file");
             }
             return true;
         } else if (is_file($src)) {

@@ -98,7 +98,7 @@ class Thumbnail
     {
         foreach ($scanner->getGallery($gallery) as $image) {
             $path = Path::Gallery() . DIRECTORY_SEPARATOR . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
-            File::deleteFiles($path);
+            File::rremove($path);
         }
     }
 
