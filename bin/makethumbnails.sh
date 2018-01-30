@@ -11,26 +11,35 @@ usage() {
 }
 expr "$*" : ".*--help" > /dev/null && usage
 
+checkImagick()
+{
+  if ! which convert > /dev/null; then
+    echo "Imagemagick is not installed, or is not the path"
+    exit 3
+  fi
+}
+
+checkDirectory()
+{
+  if [[ ! -d "$1" ]]; then
+    echo "'$1' is not a directory, or isn't accessible"
+    exit 2
+  fi
+}
+
 # main
 main() {
-  # try and catch
-  {
-    jpgs=($(ls "$1"/*.jpg 2> /dev/null))
-  } || {
-    echo "No jpgs in $1"
-    exit 0
-  }
+  local gallery="$1"
+  local thumbdir="$gallery/thumbnails"
+  local jpg
 
-  thumbnails="$1/thumbnails"
+  mkdir -p "$thumbdir"
 
-  mkdir -p "$thumbnails"
-
-  for jpg in "${jpgs[@]}"; do
+  for jpg in "$gallery"/*.jpg; do
     jpg=$(basename "$jpg")
-    converted="$jpg"
 
-    if [[ ! -f "$thumbnails"/"$converted" ]]; then
-      convert "$1/$jpg" -resize 320x240 "$thumbnails/$converted" &&
+    if [[ ! -f "$thumbdir"/"$jpg" ]]; then
+      convert "$gallery/$jpg" -resize 640x480 "$thumbdir/$jpg" &&
       echo "$jpg resized"
     else
       echo "Thumbnail for $jpg exists already"
@@ -38,10 +47,10 @@ main() {
   done
 }
 
-echo "$@"
-
 if [[ $# -lt 1 ]]; then
-  exit 1
+  usage
 fi
 
+checkDirectory "$1"
+checkImagick
 main "$@"
