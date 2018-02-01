@@ -6,8 +6,8 @@
         "ext-imagick": "*",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1",
-        "ashleydw/lightbox": "*",
-        "FezVrasta/popper.js": "*"
+        "ashleydw/lightbox": "5.3",
+        "FezVrasta/popper.js": "1.12.9"
     },
     "repositories": {
         "ekko-lightbox": {
@@ -42,7 +42,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "post-update-cmd": [
+        "post-install-cmd": [
             "Gallery\\Utils\\Deploy::Conf",
             "Gallery\\Utils\\Deploy::jQuery",
             "Gallery\\Utils\\Deploy::Bootstrap",
