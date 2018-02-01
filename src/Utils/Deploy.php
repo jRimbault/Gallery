@@ -91,7 +91,9 @@ class Deploy
                 ]
             ],
             'SWITCH' => [
-                'theater' => false
+                'theater' => false,
+                'dev' => true,
+                'singlepage' => false
             ]
         ];
         return self::arrayToIniString($conf);
@@ -104,7 +106,7 @@ class Deploy
         foreach ($array as $k => $v) {
             if (is_array($v)) {
                 if ($i === false) {
-                    $str .= "[$k]" . PHP_EOL;
+                    $str .= PHP_EOL . "[$k]" . PHP_EOL;
                 } else {
                     foreach ($v as $v2) {
                         $str .= $k . "[] = \"$v2\"" . PHP_EOL;
