@@ -38,6 +38,24 @@ class Deploy
         );
     }
 
+    public static function popperjs()
+    {
+        self::deployLib(
+            '/vendor/FezVrasta/popper.js/dist',
+            '/popper',
+            'popper.js'
+        );
+    }
+
+    public static function ekkoLightbox()
+    {
+        self::deployLib(
+            '/vendor/ashleydw/lightbox/dist',
+            '/lightbox',
+            'ekko-lightbox'
+        );
+    }
+
     private static function deployLib($src, $dst, $name)
     {
         $src = Path::Root() . $src;

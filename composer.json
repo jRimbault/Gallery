@@ -5,7 +5,35 @@
         "php": "^7.0",
         "ext-imagick": "*",
         "twbs/bootstrap": "4.0.0",
-        "components/jquery": "3.2.1"
+        "components/jquery": "3.2.1",
+        "ashleydw/lightbox": "*",
+        "FezVrasta/popper.js": "*"
+    },
+    "repositories": {
+        "ekko-lightbox": {
+            "type": "package",
+            "package": {
+                "name": "ashleydw/lightbox",
+                "version": "5.3",
+                "source": {
+                    "url": "https://github.com/ashleydw/lightbox",
+                    "type": "git",
+                    "reference": "master"
+                }
+            }
+        },
+        "popper.js": {
+            "type": "package",
+            "package": {
+                "name": "FezVrasta/popper.js",
+                "version": "1.12.9",
+                "source": {
+                    "url": "https://github.com/FezVrasta/popper.js",
+                    "type": "git",
+                    "reference": "v1.12.9"
+                }
+            }
+        }
     },
     "autoload": {
         "psr-4": {
@@ -17,7 +45,9 @@
         "post-update-cmd": [
             "Gallery\\Utils\\Deploy::Conf",
             "Gallery\\Utils\\Deploy::jQuery",
-            "Gallery\\Utils\\Deploy::Bootstrap"
+            "Gallery\\Utils\\Deploy::Bootstrap",
+            "Gallery\\Utils\\Deploy::popperjs",
+            "Gallery\\Utils\\Deploy::ekkoLightbox"
         ]
     }
 }

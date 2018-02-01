@@ -6,7 +6,7 @@
     <link rel="stylesheet"
           href="/assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="/assets/css/ekko-lightbox-5.3.0.min.css">
+          href="/assets/lib/lightbox/ekko-lightbox.css">
     <link rel="stylesheet"
           href="/assets/css/styles.css">
 </head>
