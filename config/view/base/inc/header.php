@@ -11,6 +11,19 @@ function makeLinks($conf)
 
     return $html . '</ul>';
 }
+
+$title = '';
+$gallery = '';
+$homelink = '#';
+if (!$conf->getSinglePage()) {
+    $title = $conf->getTitle();
+    $homelink = '/';
+    if ($this->getURI()) {
+        $gallery = '> ' . ucfirst($this->getURI());
+    }
+}
+
+
 ?>
 <header>
     <div class="bg-dark collapse" id="navbarHeader" style="">
@@ -32,8 +45,16 @@ function makeLinks($conf)
     <div class="navbar fixed-top navbar-dark bg-dark">
         <div class="container d-flex justify-content-between">
             <span class="navbar-brand">
-                <a href="#" class="navbar-brand" id="title"></a>
-                <span id="breadcrumbs"></span>
+                <a href="<?php echo $homelink; ?>" class="navbar-brand" id="title">
+                <?php
+                echo $title;
+                ?>
+                </a>
+                <span id="breadcrumbs">
+                <?php
+                echo $gallery;
+                ?>
+                </span>
             </span>
             <button class="navbar-toggler collapsed"
                     type="button"

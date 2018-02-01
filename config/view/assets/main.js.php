@@ -13,6 +13,7 @@ $conf = Config::Instance();
 'use strict';
 
 const theater = <?php echo $conf->getTheater() ? 'true' : 'false'; ?>;
+const singlepage = <?php echo $conf->getSinglePage() ? 'true' : 'false'; ?>;
 const galleryDirectory = '<?php echo $gallery; ?>';
 const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
 

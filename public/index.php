@@ -18,5 +18,6 @@ $route->get('/assets/js/main.js', 'assets/main.js');
 $scanner = new Scan(Path::Gallery());
 
 $route->get($scanner->getGalleries(), 'json/gallery', 'POST');
+$route->get($scanner->getGalleries(), 'base/gallery', 'GET');
 
 $route->notFound('/error/404');

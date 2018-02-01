@@ -9,7 +9,7 @@ function buildGalleryCards()
     $scanner = new Scan(Path::Gallery());
     foreach ($scanner->getGalleries() as $gallery) {
         $html .=
-            "<a href='unsplash'>
+            "<a href='$gallery'>
                 <div class='card text-white bg-dark'>
                     <img class='card-img-top rounded' src='gallery/$gallery.jpg'>
                     <div class='card-img-overlay'>

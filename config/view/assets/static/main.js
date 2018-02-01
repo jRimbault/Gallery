@@ -205,8 +205,10 @@ function main() {
     updateHistory();
 }
 
-$(document).ready(main);
-$(window).on('hashchange', main);
+if (singlepage === true) {
+    $(document).ready(main);
+    $(window).on('hashchange', main);
+}
 
 /** lightbox */
 if (theater === true) {
