@@ -1,14 +1,14 @@
 # Gallery
 
-Made for Olivier Rimbault by Jacques Rimbault.
+Simply display galleries of pictures.
 
 ## Install
 
 Clone the repository:
 
 ```bash
-git clone https://git.jrimbault.io/jRimbault/rimbault.eu.git
-cd rimbault.eu
+git clone https://git.jrimbault.io/jRimbault/Gallery.git
+cd Gallery
 composer install
 ```
 
@@ -35,12 +35,12 @@ Example configuration:
 ```conf
 [...]
 ServerName localhost
-DocumentRoot /path/rimbault.eu/public
-<Directory /path/rimbault.eu/public>
+DocumentRoot /path/Gallery/public
+<Directory /path/Gallery/public>
     AllowOverride All
 </Directory>
-ErrorLog /path/rimbault.eu/var/log/error.log
-CustomLog /path/rimbault.eu/var/log/apache.log combined
+ErrorLog /path/Gallery/var/log/error.log
+CustomLog /path/Gallery/var/log/apache.log combined
 [...]
 ```
 
@@ -70,3 +70,34 @@ php bin/console makethumb
 
 After installation a file `config/app.ini` should have been made.  
 You can change the available options there.
+
+Options overview:
+
+```ini
+[SITE]
+title = "your website name"
+about = "Some text about you, your website, can be long or short."
+email = "contact@email.com"
+
+[COLOR]
+; website background color
+background = "131618"
+; picture viewer background color
+lightbox = "090b0c"
+
+; use this section to set links
+[LINK]
+url[] = "https://www.example.org"
+text[] = "A website example"
+url[] = "https://www.google.com"
+text[] = "Google"
+url[] = "https://you.can-set.an-url.without/a-text"
+
+[SWITCH]
+; turn on/off the picture viewer
+theater = true
+; makes the website single page or multiple pages
+singlepage = false
+; toggle on/off the ribbon signaling work is in progress
+dev = true
+```
