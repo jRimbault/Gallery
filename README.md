@@ -32,17 +32,24 @@ a2enmod rewrite
 ```
 
 Example configuration:
-```conf
-[...]
-ServerName localhost
-DocumentRoot /path/Gallery/public
-<Directory /path/Gallery/public>
-    AllowOverride All
-</Directory>
-ErrorLog /path/Gallery/var/log/error.log
-CustomLog /path/Gallery/var/log/apache.log combined
-[...]
+```apache
+<VirtualHost *:80>
+    # domain name
+    ServerName localhost
+    # path leading to the cloned repo
+    Define root /path/to/Gallery
+    DocumentRoot ${root}/public
+    <Directory ${root}/public>
+        AllowOverride All
+        # "Require all granted" if not accessed from localhost
+        Require local
+    </Directory>
+    ErrorLog ${root}/var/log/error.log
+    CustomLog ${root}/var/log/apache.log combined
+</VirtualHost>
 ```
+
+You should check if the apache user has access to the directories.
 
 ## Add a Gallery
 
