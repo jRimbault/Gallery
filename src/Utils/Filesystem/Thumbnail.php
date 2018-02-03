@@ -7,19 +7,27 @@ use Gallery\Path;
 use Gallery\Utils\Console;
 use Gallery\Utils\Filesystem\File;
 
-
+/**
+ * Generates a thumbnail out of a source image
+ */
 class Thumbnail
 {
     private $gallery;
     private $image;
 
-    public function __construct($gallery, $image)
+    /**
+     * @param string $gallery the path where the image is located
+     */
+    private function __construct(string $gallery, string $image)
     {
         $this->gallery = $gallery;
         $this->image = $image;
     }
 
-    public function make($width = 640, $height = 480)
+    /**
+     * Generates thumbnail using Imagemagick's php extension Imagick
+     */
+    private function make(int $width = 640, int $height = 480)
     {
         $path = $this->thumbnailPath();
         if (is_file($path)) return false;
@@ -37,19 +45,33 @@ class Thumbnail
 
     private function imagePath()
     {
-        return $this->galleryPath() . $this->image;
+        return join(DIRECTORY_SEPARATOR, [
+            $this->galleryPath(),
+            $this->image
+        ]);
     }
 
     private function thumbnailPath()
     {
-        $path = $this->galleryPath() . 'thumbnails' . DIRECTORY_SEPARATOR;
-        if (!file_exists($path)) mkdir($path, 0755);
-        return $path . $this->image;
+        $path = join(DIRECTORY_SEPARATOR, [
+            $this->galleryPath(),
+            'thumbnails'
+        ]);
+        if (!file_exists($path)) {
+            mkdir($path, 0755);
+        }
+        return join(DIRECTORY_SEPARATOR, [
+            $path,
+            $this->image
+        ]);
     }
 
     private function galleryPath()
     {
-        return Path::Gallery() . DIRECTORY_SEPARATOR . $this->gallery . DIRECTORY_SEPARATOR;
+        return join(DIRECTORY_SEPARATOR, [
+            Path::Gallery(),
+            $this->gallery,
+        ]);
     }
 
     public static function makeThumbnails($gallery = true)
@@ -65,7 +87,7 @@ class Thumbnail
         }
     }
 
-    private static function makeThumbnailsOf($gallery, $scanner)
+    private static function makeThumbnailsOf(string $gallery, Scan $scanner)
     {
         $counter = 0;
         self::galleryState($gallery, $scanner);
@@ -94,15 +116,19 @@ class Thumbnail
         }
     }
 
-    private static function deleteThumbnailsOf($gallery, $scanner)
+    private static function deleteThumbnailsOf(string $gallery, Scan $scanner)
     {
         foreach ($scanner->getGallery($gallery) as $image) {
-            $path = Path::Gallery() . DIRECTORY_SEPARATOR . $gallery . DIRECTORY_SEPARATOR . 'thumbnails';
+            $path = join(DIRECTORY_SEPARATOR, [
+                Path::Gallery(),
+                $gallery,
+                'thumbnails'
+            ]);
             File::rremove($path);
         }
     }
 
-    private static function galleryState($gallery, $scanner)
+    private static function galleryState(string $gallery, Scan $scanner)
     {
         $msg = '- ' . ucfirst($gallery);
         $msg .= ' (' . count($scanner->getGallery($gallery)) . ')';

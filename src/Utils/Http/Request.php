@@ -2,7 +2,9 @@
 
 namespace Gallery\Utils\Http;
 
-
+/**
+ * Allow operating on $_SERVER without risk of overwriting data
+ */
 class Request
 {
     public function __construct()

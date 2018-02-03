@@ -2,10 +2,17 @@
 
 namespace Gallery\Utils\Filesystem;
 
-
+/**
+ * Used conjointly the two methods here allow for easier file management
+ * inside the program
+ */
 class File
 {
-    public static function rremove($target)
+    /**
+     * Recursively remove a directory and its children
+     * from the filesystem
+     */
+    public static function rremove(string $target)
     {
         if (is_dir($target)) {
             foreach (array_diff(scandir($target), ['.','..']) as $file) {
@@ -17,8 +24,11 @@ class File
         }
     }
 
-    /** Mostly stolen from a comment on the php manual */
-    public static function rcopy($src, $dst)
+    /**
+     * Recursively copy a directory and its children
+     * from one point to another
+     */
+    public static function rcopy(string $src, string $dst)
     {
         if (is_dir($src)) {
             @mkdir($dst, 0755, true);

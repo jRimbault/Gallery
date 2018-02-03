@@ -5,9 +5,15 @@ namespace Gallery\Utils;
 use Gallery\Path;
 use Gallery\Utils\Filesystem\File;
 
-
+/**
+ * This class is used by composer after the initial `composer install`.
+ * It will deploy jQuery, Bootstrap, Popper.js, and ekko-lightbox
+ * to the web front-end.
+ * If there's no config file alreay, it will write a default one.
+ */
 class Deploy
 {
+    /** Initialize a default configuration file */
     public static function Conf()
     {
         $file = '/config/app.ini';
@@ -20,6 +26,7 @@ class Deploy
         }
     }
 
+    /** Push jQuery to the web front end */
     public static function jQuery()
     {
         self::deployLib(
@@ -29,6 +36,7 @@ class Deploy
         );
     }
 
+    /** Push Bootstrap to the web front end */
     public static function Bootstrap()
     {
         self::deployLib(
@@ -38,6 +46,7 @@ class Deploy
         );
     }
 
+    /** Push Popper.js to the web front end */
     public static function popperjs()
     {
         self::deployLib(
@@ -47,6 +56,7 @@ class Deploy
         );
     }
 
+    /** Push ekko-lightbox to the web front end */
     public static function ekkoLightbox()
     {
         self::deployLib(
@@ -56,7 +66,10 @@ class Deploy
         );
     }
 
-    private static function deployLib($src, $dst, $name)
+    /**
+     * Function to copy a directory lib to the web front end
+     */
+    private static function deployLib(string $src, string $dst, string $name)
     {
         $src = Path::Root() . $src;
         $dst = Path::AssetsLib() . $dst;
@@ -67,6 +80,7 @@ class Deploy
         }
     }
 
+    /** Default configuration */
     private static function makeIniConf()
     {
         $conf = [
@@ -99,8 +113,18 @@ class Deploy
         return self::arrayToIniString($conf);
     }
 
-    /** This is tailor made and not really good */
-    private static function arrayToIniString($array, $i = false)
+    /**
+     * Converts a PHP array to an INI string
+     * This can be used to write an INI file
+     *
+     * This is tailor made and not really good
+     *
+     * @todo replace the .ini by .json or .xml
+     *       and on first run present a form
+     *       to the first user to fill out
+     *       a configuration
+     */
+    private static function arrayToIniString(array $array, bool $i = false)
     {
         $str = "";
         foreach ($array as $k => $v) {

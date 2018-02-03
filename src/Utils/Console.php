@@ -4,7 +4,10 @@ namespace Gallery\Utils;
 
 use Gallery\Utils\Filesystem\Thumbnail;
 
-
+/**
+ * Used by the bin/console script
+ * This is currently only used to manage the galleries' thumbnails
+ */
 class Console
 {
     private $option;
@@ -16,38 +19,41 @@ Script Name: console
 Author: jRimbault
 
 Description:
-  Script de gestion du site web
+  Manage galleries' thumbnails
 
 Usage: php bin/console option=<x>
 
 Options:
-  help        montre ce message d'aide
-  makethumb   génère les thumbnails pour toutes les galeries
-  deletethumb supprime les thumbnails pour toutes les galeries
+  help        display this help
+  makethumb   makes the thumbnails for all galleries
+  deletethumb deletes all the existing thumbnails
 
 Exemples:
   php bin/console makethumb
-    génère tous les thumbnails
-  php bin/console makethumb=vacance
-    génère les thumbnails pour la galerie "vacance"
+    makes all thumbnails
+  php bin/console makethumb=holidays
+    makes thumbnails for one particular gallery named "holidays"
   php bin/console deletethumb
-    supprime tous les thumbnails
-  php bin/console deletethumb=vacance
-    supprime les thumbnails pour la galerie "vacance"
+    deletes all thumbnails
+  php bin/console deletethumb=holidays
+    deletes thumbnails for one particular gallery named "holidays"
 <?php
     }
 
+    /** Helper method to display errors to the user and log them */
     public static function error($input)
     {
         fwrite(STDERR, $input . PHP_EOL);
         error_log($input);
     }
 
+    /** Helper method to display messages to the user */
     public static function message($input)
     {
         fwrite(STDOUT, $input . PHP_EOL);
     }
 
+    /** Parses argv */
     private function setOptions($argv)
     {
         $this->option = [];
@@ -60,11 +66,13 @@ Exemples:
         }
     }
 
+    /** Method to check if we're the correct environement */
     private function isCli()
     {
         return php_sapi_name() === 'cli';
     }
 
+    /** Starts the CLI interface */
     public function __construct($argv)
     {
         if (!$this->isCli()) {
@@ -77,12 +85,19 @@ Exemples:
         }
         if ($this->getMakeThumb()) {
             Thumbnail::makeThumbnails($this->getMakeThumb());
+            die();
         }
         if ($this->getDeleteThumb()) {
             Thumbnail::deleteThumbnails($this->getDeleteThumb());
+            die();
         }
+        $this->help();
     }
 
+    /**
+     * Magic method to get the parsed options
+     * Only accepts methods beginning by 'get'
+     */
     public function __call($method, $params)
     {
         if (strncasecmp($method, 'get', 3) !== 0) return false;

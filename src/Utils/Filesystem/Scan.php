@@ -18,6 +18,11 @@ class Scan
         $this->dir = $dir;
     }
 
+    /**
+     * Galleries should not have a dot in their name
+     * The dot is used to git rid of extraneous files
+     * like the .jpg files used to characterize the galleries
+     */
     private function filterGalleriesName($value)
     {
         if (in_array($value, self::$excluded)) return false;
@@ -25,6 +30,7 @@ class Scan
         return true;
     }
 
+    /** We only want the images in a directory */
     private function filterGallery($value)
     {
         if (in_array($value, self::$excluded)) return false;
@@ -40,8 +46,9 @@ class Scan
 
     public function getGallery($portal)
     {
+        $dir = join(DIRECTORY_SEPARATOR, [$this->dir, $portal]);
         return array_values(
-            array_filter(scandir($this->dir . DIRECTORY_SEPARATOR . $portal), 'self::filterGallery')
+            array_filter(scandir($dir), 'self::filterGallery')
         );
     }
 }
