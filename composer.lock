@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a71f383b2bdb902c93e6f93366ccf17f",
-    "content-hash": "620770472de61d409d11fde9fe9e7b25",
+    "hash": "04a0394cbe2c3b5adf653c52f10c0391",
+    "content-hash": "bd3481dbd190e5b07a5f7e094527ab71",
     "packages": [
         {
             "name": "FezVrasta/popper.js",

@@ -1,6 +1,6 @@
 {
-    "name": "jRimbault/Gallery",
-    "description": "projet pour s'amuser tout seul",
+    "name": "jrimbault/gallery",
+    "description": "simple gallery website",
     "require": {
         "php": "^7.0",
         "ext-imagick": "*",
