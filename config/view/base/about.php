@@ -36,8 +36,8 @@ require_once 'inc/header.php';
     </div>
 </main>
 <?php
-require_once 'inc/footer.php';
-require_once 'inc/scripts.php';
+require_once 'inc/footer.html';
+require_once 'inc/scripts.html';
 if ($conf->getDev()) {
     require_once 'inc/dev-ribbon.html';
 }
