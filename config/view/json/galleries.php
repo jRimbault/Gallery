@@ -2,7 +2,7 @@
 
 use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
-use Gallery\Utils\Http\Json;
+use Gallery\Utils\Json;
 
 $scanner = new Scan(Path::Gallery());
 

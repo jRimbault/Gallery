@@ -1,0 +1,37 @@
+<?php
+
+namespace Gallery\Utils;
+
+
+class Json
+{
+    /**
+     * Send a JSON payload to the client and an http responde code
+     * and terminates the program
+     * Shortcut method
+     */
+    public static function Response(array $array, int $code = 200)
+    {
+        header('Content-Type: application/json');
+        http_response_code($code);
+        die(json_encode($array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES));
+    }
+
+    /**
+     * Wrapper around json_decode and file_get_contents
+     * Allow quickly decoding any json stream reachable by file_get_contents
+     */
+    public static function DecodeFile(
+        string $file,
+        bool $assoc = true,
+        int $depth = 512,
+        int $options = 0)
+    {
+        return json_decode(
+            file_get_contents($file),
+            $assoc,
+            $depth,
+            $options
+        );
+    }
+}

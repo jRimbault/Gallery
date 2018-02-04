@@ -16,9 +16,9 @@ class Deploy
     /** Initialize a default configuration file */
     public static function Conf()
     {
-        $file = '/config/app.ini';
+        $file = '/config/app.json';
         $dst = Path::Root() . $file;
-        $ini = self::makeIniConf();
+        $ini = self::makeJsonConf();
         if (!file_exists($dst) && file_put_contents($dst, $ini)) {
             echo "  Configuration file: `$file`" . PHP_EOL;
         } else {
@@ -81,72 +81,37 @@ class Deploy
     }
 
     /** Default configuration */
-    private static function makeIniConf()
+    private static function makeJsonConf()
     {
         $conf = [
-            'SITE' => [
+            'site' => [
                 'title' => 'Example',
                 'about' => 'Some text about the website',
                 'email' => 'email@example.org'
             ],
-            'COLOR' => [
+            'color' => [
                 'background' => '212529',
                 'lightbox' => '212529'
             ],
-            'LINK' => [
-                'url' => [
-                    'https://www.example.org',
-                    'https://www.google.com',
-                    'https://you.can-set.an-url.without/a-text'
+            'link' => [
+                [
+                    'url' => 'https://www.example.org',
+                    'text' => 'A website example',
                 ],
-                'text' => [
-                    'A website example',
-                    'Google'
+                [
+                    'url' => 'https://www.google.com',
+                    'text' => 'Google',
+                ],
+                [
+                    'url' => 'https://you.can-set.an-url.without/a-text',
                 ]
             ],
-            'SWITCH' => [
+            'switch' => [
                 'theater' => false,
                 'dev' => true,
                 'singlepage' => false
             ]
         ];
-        return self::arrayToIniString($conf);
-    }
-
-    /**
-     * Converts a PHP array to an INI string
-     * This can be used to write an INI file
-     *
-     * This is tailor made and not really good
-     *
-     * @todo replace the .ini by .json or .xml
-     *       and on first run present a form
-     *       to the first user to fill out
-     *       a configuration
-     */
-    private static function arrayToIniString(array $array, bool $i = false)
-    {
-        $str = "";
-        foreach ($array as $k => $v) {
-            if (is_array($v)) {
-                if ($i === false) {
-                    $str .= PHP_EOL . "[$k]" . PHP_EOL;
-                } else {
-                    foreach ($v as $v2) {
-                        $str .= $k . "[] = \"$v2\"" . PHP_EOL;
-                    }
-                }
-                $str .= self::arrayToIniString($v, true);
-            } else {
-                if (!is_numeric($k) && !is_bool($v)) {
-                    $str .= "$k = \"$v\"" . PHP_EOL;
-                }
-                if (is_bool($v)) {
-                    $sub = $v ? 'true' : 'false';
-                    $str .= "$k = " . $sub . PHP_EOL;
-                }
-            }
-        }
-        return $str;
+        return json_encode($conf, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 }

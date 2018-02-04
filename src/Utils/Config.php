@@ -3,6 +3,8 @@
 namespace Gallery\Utils;
 
 use Gallery\Path;
+use Gallery\Utils\Json;
+
 
 /**
  * This class is responsible for loading a configuration file,
@@ -15,8 +17,7 @@ class Config
 
     private function __construct(string $filename)
     {
-        $this->conf = parse_ini_file($filename, true);
-        $this->setLinks();
+        $this->conf = Json::DecodeFile($filename);
     }
 
     /**
@@ -26,32 +27,9 @@ class Config
     public static function Instance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(Path::Root() . '/config/app.ini');
+            self::$instance = new self(Path::Root() . '/config/app.json');
         }
         return self::$instance;
-    }
-
-    /**
-     * Currently we're loading an ini file as configuration file.
-     * INI syntax doesn't really have double nested lists
-     * We're using a trick to set the PHP array straight,
-     * before we're using it.
-     *
-     * @todo replace the .ini by .json or .xml
-     *       and on first run present a form
-     *       to the first user to fill out
-     *       a configuration
-     */
-    private function setLinks()
-    {
-        if (!isset($this->conf['LINK']['url'])) return;
-        $links = [];
-        for ($i = 0; $i < count($this->conf['LINK']['url']); $i += 1) {
-            $links[$i]['url'] = $this->conf['LINK']['url'][$i];
-            $links[$i]['text'] = $this->conf['LINK']['text'][$i] ?? $this->conf['LINK']['url'][$i];
-        }
-        unset($this->conf['LINK']);
-        $this->conf['LINK'] = $links;
     }
 
     /**

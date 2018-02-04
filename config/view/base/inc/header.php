@@ -4,7 +4,7 @@ function makeLinks($conf)
     $html = '<ul class="list-unstyled">';
     for ($i = 0; $i < count($conf->getLink()); $i += 1) {
         $html .= '<li><a href="' . $conf->getLink()[$i]['url'] . '" class="text-white">';
-        $html .= $conf->getLink()[$i]['text'] . '</a></li>';
+        $html .= $conf->getLink()[$i]['text'] ?? $conf->getLink()[$i]['url'] . '</a></li>';
     }
     $html .= '<li><a href="mailto:' . $conf->getEmail() . '" class="text-white">';
     $html .= $conf->getEmail() . '</a></li>';

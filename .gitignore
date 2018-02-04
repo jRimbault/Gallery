@@ -2,6 +2,7 @@
 assets/img/*
 !assets/img/.gitkeep
 *ini
+app.json
 var/log/*
 !var/log/.gitkeep
 public/gallery/*

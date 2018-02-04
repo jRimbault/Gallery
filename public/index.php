@@ -8,7 +8,7 @@ use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
 use Gallery\Utils\Http\Router;
 
-if (!file_exists(Path::Root() . '/config/app.ini')) {
+if (!file_exists(Path::Root() . '/config/app.json')) {
     require_once Path::View() . '/base/config.php';
     die();
 }
