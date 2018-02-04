@@ -166,9 +166,16 @@ if ($conf->getDev()) {
 ?>
 <script>
 $(function () {
-    $('#background10, #lightbox10').colorpicker({
+    $('#lightbox10').colorpicker({
         useHashPrefix: false,
         fallBackColor: true
+    });
+    $('#background10').colorpicker({
+        useHashPrefix: false,
+        fallBackColor: true
+    }).on('changeColor', e => {
+        let color = e.color.toString('hex');
+        $('.bg-dark').attr('style', 'background-color:' + color + ' !important');;
     });
 });
 $('#configform').submit(event => {

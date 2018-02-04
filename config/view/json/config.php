@@ -22,14 +22,17 @@ $conf['site']['email'] = $_POST['email'] ?? '';
 $conf['color']['background'] = removeHash($_POST['background'] ?? '');
 $conf['color']['lightbox'] = removeHash($_POST['lightbox'] ?? '');
 
-$conf['switch']['dev'] = (boolean) ($_POST['dev'] ?? false);
-$conf['switch']['singlepage'] = (boolean) ($_POST['singlepage'] ?? false);
-$conf['switch']['theater'] = (boolean) ($_POST['theater'] ?? true);
+$conf['switch']['dev'] = ($_POST['dev'] == 'true');
+$conf['switch']['singlepage'] = ($_POST['singlepage'] == 'true');
+$conf['switch']['theater'] = true;
 
 $file = Path::Root() . '/config/app.json';
 
-if (!file_exists($file)) {
+if ($written = !file_exists($file)) {
     Json::writeToFile($conf, $file);
 }
 
-Json::Response($conf);
+Json::Response([
+    'status' => $written,
+    'conf' => $conf
+]);
