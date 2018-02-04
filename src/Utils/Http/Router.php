@@ -71,7 +71,18 @@ class Router extends Request
      */
     public function notFound($file)
     {
-        require_once Path::View() . $file . '.php';
+        requireFile(Path::View() . $file . '.php');
         die();
     }
+}
+
+/**
+ * Scope isolated include
+ *
+ * Prevents access to $this/self from included files
+ * But allows injecting variables through the array $params
+ */
+function requireFile($file, array $params = [])
+{
+    require $file;
 }
