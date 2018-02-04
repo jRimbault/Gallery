@@ -34,4 +34,15 @@ class Json
             $options
         );
     }
+
+    public static function writeToFile(array $array, string $file)
+    {
+        return file_put_contents(
+            $file,
+            json_encode(
+                $array,
+                JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT
+            )
+        );
+    }
 }

@@ -3,18 +3,12 @@
 use Gallery\Path;
 use Gallery\Utils\Config;
 
-if (file_exists(Path::Root() . '/config/app.test.json')) {
+if (file_exists(Path::Root() . '/config/app.json')) {
     require_once Path::View() . '/error/404.php';
     die();
 }
 
 $conf = Config::Instance();
-
-// if (isset($_POST)) {
-//     $string = json_encode($_POST,  JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
-//     file_put_contents(Path::Root() . '/config/test.json', $string);
-//     die();
-// }
 
 ?>
 <!DOCTYPE html>
@@ -31,7 +25,7 @@ require_once 'inc/header.php';
         <h1 class="display-4">Configuration</h1>
         <hr class="my-4">
         <div class="row">
-            <form class="col" action="/configuration" method="POST">
+            <form class="col" id="configform" action="/configuration" method="POST">
 
                 <div class="row">
                     <div class="col-2"></div>
@@ -175,6 +169,14 @@ $(function () {
     $('#background10, #lightbox10').colorpicker({
         useHashPrefix: false,
         fallBackColor: true
+    });
+});
+$('#configform').submit(event => {
+    event.preventDefault();
+    $.post('/configuration', $('#configform').serializeArray(), json => {
+        console.log(json);
+    }).fail(xhr => {
+        console.log(xhr);
     });
 });
 </script>

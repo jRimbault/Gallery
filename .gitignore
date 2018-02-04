@@ -1,8 +1,8 @@
 .idea/
 assets/img/*
 !assets/img/.gitkeep
-*ini
-app.json
+config/*ini
+config/*json
 var/log/*
 !var/log/.gitkeep
 public/gallery/*
