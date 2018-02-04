@@ -8,6 +8,10 @@ use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
 use Gallery\Utils\Http\Router;
 
+if (!file_exists(Path::Root() . '/config/app.ini')) {
+    require_once Path::View() . '/base/config.php';
+    die();
+}
 
 $route = new Router();
 $route->get('/', 'base/home');
