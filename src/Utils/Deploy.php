@@ -66,6 +66,16 @@ class Deploy
         );
     }
 
+    /** Push bootstrap-colorpicker to the web front end */
+    public static function colorpicker()
+    {
+        self::deployLib(
+            '/vendor/itsjavi/bootstrap-colorpicker/dist',
+            '/colorpicker',
+            'bootstrap-colorpicker'
+        );
+    }
+
     /**
      * Function to copy a directory lib to the web front end
      */

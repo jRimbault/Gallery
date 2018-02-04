@@ -7,7 +7,8 @@
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1",
         "ashleydw/lightbox": "5.3.0",
-        "FezVrasta/popper.js": "1.12.9"
+        "FezVrasta/popper.js": "1.12.9",
+        "itsjavi/bootstrap-colorpicker": "^2.5"
     },
     "repositories": {
         "ekko-lightbox": {
@@ -47,7 +48,8 @@
             "Gallery\\Utils\\Deploy::jQuery",
             "Gallery\\Utils\\Deploy::Bootstrap",
             "Gallery\\Utils\\Deploy::popperjs",
-            "Gallery\\Utils\\Deploy::ekkoLightbox"
+            "Gallery\\Utils\\Deploy::ekkoLightbox",
+            "Gallery\\Utils\\Deploy::colorpicker"
         ]
     }
 }

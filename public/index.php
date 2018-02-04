@@ -8,13 +8,11 @@ use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
 use Gallery\Utils\Http\Router;
 
-if (!file_exists(Path::Root() . '/config/app.json')) {
-    require_once Path::View() . '/base/config.php';
-    die();
-}
-
 $route = new Router();
+
 $route->get('/', 'base/home');
+$route->get('/configuration', 'base/config');
+$route->get('/configuration', 'base/config', 'POST');
 $route->get('/about', 'base/about');
 $route->get('/galleries', 'json/galleries', 'POST');
 $route->get('/assets/css/styles.css', 'assets/styles.css');

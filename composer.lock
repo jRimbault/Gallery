@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04a0394cbe2c3b5adf653c52f10c0391",
-    "content-hash": "bd3481dbd190e5b07a5f7e094527ab71",
+    "hash": "f67af1911afb2ef504934c5dfa8afa27",
+    "content-hash": "aa07f2c9bfb676a798ce9966caca3a5a",
     "packages": [
         {
             "name": "FezVrasta/popper.js",
@@ -68,6 +68,37 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2017-03-21 07:01:49"
+        },
+        {
+            "name": "itsjavi/bootstrap-colorpicker",
+            "version": "2.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itsjavi/bootstrap-colorpicker.git",
+                "reference": "db978b4d8c3436cdaed6e3a1a065f9f47bb686b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itsjavi/bootstrap-colorpicker/zipball/db978b4d8c3436cdaed6e3a1a065f9f47bb686b1",
+                "reference": "db978b4d8c3436cdaed6e3a1a065f9f47bb686b1",
+                "shasum": ""
+            },
+            "require": {
+                "components/jquery": ">=1.10"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache License Version 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Javier Aguilar",
+                    "homepage": "https://itsjavi.com"
+                }
+            ],
+            "description": "Fancy and customizable colorpicker plugin for Twitter Bootstrap",
+            "time": "2017-02-05 18:59:49"
         },
         {
             "name": "twbs/bootstrap",
