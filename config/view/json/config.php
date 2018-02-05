@@ -11,7 +11,7 @@ function removeHash(string $string)
 $conf = [
     'site' => [],
     'color' => [],
-    'link' => [],
+    'link' =>  $_POST['link'] ?? [],
     'switch' => [],
 ];
 

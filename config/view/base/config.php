@@ -10,6 +10,21 @@ if (file_exists(Path::Root() . '/config/app.json')) {
 
 $conf = Config::Instance();
 
+$separator =
+'<div class="row">
+    <div class="col-sm-2"></div>
+    <hr class="col">
+</div>';
+
+function sectionTitle(string $title)
+{
+    return
+"<div class='row'>
+    <div class='col-2'></div>
+    <h2 class='col'>$title</h2>
+</div>";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -20,6 +35,8 @@ require_once 'inc/head.php';
 <?php
 require_once 'inc/header.php';
 ?>
+<link rel="stylesheet"
+        href="/assets/lib/colorpicker/css/bootstrap-colorpicker.css">
 <main role="main">
     <div class="container jumbotron">
         <h1 class="display-4">Configuration</h1>
@@ -27,10 +44,7 @@ require_once 'inc/header.php';
         <div class="row">
             <form class="col" id="configform" action="/configuration" method="POST">
 
-                <div class="row">
-                    <div class="col-2"></div>
-                    <h2 class="col">Website</h2>
-                </div>
+                <?php echo sectionTitle('Website'); ?>
 
                 <div class="form-group row">
                     <label for="title" class="col-sm-2 col-form-label text-right">
@@ -61,10 +75,7 @@ require_once 'inc/header.php';
 
                 <hr class="my-4">
 
-                <div class="row">
-                    <div class="col-2"></div>
-                    <h2 class="col">Colors</h2>
-                </div>
+                <?php echo sectionTitle('Colors'); ?>
 
                 <div class="form-group row">
                     <label for="background" class="col-sm-2 col-form-label text-right">
@@ -96,17 +107,42 @@ require_once 'inc/header.php';
 
                 <hr class="my-4">
 
-                <div class="row">
-                    <div class="col-2"></div>
-                    <h2 class="col">Links</h2>
+                <?php echo sectionTitle('Links'); ?>
+
+                <div class="form-group row">
+                    <label for="link[0][url]" class="col-sm-2 col-form-label text-right">
+                        Link 1
+                    </label>
+                    <div class="col">
+                        <input type="text" class="form-control" name="link[0][url]" id="link[0][url]" placeholder="https://www.example.org">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="link[0][text]" id="link[0][text]" placeholder="Example.org">
+                    </div>
                 </div>
+
+                <div class="form-group row">
+                    <label for="link[1][url]" class="col-sm-2 col-form-label text-right">
+                        Link 2
+                    </label>
+                    <div class="col">
+                        <input type="text" class="form-control" name="link[1][url]" id="link[1][url]" placeholder="https://www.example.org">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="link[1][text]" id="link[1][text]" placeholder="Example.org">
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col">
+                        <button type="button" class="btn btn-outline-dark" id="adder">Add another link</button>
+                    </div>
+                </div> -->
 
                 <hr class="my-4">
 
-                <div class="row">
-                    <div class="col-2"></div>
-                    <h2 class="col">Switches</h2>
-                </div>
+                <?php echo sectionTitle('Switches'); ?>
 
                 <div class="row">
                     <label for="singlepage" class="col-sm-2 col-form-label text-right">
@@ -118,16 +154,13 @@ require_once 'inc/header.php';
                             <label class="custom-control-label" for="singlepage-on">On</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="singlepage-off" name="singlepage" class="custom-control-input" value="false" checked="true">
+                            <input type="radio" id="singlepage-off" name="singlepage" class="custom-control-input" value="false" checked>
                             <label class="custom-control-label" for="singlepage-off">Off</label>
                         </div>
                     </div>
                 </div>
 
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <hr class="col">
-                </div>
+                <?php echo $separator; ?>
 
                 <div class="row">
                     <label for="dev" class="col-sm-2 col-form-label text-right">
@@ -139,7 +172,7 @@ require_once 'inc/header.php';
                             <label class="custom-control-label" for="devmode-on">On</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="devmode-off" name="dev" class="custom-control-input" value="false" checked="true">
+                            <input type="radio" id="devmode-off" name="dev" class="custom-control-input" value="false" checked>
                             <label class="custom-control-label" for="devmode-off">Off</label>
                         </div>
                     </div>
@@ -164,6 +197,7 @@ if ($conf->getDev()) {
     require_once 'inc/dev-ribbon.html';
 }
 ?>
+<script src="/assets/lib/colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script>
 $(function () {
     $('#lightbox10').colorpicker({

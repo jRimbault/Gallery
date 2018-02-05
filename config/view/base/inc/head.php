@@ -9,7 +9,5 @@
     <link rel="stylesheet"
           href="/assets/lib/lightbox/ekko-lightbox.css">
     <link rel="stylesheet"
-          href="/assets/lib/colorpicker/css/bootstrap-colorpicker.css">
-    <link rel="stylesheet"
           href="/assets/css/styles.css">
 </head>
