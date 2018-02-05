@@ -18,15 +18,19 @@ http_response_code(404);
 
 $conf = Config::Instance();
 
-$bg = false;
-$color = '#ffffff';
-try {
-    $bg = new Color($conf->getBackground());
-    if ($bg->getLightness() > 200) {
-        $color = '#000000';
+$bg = new Color('#ffffff');
+$color = new Color('#ffffff');
+
+if ($conf->getBackground()) {
+    try {
+        $bg = new Color($conf->getBackground());
+    } catch (\Exception $e) {
+        error_log($e->getMessage());
     }
-} catch (\Exception $e) {
-    $bg = false;
+}
+
+if ($bg->getLightness() > 200) {
+    $color = new Color('#000000');
 }
 
 ?>

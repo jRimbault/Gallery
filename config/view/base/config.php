@@ -3,12 +3,12 @@
 use Gallery\Path;
 use Gallery\Utils\Config;
 
-if (file_exists(Path::Root() . '/config/app.json')) {
+$conf = Config::Instance();
+
+if (file_exists(Path::Root() . '/config/app.json') && !$conf->getDev()) {
     require_once Path::View() . '/error/404.php';
     die();
 }
-
-$conf = Config::Instance();
 
 $separator =
 '<div class="row">

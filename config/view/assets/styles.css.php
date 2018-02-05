@@ -8,33 +8,34 @@ use Gallery\Utils\Config;
 
 $conf = Config::Instance();
 
-$bg = false;
-$lb = false;
+$bg = new Color('#ffffff');
+$lb = new Color('#ffffff');
 
 if ($conf->getBackground()) {
     try {
         $bg = new Color($conf->getBackground());
     } catch (\Exception $e) {
-        $bg = false;
+        error_log($e->getMessage());
     }
 }
 if ($conf->getLightbox()) {
     try {
         $lb = new Color($conf->getLightbox());
     } catch (\Exception $e) {
-        $lb = false;
+        error_log($e->getMessage());
     }
 }
 
 require_once Path::View() . '/assets/static/styles.css';
 
-if ($bg) {
 ?>
 .bg-dark {
     background-color: <?php echo $bg; ?> !important;
 }
+.ekko-lightbox .modal-content {
+    background-color: <?php echo $lb; ?> !important;
+}
 <?php
-
 if ($bg->getLightness() > 200) {
 ?>
 ul li a.text-white, .navbar .navbar-brand {
@@ -42,15 +43,6 @@ ul li a.text-white, .navbar .navbar-brand {
 }
 .navbar-dark .navbar-toggler {
     background-color: #c4c4c4 !important;
-}
-<?php
-}
-
-}
-if ($lb) {
-?>
-.ekko-lightbox .modal-content {
-    background-color: <?php echo $lb; ?> !important;
 }
 <?php
 }
