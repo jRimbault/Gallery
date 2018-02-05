@@ -32,7 +32,7 @@ class Color
      * Could be improved by accepting other format than RRGGBB
      * and supply to the RRGGBB string needed by the other functions
      */
-    private function isHexColor(string $string)
+    private function isHexColor(string $string): bool
     {
         if (!ctype_xdigit($string)) return false;
         if (!in_array(strlen($string), [3, 6])) return false;
@@ -40,7 +40,7 @@ class Color
     }
 
     /** Mainly here because it allows the computation of the HSL values */
-    private function toRGB()
+    private function toRGB(): int
     {
         if (strlen($this->color) === 3) {
             $this->color = $this->color[0] . $this->color[0]
@@ -113,8 +113,13 @@ class Color
         return null;
     }
 
-    public function __toString()
+    public function getRgbString(): string
     {
-        return '#' . $this->color;
+        return "rgb($this->red, $this->green, $this->blue)";
+    }
+
+    public function __toString(): string
+    {
+        return "#$this->color";
     }
 }
