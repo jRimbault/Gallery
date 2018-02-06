@@ -12,30 +12,20 @@ use Gallery\Utils\Http\Server;
  */
 class Request
 {
-    private $getData;
-    private $post;
-    private $server;
+    public $get;
+    public $post;
+    public $server;
 
     public function __construct()
     {
         $this->post = new Post();
         $this->server = new Server();
-        $this->getData = new Get();
+        $this->get = new Get();
     }
 
     public function getRequest(string $index)
     {
         return $this->server->get('REQUEST_' . strtoupper($index));
-    }
-
-    public function getPost(string $index)
-    {
-        return $this->post->get($index);
-    }
-
-    public function getGet(string $index)
-    {
-        return $this->getData->get($index);
     }
 
     /**
