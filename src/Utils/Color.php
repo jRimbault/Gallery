@@ -3,7 +3,7 @@
 namespace Gallery\Utils;
 
 
-class Color
+class Color implements \JsonSerializable
 {
     private $color;
     private $rgb;
@@ -116,6 +116,11 @@ class Color
     public function getRgbString(): string
     {
         return "rgb($this->red, $this->green, $this->blue)";
+    }
+
+    public function jsonSerialize()
+    {
+        return "#$this->color";
     }
 
     public function __toString(): string
