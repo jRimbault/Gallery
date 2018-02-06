@@ -2,6 +2,7 @@
 
 use Gallery\Path;
 use Gallery\Utils\Json;
+use Gallery\Utils\Config;
 use Gallery\Utils\Http\Request;
 
 function removeHash(string $string)
@@ -31,7 +32,7 @@ $conf['switch']['theater'] = true;
 
 $file = Path::Root() . '/config/app.json';
 
-if ($written = !file_exists($file)) {
+if ($written = (!file_exists($file) && Config::Check($conf))) {
     Json::writeToFile($conf, $file);
 }
 

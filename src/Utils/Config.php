@@ -57,4 +57,48 @@ class Config
             return $this->search($var, $this->conf, $arg);
         }
     }
+
+    /** Check configuration */
+    public function Check($conf)
+    {
+        if (!self::checkSubArray($conf, 'site')) { return false; }
+        if (!self::checkSubArray($conf, 'color')) { return false; }
+        if (!self::checkSubArray($conf, 'link')) { return false; }
+        if (!self::checkSubArray($conf, 'switch')) { return false; }
+        if (!self::checkArrayOfString($conf['site'])) { return false; }
+        if (!self::checkArrayOfString($conf['color'])) { return false; }
+        if (!self::checkArrayOfBoolean($conf['switch'])) { return false; }
+        foreach($conf['link'] as $pair) {
+            if (!self::checkArrayOfString($pair)) { return false; }
+        }
+        return true;
+    }
+
+    private static function checkSubArray($conf, $index)
+    {
+        if (!isset($conf[$index])) {
+            return false;
+        }
+        if (gettype($conf[$index]) !== 'array') {
+            return false;
+        }
+        return true;
+    }
+
+    private static function checkArrayOfString($array)
+    {
+        foreach ($array as $i) {
+            if (gettype($i) !== 'string') return false;
+        }
+        return true;
+    }
+
+    private static function checkArrayOfBoolean($array)
+    {
+        foreach ($array as $i) {
+            if (gettype($i) !== 'boolean') return false;
+        }
+        return true;
+    }
+
 }
