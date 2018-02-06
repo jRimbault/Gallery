@@ -10,18 +10,18 @@ use Gallery\Utils\Http\Router;
 
 $route = new Router();
 
-$route->get('/', 'base/home');
-$route->get('/about', 'base/about');
-$route->get('/galleries', 'json/galleries', 'POST');
-$route->get('/assets/css/styles.css', 'assets/styles.css');
-$route->get('/assets/js/main.js', 'assets/main.js');
+$route->add('/', 'base/home');
+$route->add('/about', 'base/about');
+$route->add('/galleries', 'json/galleries', 'POST');
+$route->add('/assets/css/styles.css', 'assets/styles.css');
+$route->add('/assets/js/main.js', 'assets/main.js');
 
 $scanner = new Scan(Path::Gallery());
 
-$route->get($scanner->getGalleries(), 'json/gallery', 'POST');
-$route->get($scanner->getGalleries(), 'base/gallery', 'GET');
+$route->add($scanner->getGalleries(), 'json/gallery', 'POST');
+$route->add($scanner->getGalleries(), 'base/gallery', 'GET');
 
-$route->get('/configuration', 'base/config');
-$route->get('/configuration', 'json/config', 'POST');
+$route->add('/configuration', 'base/config');
+$route->add('/configuration', 'json/config', 'POST');
 
 $route->notFound('/error/404');

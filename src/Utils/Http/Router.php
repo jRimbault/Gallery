@@ -10,6 +10,7 @@ class Router extends Request
 {
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
@@ -19,10 +20,10 @@ class Router extends Request
      */
     private function checkMethod($method)
     {
-        if (is_string($method) && $method === $this->getMethod()) {
+        if (is_string($method) && $method === $this->getRequest('METHOD')) {
             return true;
         }
-        if (is_array($method) && in_array($this->getMethod(), $method)) {
+        if (is_array($method) && in_array($this->getRequest('METHOD'), $method)) {
             return true;
         }
         return false;
@@ -37,7 +38,7 @@ class Router extends Request
     {
         if (is_string($route)) {
             $route = trim($route, '/');
-            if ($route === $this->getURI()) {
+            if ($route === $this->getRequest('URI')) {
                 return true;
             }
         }
@@ -45,7 +46,7 @@ class Router extends Request
             array_walk($route, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->getURI(), $route)) {
+            if (in_array($this->getRequest('URI'), $route)) {
                 return true;
             }
         }
@@ -58,7 +59,7 @@ class Router extends Request
      * @param string $file view file handling the request
      * @param string|array $method list of methods authorized to access the ressource
      */
-    public function get($route, $file, $method = 'GET')
+    public function add($route, $file, $method = 'GET')
     {
         if (!$this->checkMethod($method)) return;
         if (!$this->checkRoute($route)) return;

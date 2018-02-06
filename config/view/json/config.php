@@ -2,28 +2,31 @@
 
 use Gallery\Path;
 use Gallery\Utils\Json;
+use Gallery\Utils\Http\Request;
 
 function removeHash(string $string)
 {
     return ltrim($string, '#');
 }
 
+$request = new Request();
+
 $conf = [
     'site' => [],
     'color' => [],
-    'link' =>  $_POST['link'] ?? [],
+    'link' =>  $request->getPost('link') ?? [],
     'switch' => [],
 ];
 
-$conf['site']['title'] = $_POST['title'] ?? '';
-$conf['site']['about'] = $_POST['about'] ?? '';
-$conf['site']['email'] = $_POST['email'] ?? '';
+$conf['site']['title'] = $request->getPost('title') ?? '';
+$conf['site']['about'] = $request->getPost('about') ?? '';
+$conf['site']['email'] = $request->getPost('email') ?? '';
 
-$conf['color']['background'] = removeHash($_POST['background'] ?? '');
-$conf['color']['lightbox'] = removeHash($_POST['lightbox'] ?? '');
+$conf['color']['background'] = removeHash($request->getPost('background') ?? '');
+$conf['color']['lightbox'] = removeHash($request->getPost('lightbox') ?? '');
 
-$conf['switch']['dev'] = ($_POST['dev'] == 'true');
-$conf['switch']['singlepage'] = ($_POST['singlepage'] == 'true');
+$conf['switch']['dev'] = ($request->getPost('dev') == 'true');
+$conf['switch']['singlepage'] = ($request->getPost('singlepage') == 'true');
 $conf['switch']['theater'] = true;
 
 $file = Path::Root() . '/config/app.json';
