@@ -63,7 +63,7 @@ class Router extends Request
     {
         if (!$this->checkMethod($method)) return;
         if (!$this->checkRoute($route)) return;
-        require_once Path::View() . '/' . $file . '.php';
+        require_once new Path("/config/view/$file.php");
         die();
     }
 
@@ -72,7 +72,7 @@ class Router extends Request
      */
     public function notFound($file)
     {
-        requireFile(Path::View() . $file . '.php');
+        requireFile(new Path("/config/view/$file.php"));
         die();
     }
 }
