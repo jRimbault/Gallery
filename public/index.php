@@ -8,20 +8,21 @@ use Gallery\Path;
 use Gallery\Utils\Filesystem\Scan;
 use Gallery\Utils\Http\Router;
 
-$route = new Router();
+$router = new Router();
 
-$route->add('/', 'base/home');
-$route->add('/about', 'base/about');
-$route->add('/galleries', 'json/galleries', 'POST');
-$route->add('/assets/css/styles.css', 'assets/styles.css');
-$route->add('/assets/js/main.js', 'assets/main.js');
+$router->add('/', 'base/home');
+$router->add('/about', 'base/about');
+$router->add('/galleries', 'json/galleries', 'POST');
+$router->add('/assets/css/styles.css', 'assets/styles.css');
+$router->add('/assets/js/main.js', 'assets/main.js');
 
 $scanner = new Scan(Path::Gallery());
+$galleries = $scanner->getGalleries();
 
-$route->add($scanner->getGalleries(), 'json/gallery', 'POST');
-$route->add($scanner->getGalleries(), 'base/gallery', 'GET');
+$router->add($galleries, 'json/gallery', 'POST');
+$router->add($galleries, 'base/gallery', 'GET');
 
-$route->add('/configuration', 'base/config');
-$route->add('/configuration', 'json/config', 'POST');
+$router->add('/configuration', 'base/config');
+$router->add('/configuration', 'json/config', 'POST');
 
-$route->notFound('/error/404');
+$router->start();

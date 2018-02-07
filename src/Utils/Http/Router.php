@@ -8,6 +8,8 @@ use Gallery\Path;
 
 class Router extends Request
 {
+    private $routes;
+
     public function __construct()
     {
         parent::__construct();
@@ -20,10 +22,12 @@ class Router extends Request
      */
     private function checkMethod($method)
     {
-        if (is_string($method) && $method === $this->server()->getRequest('METHOD')) {
+        if (is_string($method) &&
+            $method === $this->server()->getRequest('METHOD')) {
             return true;
         }
-        if (is_array($method) && in_array($this->server()->getRequest('METHOD'), $method)) {
+        if (is_array($method) &&
+            in_array($this->server()->getRequest('METHOD'), $method)) {
             return true;
         }
         return false;
@@ -34,19 +38,19 @@ class Router extends Request
      * can be of mixed type
      * @param string|array $route
      */
-    private function checkRoute($route)
+    private function checkUri($uri)
     {
-        if (is_string($route)) {
-            $route = trim($route, '/');
-            if ($route === $this->server()->getRequest('URI')) {
+        if (is_string($uri)) {
+            $uri = trim($uri, '/');
+            if ($uri === $this->server()->getRequest('URI')) {
                 return true;
             }
         }
-        if (is_array($route)) {
-            array_walk($route, function ($value) {
+        if (is_array($uri)) {
+            array_walk($uri, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->server()->getRequest('URI'), $route)) {
+            if (in_array($this->server()->getRequest('URI'), $uri)) {
                 return true;
             }
         }
@@ -56,21 +60,33 @@ class Router extends Request
     /**
      * Defines a new route
      * @param string|array $route request uri to access the ressource
-     * @param string $file view file handling the request
+     * @param string       $file view file handling the request
      * @param string|array $method list of methods authorized to access the ressource
      */
-    public function add($route, $file, $method = 'GET')
+    public function add($uri, $file, $method = 'GET')
     {
-        if (!$this->checkMethod($method)) return;
-        if (!$this->checkRoute($route)) return;
-        require_once new Path("/config/view/$file.php");
-        die();
+        $this->routes[] = (object) [
+            'method' => $method,
+            'uri'    => $uri,
+            'file'   => $file,
+        ];
+    }
+
+    public function start()
+    {
+        foreach($this->routes as $route) {
+            if (!$this->checkMethod($route->method)) continue;
+            if (!$this->checkUri($route->uri)) continue;
+            requireFile(new Path("/config/view/$route->file.php"));
+            die();
+        }
+        $this->notFound('/error/404');
     }
 
     /**
      * Return a 404 error to the client
      */
-    public function notFound($file)
+    private function notFound($file)
     {
         requireFile(new Path("/config/view/$file.php"));
         die();

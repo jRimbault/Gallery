@@ -7,7 +7,7 @@ use Gallery\Utils\Http\Request;
 
 $request = new Request();
 
-if ($request->getMethod() !== 'GET') {
+if ($request->server()->getRequest('method') !== 'GET') {
     Json::Response([
         'status' => 404,
         'message' => 'Not found',

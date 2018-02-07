@@ -2,10 +2,12 @@
 
 use Gallery\Path;
 use Gallery\Utils\Config;
+use Gallery\Utils\Http\Request;
 use Gallery\Utils\Filesystem\Scan;
 
 
 $conf = Config::Instance();
+$request = new Request();
 
 function buildImgCard($gallery)
 {
@@ -38,7 +40,7 @@ require_once 'inc/header.php';
             <div class="card-columns" id="gallery">
 <?php
 if (!$conf->getSinglePage()) {
-    echo buildImgCard($this->getURI());
+    echo buildImgCard($request->server()->getRequest('uri'));
 }
 ?>
             </div>
