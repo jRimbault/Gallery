@@ -154,7 +154,7 @@ if ($bg->getLightness() > 200) {
             background-color: #343a40;
         }
     </style>
-    <link rel="stylesheet" href="/assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body class="bg-dark">
     <div class="center">

@@ -5,9 +5,9 @@
     <title><?php echo $conf->getTitle(); ?></title>
     <meta name="description" content="<?php echo $conf->getAbout(); ?>">
     <link rel="stylesheet"
-          href="/assets/lib/bootstrap/css/bootstrap.min.css">
+          href="assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet"
-          href="/assets/lib/lightbox/ekko-lightbox.css">
+          href="assets/lib/lightbox/ekko-lightbox.css">
     <link rel="stylesheet"
-          href="/assets/css/styles.css">
+          href="assets/css/styles.css">
 </head>

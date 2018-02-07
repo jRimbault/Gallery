@@ -36,7 +36,7 @@ require_once 'inc/head.php';
 require_once 'inc/header.php';
 ?>
 <link rel="stylesheet"
-        href="/assets/lib/colorpicker/css/bootstrap-colorpicker.css">
+        href="assets/lib/colorpicker/css/bootstrap-colorpicker.css">
 <main role="main">
     <div class="container jumbotron">
         <h1 class="display-4">Configuration</h1>
@@ -197,7 +197,7 @@ if ($conf->getDev()) {
     require_once 'inc/dev-ribbon.html';
 }
 ?>
-<script src="/assets/lib/colorpicker/js/bootstrap-colorpicker.min.js"></script>
+<script src="assets/lib/colorpicker/js/bootstrap-colorpicker.min.js"></script>
 <script>
 $(function () {
     $('#lightbox10').colorpicker({
