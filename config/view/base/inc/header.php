@@ -1,4 +1,7 @@
 <?php
+
+use Gallery\Utils\Http\Request;
+
 function makeLinks($conf)
 {
     $html = '<ul class="list-unstyled">';
@@ -12,17 +15,19 @@ function makeLinks($conf)
     return $html . '</ul>';
 }
 
+$request = new Request();
+
 $title = '';
 $gallery = '';
 $homelink = '#';
+
 if (!$conf->getSinglePage()) {
     $title = $conf->getTitle();
     $homelink = '/';
-    if ($this->getURI()) {
-        $gallery = '> ' . ucfirst($this->getURI());
+    if ($request->server()->get('URI')) {
+        $gallery = '> ' . ucfirst($request->server()->get('URI'));
     }
 }
-
 
 ?>
 <header>

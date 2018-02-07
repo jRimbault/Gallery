@@ -15,19 +15,19 @@ $request = new Request();
 $conf = [
     'site' => [],
     'color' => [],
-    'link' =>  $request->post->get('link') ?? [],
+    'link' =>  $request->post()->get('link') ?? [],
     'switch' => [],
 ];
 
-$conf['site']['title'] = $request->post->get('title') ?? '';
-$conf['site']['about'] = $request->post->get('about') ?? '';
-$conf['site']['email'] = $request->post->get('email') ?? '';
+$conf['site']['title'] = $request->post()->get('title') ?? '';
+$conf['site']['about'] = $request->post()->get('about') ?? '';
+$conf['site']['email'] = $request->post()->get('email') ?? '';
 
-$conf['color']['background'] = removeHash($request->post->get('background') ?? '');
-$conf['color']['lightbox'] = removeHash($request->post->get('lightbox') ?? '');
+$conf['color']['background'] = removeHash($request->post()->get('background') ?? '');
+$conf['color']['lightbox'] = removeHash($request->post()->get('lightbox') ?? '');
 
-$conf['switch']['dev'] = ($request->post->get('dev') == 'true');
-$conf['switch']['singlepage'] = ($request->post->get('singlepage') == 'true');
+$conf['switch']['dev'] = ($request->post()->get('dev') == 'true');
+$conf['switch']['singlepage'] = ($request->post()->get('singlepage') == 'true');
 $conf['switch']['theater'] = true;
 
 $file = Path::Root() . '/config/app.json';

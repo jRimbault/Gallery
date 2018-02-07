@@ -12,31 +12,18 @@ use Gallery\Utils\Http\Server;
  */
 class Request
 {
-    public $get;
-    public $post;
-    public $server;
+    private $_get;
+    private $_post;
+    private $_server;
 
     public function __construct()
     {
-        $this->post = new Post();
-        $this->server = new Server();
-        $this->get = new Get();
+        $this->_get = new Get();
+        $this->_post = new Post();
+        $this->_server = new Server();
     }
 
-    public function getRequest(string $index)
-    {
-        return $this->server->get('REQUEST_' . strtoupper($index));
-    }
-
-    /**
-     * Magic getter for $_SERVER['REQUEST_*']
-     */
-    public function __call($method, $params)
-    {
-        if (strncasecmp($method, 'get', 3) !== 0) return;
-        $var = strtoupper(substr($method, 3));
-        if (!isset($_SERVER['REQUEST_' . $var])) return;
-
-        return trim($_SERVER['REQUEST_' . $var], '/');
-    }
+    public function get() { return $this->_get; }
+    public function post() { return $this->_post; }
+    public function server() { return $this->_server; }
 }

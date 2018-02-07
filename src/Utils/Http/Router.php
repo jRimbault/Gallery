@@ -20,10 +20,10 @@ class Router extends Request
      */
     private function checkMethod($method)
     {
-        if (is_string($method) && $method === $this->getRequest('METHOD')) {
+        if (is_string($method) && $method === $this->server()->getRequest('METHOD')) {
             return true;
         }
-        if (is_array($method) && in_array($this->getRequest('METHOD'), $method)) {
+        if (is_array($method) && in_array($this->server()->getRequest('METHOD'), $method)) {
             return true;
         }
         return false;
@@ -38,7 +38,7 @@ class Router extends Request
     {
         if (is_string($route)) {
             $route = trim($route, '/');
-            if ($route === $this->getRequest('URI')) {
+            if ($route === $this->server()->getRequest('URI')) {
                 return true;
             }
         }
@@ -46,7 +46,7 @@ class Router extends Request
             array_walk($route, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->getRequest('URI'), $route)) {
+            if (in_array($this->server()->getRequest('URI'), $route)) {
                 return true;
             }
         }
