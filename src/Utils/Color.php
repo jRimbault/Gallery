@@ -23,7 +23,7 @@ class Color implements \JsonSerializable
             throw new \Exception('String isn\'t an rgb or rrggbb color');
         }
         $this->color = $string;
-        $this->toHex();
+        $this->toRGB();
         $this->toHSL();
     }
 
@@ -59,48 +59,47 @@ class Color implements \JsonSerializable
      * I want this to determine if the color is light or dark
      * to change the color of the text accordingly
      */
-    private function toHSL()
+    private function toHSL(): array
     {
         $rgb = $this->toRGB();
         $r = 0xFF & ($rgb >> 0x10);
         $g = 0xFF & ($rgb >> 0x8);
         $b = 0xFF & $rgb;
 
-        $r = ( (float) $r ) / 255.0;
-        $g = ( (float) $g ) / 255.0;
-        $b = ( (float) $b ) / 255.0;
+        $r = $r / 255;
+        $g = $g / 255;
+        $b = $b / 255;
 
-        $maxColor = max([$r, $g, $b]);
-        $minColor = min([$r, $g, $b]);
+        $max = max([$r, $g, $b]);
+        $min = min([$r, $g, $b]);
 
-        $lightness = ($maxColor + $minColor) / 2.0;
+        /** shade of grey (monochromatic) */
+        $hue = 0;
+        $saturation = 0;
+        $lightness = ($max + $min) / 2;
 
-        if ($maxColor == $minColor) {
-            $saturation = 0;
-            $hue = 0;
-        } else {
-            if ($lightness < .5) {
-                $saturation = ($maxColor - $minColor) / ($maxColor + $minColor);
-            } else {
-                $saturation = ($maxColor - $minColor) / (2.0 - $maxColor + $minColor);
-            }
-            switch ($maxColor) {
+        /** not shade of grey (!monochromatic) */
+        if (0 < $delta = $max - $min) {
+            $saturation = $delta / (1 - abs(2 * $lightness - 1));
+            switch ($max) {
                 case $r:
-                    $hue = ($g - $b) / ($maxColor - $minColor);
+                    $hue = ($g - $b) / $delta;
                     break;
                 case $g;
-                    $hue = 2.0 + ($b - $r) / ($maxColor - $minColor);
+                    $hue = 2 + ($b - $r) / $delta;
                     break;
                 case $b;
-                    $hue = 4.0 + ($r - $g) / ($maxColor - $minColor);
+                    $hue = 4 + ($r - $g) / $delta;
                     break;
             }
-            $hue /= 6.0;
+            $hue /= 6;
         }
 
-        $this->hue = (int) round(255.0 * $hue);
-        $this->saturation = (int) round(255.0 * $saturation);
-        $this->lightness = (int) round(255.0 * $lightness);
+        return [
+            'hue' => $this->hue = (int) round(255 * $hue),
+            'saturation' => $this->saturation = (int) round(255 * $saturation),
+            'lightness' => $this->lightness = (int) round(255 * $lightness),
+        ];
     }
 
     /** Magic getter method */

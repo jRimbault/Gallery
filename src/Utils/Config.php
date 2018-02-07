@@ -56,10 +56,11 @@ class Config
         if (strncasecmp($method, 'get', 3) === 0) {
             return $this->search($var, $this->conf, $arg);
         }
+        return false;
     }
 
     /** Check configuration */
-    public function Check($conf)
+    public static function Check($conf)
     {
         if (!self::checkSubArray($conf, 'site')) { return false; }
         if (!self::checkSubArray($conf, 'color')) { return false; }
