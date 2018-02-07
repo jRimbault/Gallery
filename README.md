@@ -1,5 +1,6 @@
 
-Simply display galleries of pictures.
+Simply display galleries of pictures.  
+An exercise in overthinking. The first version of this was 50 lines of code and worked perfectly.
 
 ## Install
 
