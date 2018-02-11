@@ -31,22 +31,54 @@ class Kernel extends Router
     {
         $scanner = new Scan(Path::Gallery());
         $galleries = $scanner->getGalleries();
-        $this->add($galleries, 'json/gallery', 'POST');
-        $this->add($galleries, 'base/gallery', 'GET');
+        $this->add(
+            'POST',
+            $galleries,
+            'Gallery\\Controller\\Front\\Gallery::gallery'
+        );
+        $this->add(
+            'GET',
+            $galleries,
+            'Gallery\\Controller\\Front\\Gallery::page'
+        );
     }
 
     private function setStaticGetRoutes()
     {
-        $this->add('/', 'base/home');
-        $this->add('/about', 'base/about');
-        $this->add('/assets/css/styles.css', 'assets/styles.css');
-        $this->add('/assets/js/main.js', 'assets/main.js');
-        $this->add('/configuration', 'base/config');
+        $this->add(
+            'GET',
+            '/',
+            'Gallery\\Controller\\Front\\Home::page'
+        );
+        $this->add(
+            'GET',
+            '/assets/css/styles.css',
+            'Gallery\\Controller\\Front\\Assets::style'
+        );
+        $this->add(
+            'GET',
+            '/assets/js/main.js',
+            'Gallery\\Controller\\Front\\Assets::js'
+        );
+        $this->add(
+            'GET',
+            '/configuration',
+            'Gallery\\Controller\\Back\\Configuration::form'
+        );
     }
 
     private function setStaticPostRoutes()
     {
-        $this->add('/galleries', 'json/galleries', 'POST');
-        $this->add('/configuration', 'json/config', 'POST');
+        $this->add(
+            'POST',
+            '/galleries',
+            'Gallery\\Controller\\Front\\Gallery::galleries'
+        );
+
+        $this->add(
+            'POST',
+            '/configuration',
+            'Gallery\\Controller\\Back\\Configuration::config'
+        );
     }
 }

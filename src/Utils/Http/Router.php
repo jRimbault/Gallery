@@ -2,8 +2,8 @@
 
 namespace Gallery\Utils\Http;
 
-use Gallery\Utils\Http\Request;
 use Gallery\Path;
+use Gallery\Utils\Http\Request;
 
 
 class Router extends Request
@@ -59,16 +59,16 @@ class Router extends Request
 
     /**
      * Defines a new route
-     * @param string|array $route request uri to access the ressource
-     * @param string       $file view file handling the request
-     * @param string|array $method list of methods authorized to access the ressource
+     * @param string|array $method   list of methods authorized to access the ressource
+     * @param string|array $route    request uri
+     * @param string       $callback function handling the request
      */
-    public function add($uri, $file, $method = 'GET')
+    public function add($method, $uri, $callback)
     {
         $this->routes[] = (object) [
-            'method' => $method,
-            'uri'    => $uri,
-            'file'   => $file,
+            'method'   => $method,
+            'uri'      => $uri,
+            'callback' => $callback,
         ];
     }
 
@@ -77,29 +77,18 @@ class Router extends Request
         foreach($this->routes as $route) {
             if (!$this->checkMethod($route->method)) continue;
             if (!$this->checkUri($route->uri)) continue;
-            requireFile(new Path("/config/view/$route->file.php"));
+            call_user_func($route->callback, new Request());
             die();
         }
-        $this->notFound('/error/404');
+        $this->notFound();
     }
 
     /**
      * Return a 404 error to the client
      */
-    private function notFound($file)
+    private function notFound()
     {
-        requireFile(new Path("/config/view/$file.php"));
+        require new Path("/config/view//error/404.php");
         die();
     }
-}
-
-/**
- * Scope isolated include
- *
- * Prevents access to $this/self from included files
- * But allows injecting variables through the array $params
- */
-function requireFile($file, array $params = [])
-{
-    require $file;
 }
