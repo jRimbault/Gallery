@@ -3,6 +3,9 @@
 namespace Gallery\Controller\Front;
 
 use Gallery\Path;
+use Gallery\Utils\Json;
+use Gallery\Utils\Http\Request;
+use Gallery\Utils\Filesystem\Scan;
 
 
 class Gallery
@@ -14,11 +17,19 @@ class Gallery
 
     public static function galleries()
     {
-        require new Path('/config/view/json/galleries.php');
+        $scanner = new Scan(Path::Gallery());
+        Json::Response(array_map(function($value) {
+            return $value . '.jpg';
+        }, $scanner->getGalleries()));
     }
 
-    public static function gallery()
+    public static function gallery(Request $request)
     {
-        require new Path('/config/view/json/gallery.php');
+        $scanner = new Scan(Path::Gallery());
+        Json::Response(
+            $scanner->getGallery(
+                $request->server()->getRequest('uri')
+            )
+        );
     }
 }
