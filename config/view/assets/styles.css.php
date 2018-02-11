@@ -1,32 +1,10 @@
 <?php
 
-header('Content-Type: text/css');
-
 use Gallery\Path;
 use Gallery\Utils\Color;
-use Gallery\Utils\Config;
 
-$conf = Config::Instance();
 
-$bg = new Color('#ffffff');
-$lb = new Color('#ffffff');
-
-if ($conf->getBackground()) {
-    try {
-        $bg = new Color($conf->getBackground());
-    } catch (\Exception $e) {
-        error_log($e->getMessage());
-    }
-}
-if ($conf->getLightbox()) {
-    try {
-        $lb = new Color($conf->getLightbox());
-    } catch (\Exception $e) {
-        error_log($e->getMessage());
-    }
-}
-
-require_once Path::View() . '/assets/static/styles.css';
+require new Path('/config/view/assets/static/styles.css');
 
 ?>
 .bg-dark {

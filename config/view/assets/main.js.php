@@ -1,11 +1,7 @@
 <?php
 
-use Gallery\Utils\Config;
 use Gallery\Path;
-
-header('Content-Type: application/javascript');
-
-$gallery = basename(Path::Gallery()) . '/';
+use Gallery\Utils\Config;
 
 $conf = Config::Instance();
 
@@ -14,8 +10,9 @@ $conf = Config::Instance();
 
 const theater = <?php echo $conf->getTheater() ? 'true' : 'false'; ?>;
 const singlepage = <?php echo $conf->getSinglePage() ? 'true' : 'false'; ?>;
-const galleryDirectory = '<?php echo $gallery; ?>';
+const galleryDirectory = 'gallery/';
 const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
 
 <?php
-require_once Path::View() . '/assets/static/main.js';
+
+require new Path('/config/view/assets/static/main.js');
