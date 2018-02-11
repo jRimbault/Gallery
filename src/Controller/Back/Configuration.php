@@ -28,14 +28,15 @@ class Configuration
         $conf['site']['about'] = $request->post()->get('about') ?? '';
         $conf['site']['email'] = $request->post()->get('email') ?? '';
 
-        $conf['color']['background'] = self::removeHash($request->post()->get('background') ?? '');
-        $conf['color']['lightbox'] = self::removeHash($request->post()->get('lightbox') ?? '');
+        $conf['color']['background'] = $request->post()->get('background') ?? '';
+        $conf['color']['lightbox'] = $request->post()->get('lightbox') ?? '';
 
         $conf['switch']['dev'] = ($request->post()->get('dev') == 'true');
         $conf['switch']['singlepage'] = ($request->post()->get('singlepage') == 'true');
         $conf['switch']['theater'] = true;
 
-        $file = Path::Root() . '/config/app.json';
+        $path = new Path('/config/app.test.json');
+        $file = $path->__toString();
 
         if ($written = (!file_exists($file) && Config::Check($conf))) {
             Json::writeToFile($conf, $file);
@@ -45,10 +46,5 @@ class Configuration
             'status' => $written,
             'conf' => $conf
         ]);
-    }
-
-    private static function removeHash(string $string)
-    {
-        return ltrim($string, '#');
     }
 }

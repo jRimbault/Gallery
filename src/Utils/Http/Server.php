@@ -10,7 +10,7 @@ class Server
     public function __construct() { $this->server = $_SERVER; }
 
     public function get(string $index) {
-        return trim($this->server[$index] ?? null, '/') ;
+        return trim($this->server[$index] ?? null, '/');
     }
 
     public function getRequest(string $index)

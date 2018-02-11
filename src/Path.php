@@ -3,7 +3,7 @@
 namespace Gallery;
 
 
-class Path
+class Path implements \JsonSerializable
 {
     private $path;
 
@@ -18,6 +18,11 @@ class Path
             return self::Root() . $this->path;
         }
         return $this->path;
+    }
+
+    public function jsonSerialize()
+    {
+        return $this->__toString();
     }
 
     public function name()
