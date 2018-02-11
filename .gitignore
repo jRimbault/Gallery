@@ -4,7 +4,9 @@ assets/img/*
 config/*ini
 config/*json
 var/log/*
+var/cache/*
 !var/log/.gitkeep
+!var/cache/.gitkeep
 public/gallery/*
 !public/gallery/.gitkeep
 !var/.gitkeep
