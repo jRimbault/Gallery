@@ -6,13 +6,22 @@ use Gallery\Path;
 use Gallery\Utils\Json;
 use Gallery\Utils\Config;
 use Gallery\Utils\Http\Request;
+use Gallery\Controller\Controller;
 
 
-class Configuration
+class Configuration extends Controller
 {
     public static function form()
     {
-        require new Path('/config/view/base/config.php');
+        $conf = Config::Instance();
+        if (file_exists(Path::Root() . '/config/app.json') && !$conf->getDev()) {
+            require_once new Path('/config/views/templates/error.html.php');
+            die();
+        }
+        self::render('pages/config.html.twig', [
+            'conf'        => Config::Instance()
+        ]);
+        require new Path('/config/views/pages/config.html.php');
     }
 
     public static function config(Request $request)
