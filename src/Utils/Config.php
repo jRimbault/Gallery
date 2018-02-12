@@ -27,7 +27,7 @@ class Config
     public static function Instance()
     {
         if (!isset(self::$instance)) {
-            self::$instance = new self(Path::Root() . '/config/app.json');
+            self::$instance = new self(new Path('/config/app.json'));
         }
         return self::$instance;
     }
