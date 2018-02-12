@@ -13,7 +13,7 @@ class Home extends Controller
     public static function page()
     {
         $scanner = new Scan(Path::Gallery());
-        self::render('home.html.twig', [
+        self::render('pages/home.html.twig', [
             'conf' => Config::Instance(),
             'galleries' => $scanner->getGalleries(),
         ]);
