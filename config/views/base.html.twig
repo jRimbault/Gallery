@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>{{ conf.getTitle }}</title>
+        <meta name="description" content="{{ conf.getAbout }}">
+        <link rel="stylesheet" href="assets/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/lib/lightbox/ekko-lightbox.css">
+        <link rel="stylesheet" href="assets/css/styles.css">
+    </head>
+<body class="bg-dark">
+    <header>
+        <div class="bg-dark collapse" id="navbarHeader">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-8 py-4">
+                        <h4 class="text-white">À propos</h4>
+                        <p class="text-muted">{{ conf.getAbout }}</p>
+                    </div>
+                    <div class="col-sm-4 py-4">
+                        <h4 class="text-white">Contact</h4>
+                        <ul class="list-unstyled">
+                            {% for link in conf.getLink %}
+                            <li>
+                                <a href="{{ link.url }}" class="text-white">{{ link.text ?? link.url }}</a>
+                            </li>
+                            {% endfor %}
+                            <li>
+                                <a href="mailto:{{ conf.getEmail }}" class="text-white"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar fixed-top navbar-dark bg-dark">
+            <div class="container d-flex justify-content-between">
+                <span class="navbar-brand">
+                    <a href="{% block homelink %}{% endblock homelink %}"
+                        class="navbar-brand" id="title">
+                        {{ conf.getTitle }}
+                    </a>
+                    <span id="breadcrumbs">{% block breadcrumbs %}{% endblock breadcrumbs %}</span>
+                </span>
+                <button class="navbar-toggler collapsed"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarHeader"
+                        aria-controls="navbarHeader"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+    <main role="main">
+    {% block main %}{% endblock main %}
+    </main>
+    <footer class="text-white text-muted bg-dark">
+        <div class="container">
+            <p>
+                ©
+                <a href="https://getbootstrap.com"
+                    class="text-white text-muted">Bootstrap,</a>
+                adapted by
+                <a href="https://jrimbault.github.io"
+                    class="text-white text-muted">Jacques Rimbault
+                </a>
+            </p>
+        </div>
+    </footer>
+    {% block scripts %}<script src="assets/lib/jquery/jquery.min.js"></script>
+    <script src="assets/lib/popper/umd/popper.min.js"></script>
+    <script src="assets/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/lib/lightbox/ekko-lightbox.min.js"></script>
+    <script src="assets/js/main.js"></script>{% endblock scripts %}
+</body>
+</html>

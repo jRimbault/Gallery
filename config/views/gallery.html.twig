@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block homelink %}/{% endblock homelink %}
+
+{% block breadcrumbs %}
+> {{ galleryName | capitalize }}
+{% endblock breadcrumbs %}
+
+{% block main %}
+<div class="album text-muted">
+    <div class="container">
+        <div class="card-columns" id="gallery">
+            {% for image in gallery %}
+            <div class="card text-white bg-dark mb-3">
+                <a href="gallery/{{ galleryName }}/{{ image }}" data-toggle="lightbox" data-gallery="album">
+                    <img class="card-img-top rounded" src="gallery/{{ galleryName }}/thumbnails/{{ image }}">
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock main %}

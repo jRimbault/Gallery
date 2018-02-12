@@ -81,6 +81,7 @@ class Router extends Request
             die();
         }
         $this->notFound();
+        die();
     }
 
     /**
@@ -89,6 +90,5 @@ class Router extends Request
     private function notFound()
     {
         require new Path("/config/view//error/404.php");
-        die();
     }
 }

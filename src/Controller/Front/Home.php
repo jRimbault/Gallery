@@ -3,12 +3,19 @@
 namespace Gallery\Controller\Front;
 
 use Gallery\Path;
+use Gallery\Utils\Config;
+use Gallery\Controller\Controller;
+use Gallery\Utils\Filesystem\Scan;
 
 
-class Home
+class Home extends Controller
 {
     public static function page()
     {
-        require new Path('/config/view/base/home.php');
+        $scanner = new Scan(Path::Gallery());
+        self::render('home.html.twig', [
+            'conf' => Config::Instance(),
+            'galleries' => $scanner->getGalleries(),
+        ]);
     }
 }
