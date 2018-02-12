@@ -65,7 +65,7 @@ class Router extends Request
      */
     public function add($method, $uri, $callback)
     {
-        $this->routes[] = (object) [
+        $this->routes[] = [
             'method'   => $method,
             'uri'      => $uri,
             'callback' => $callback,
@@ -75,9 +75,9 @@ class Router extends Request
     public function start()
     {
         foreach($this->routes as $route) {
-            if (!$this->checkMethod($route->method)) continue;
-            if (!$this->checkUri($route->uri)) continue;
-            call_user_func($route->callback, new Request());
+            if (!$this->checkMethod($route['method'])) continue;
+            if (!$this->checkUri($route['uri'])) continue;
+            call_user_func($route['callback'], new Request());
             die();
         }
         $this->notFound();
@@ -89,6 +89,6 @@ class Router extends Request
      */
     private function notFound()
     {
-        require new Path("/config/view//error/404.php");
+        require new Path('/config/view/error/404.php');
     }
 }
