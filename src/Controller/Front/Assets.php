@@ -15,13 +15,13 @@ class Assets
         $conf = Config::Instance();
         $bg = self::defineColor($conf->getBackground());
         $lb = self::defineColor($conf->getLightbox());
-        require new Path('/config/view/assets/styles.css.php');
+        require new Path('/config/views/assets/styles.css.php');
     }
 
     public static function js()
     {
         header('Content-Type: application/javascript');
-        require new Path('/config/view/assets/main.js.php');
+        require new Path('/config/views/assets/main.js.php');
     }
 
     private static function defineColor(string $input): Color

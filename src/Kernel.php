@@ -74,7 +74,6 @@ class Kernel extends Router
             '/galleries',
             'Gallery\\Controller\\Front\\Gallery::galleries'
         );
-
         $this->add(
             'POST',
             '/configuration',

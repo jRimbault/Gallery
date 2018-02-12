@@ -4,7 +4,7 @@ use Gallery\Path;
 use Gallery\Utils\Color;
 
 
-require new Path('/config/view/assets/static/styles.css');
+require new Path('/config/views/assets/static/styles.css');
 
 ?>
 .bg-dark {

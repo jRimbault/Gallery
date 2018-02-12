@@ -89,6 +89,6 @@ class Router extends Request
      */
     private function notFound()
     {
-        require new Path('/config/view/error/404.php');
+        require new Path('/config/views/templates/error.html.php');
     }
 }

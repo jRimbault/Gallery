@@ -15,4 +15,4 @@ const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
 
 <?php
 
-require new Path('/config/view/assets/static/main.js');
+require new Path('/config/views/assets/static/main.js');
