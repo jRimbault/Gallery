@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block homelink %}
+    {% if conf.getSinglePage %}#{% else %}/{% endif %}
+{% endblock homelink %}
+
+{% block main %}
+    <div class="album text-muted">
+        <div class="container">
+            <div class="card-columns" id="gallery">
+                {% if not conf.getSinglePage %}
+                {% for name in galleries %}
+                <a href='{{ name }}'>
+                    <div class='card text-white bg-dark'>
+                        <img class='card-img-top rounded' src='gallery/{{ name }}.jpg'>
+                        <div class='card-img-overlay'>
+                            <h4 class='card-title'>{{ name | capitalize }}</h4>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock main %}
