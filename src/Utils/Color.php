@@ -21,14 +21,16 @@ class Color implements \JsonSerializable
      * @param string $string rgb or rrggbb string with or without a leading '#'
      * @throws \Exception
      */
-    public function __construct(string $string)
+    public function __construct(string $input)
     {
-        $string = ltrim($string, '#');
-        if (!$this->isHexColor($string)) {
-            throw new \Exception('String isn\'t an rgb or rrggbb color');
+        $input = ltrim($input, '#');
+        if (!$this->isHexColor($input)) {
+            throw new \Exception(
+                "Class Color: `$input` isn't a valid color, only accepts" .
+                " `rgb` or `rrggbb`, with or without a leading `#`"
+            );
         }
-        $this->color = $string;
-        $this->toRGB();
+        $this->color = $input;
         $this->toHSL();
     }
 
@@ -37,10 +39,10 @@ class Color implements \JsonSerializable
      * Could be improved by accepting other format than RRGGBB
      * and supply to the RRGGBB string needed by the other functions
      */
-    private function isHexColor(string $string): bool
+    private function isHexColor(string $input): bool
     {
-        if (!ctype_xdigit($string)) return false;
-        if (!in_array(strlen($string), [3, 6])) return false;
+        if (!ctype_xdigit($input)) return false;
+        if (!in_array(strlen($input), [3, 6])) return false;
         return true;
     }
 
@@ -48,15 +50,23 @@ class Color implements \JsonSerializable
     private function toRGB(): int
     {
         if (strlen($this->color) === 3) {
-            $this->color = $this->color[0] . $this->color[0]
-                    . $this->color[1] . $this->color[1]
-                    . $this->color[2] . $this->color[2];
+            $this->color = self::doubleString($this->color);
         }
-        $this->red = hexdec($this->color[0] . $this->color[1]);
-        $this->green = hexdec($this->color[2] . $this->color[3]);
-        $this->blue = hexdec($this->color[4] . $this->color[5]);
+        $this->red = hexdec(substr($this->color, 0, 1));
+        $this->green = hexdec(substr($this->color, 2, 3));
+        $this->blue = hexdec(substr($this->color, 4, 5));
 
         return $this->rgb = $this->blue + ($this->green << 0x8) + ($this->red << 0x10);
+    }
+
+    /** Double each char in a string */
+    private static function doubleString(string $input): string
+    {
+        $string = [];
+        foreach (str_split($input) as $char) {
+            $string[] = str_repeat($char, 2);
+        }
+        return join($string);
     }
 
     /**
@@ -122,7 +132,7 @@ class Color implements \JsonSerializable
         return "rgb($this->red, $this->green, $this->blue)";
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): string
     {
         return "#$this->color";
     }
@@ -132,10 +142,7 @@ class Color implements \JsonSerializable
         return "#$this->color";
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLightness()
+    public function getLightness(): int
     {
         return $this->lightness;
     }
