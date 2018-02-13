@@ -5,6 +5,7 @@ namespace Gallery\Controller\Back;
 use Gallery\Path;
 use Gallery\Utils\Json;
 use Gallery\Utils\Config;
+use Gallery\Controller\Error;
 use Gallery\Utils\Http\Request;
 use Gallery\Controller\Controller;
 
@@ -15,8 +16,7 @@ class Configuration extends Controller
     {
         $conf = Config::Instance();
         if (file_exists(Path::Root() . '/config/app.json') && !$conf->getDev()) {
-            require_once new Path('/config/views/templates/error.html.php');
-            die();
+            Error::page(new Request());
         }
         self::render('pages/config.html.twig', [
             'conf'        => Config::Instance()

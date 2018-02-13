@@ -25,6 +25,7 @@ class Kernel extends Router
     {
         $this->setStaticGetRoutes();
         $this->setStaticPostRoutes();
+        $this->error('Gallery\\Controller\\Error::page');
     }
 
     private function setDynamicRoutes()
@@ -32,52 +33,36 @@ class Kernel extends Router
         $scanner = new Scan(Path::Gallery());
         $galleries = $scanner->getGalleries();
         $this->add(
-            'POST',
-            $galleries,
-            'Gallery\\Controller\\Front\\Gallery::gallery'
+            $galleries, 'Gallery\\Controller\\Front\\Gallery::gallery', 'POST'
         );
         $this->add(
-            'GET',
-            $galleries,
-            'Gallery\\Controller\\Front\\Gallery::page'
+            $galleries, 'Gallery\\Controller\\Front\\Gallery::page', 'GET'
         );
     }
 
     private function setStaticGetRoutes()
     {
         $this->add(
-            'GET',
-            '/',
-            'Gallery\\Controller\\Front\\Home::page'
+            '/', 'Gallery\\Controller\\Front\\Home::page', 'GET'
         );
         $this->add(
-            'GET',
-            '/assets/css/styles.css',
-            'Gallery\\Controller\\Front\\Assets::style'
+            '/assets/css/styles.css', 'Gallery\\Controller\\Front\\Assets::style', 'GET'
         );
         $this->add(
-            'GET',
-            '/assets/js/main.js',
-            'Gallery\\Controller\\Front\\Assets::js'
+            '/assets/js/main.js', 'Gallery\\Controller\\Front\\Assets::js', 'GET'
         );
         $this->add(
-            'GET',
-            '/configuration',
-            'Gallery\\Controller\\Back\\Configuration::form'
+            '/configuration', 'Gallery\\Controller\\Back\\Configuration::form', 'GET'
         );
     }
 
     private function setStaticPostRoutes()
     {
         $this->add(
-            'POST',
-            '/galleries',
-            'Gallery\\Controller\\Front\\Gallery::galleries'
+            '/galleries', 'Gallery\\Controller\\Front\\Gallery::galleries', 'POST'
         );
         $this->add(
-            'POST',
-            '/configuration',
-            'Gallery\\Controller\\Back\\Configuration::config'
+            '/configuration', 'Gallery\\Controller\\Back\\Configuration::config', 'POST'
         );
     }
 }

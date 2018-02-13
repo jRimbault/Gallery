@@ -9,6 +9,7 @@ use Gallery\Utils\Http\Request;
 class Router extends Request
 {
     private $routes;
+    private $error;
 
     public function __construct()
     {
@@ -59,17 +60,25 @@ class Router extends Request
 
     /**
      * Defines a new route
-     * @param string|array $method   list of methods authorized to access the ressource
-     * @param string|array $route    request uri
+     * @param string       $uri      route path
      * @param string       $callback function handling the request
+     * @param string|array $method   list of methods authorized to access the ressource
      */
-    public function add($method, $uri, $callback)
+    public function add($uri, $callback, $method = 'GET')
     {
         $this->routes[] = [
             'method'   => $method,
             'uri'      => $uri,
             'callback' => $callback,
         ];
+    }
+
+    /**
+     * @param string $callback function handling the error
+     */
+    public function error($callback)
+    {
+        $this->error = $callback;
     }
 
     public function start()
@@ -89,6 +98,6 @@ class Router extends Request
      */
     private function notFound()
     {
-        require new Path('/config/views/templates/error.html.php');
+        call_user_func($this->error, new Request());
     }
 }
