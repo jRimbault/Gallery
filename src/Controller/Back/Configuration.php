@@ -44,7 +44,7 @@ class Configuration extends Controller
         $conf['switch']['singlepage'] = ($request->post()->get('singlepage') == 'true');
         $conf['switch']['theater'] = true;
 
-        $path = new Path('/config/app.test.json');
+        $path = new Path('/config/app.json');
         $file = $path->__toString();
 
         if ($written = (!file_exists($file) && Config::Check($conf))) {
@@ -52,8 +52,8 @@ class Configuration extends Controller
         }
 
         Json::Response([
-            'status' => $written,
-            'conf' => $conf
+            'written' => $written,
+            'sent' => $conf
         ]);
     }
 }
