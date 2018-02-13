@@ -112,7 +112,7 @@ function getGallery() {
     let gallery = $('#gallery');
     $.post(galleryName, json => {
         gallery.empty();
-        gallery.attr('class', 'card-columns')
+        gallery.attr('class', 'card-columns');
         json.forEach(filename => {
             let card = buildCard(galleryName, filename);
             card.appendTo(gallery);
@@ -171,7 +171,7 @@ function homepage() {
     $.post('galleries', json => {
         let gallery = $('#gallery');
         gallery.empty();
-        gallery.attr('class', 'card-columns')
+        gallery.attr('class', 'card-columns');
         json.forEach(filename => {
             let card = buildPortalCard(filename);
             card.appendTo(gallery);

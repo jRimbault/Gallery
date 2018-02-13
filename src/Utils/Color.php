@@ -16,6 +16,11 @@ class Color implements \JsonSerializable
     private $saturation;
     private $lightness;
 
+    /**
+     * Color constructor.
+     * @param string $string rgb or rrggbb string with or without a leading '#'
+     * @throws \Exception
+     */
     public function __construct(string $string)
     {
         $string = ltrim($string, '#');
@@ -125,5 +130,13 @@ class Color implements \JsonSerializable
     public function __toString(): string
     {
         return "#$this->color";
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLightness()
+    {
+        return $this->lightness;
     }
 }
