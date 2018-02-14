@@ -43,4 +43,28 @@ class Home extends Controller
         }
         self::page();
     }
+
+    public static function setGerman(Request $request)
+    {
+        $request->cookie()->set('language', 'de-DE');
+        if ($request->server()->getRequest('method') !== 'GET') {
+            Json::Response([
+                'status' => true,
+                'message' => 'Language changed'
+            ]);
+        }
+        self::page();
+    }
+
+    public static function setItalian(Request $request)
+    {
+        $request->cookie()->set('language', 'it-IT');
+        if ($request->server()->getRequest('method') !== 'GET') {
+            Json::Response([
+                'status' => true,
+                'message' => 'Language changed'
+            ]);
+        }
+        self::page();
+    }
 }

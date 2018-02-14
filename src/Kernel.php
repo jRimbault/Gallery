@@ -75,5 +75,11 @@ class Kernel extends Router
         $this->add(
             '/en', 'Gallery\\Controller\\Front\\Home::setEnglish', ['GET', 'POST']
         );
+        $this->add(
+            '/de', 'Gallery\\Controller\\Front\\Home::setGerman', ['GET', 'POST']
+        );
+        $this->add(
+            '/it', 'Gallery\\Controller\\Front\\Home::setItalian', ['GET', 'POST']
+        );
     }
 }

@@ -1,27 +1,27 @@
 {
-    "signature": "adapté par",
+    "signature": "adatto da",
     "configform": {
         "section": {
-            "website": "Site",
-            "switches": "Modes",
-            "links": "Liens",
-            "colors": "Couleurs"
+            "website": "Sito web",
+            "switches": "Modi",
+            "links": "Links",
+            "colors": "Colori"
         },
         "website": {
-            "title": "Nom du site web",
-            "email": "Adresse de contact",
+            "title": "Nome del sito web",
+            "email": "Indirizzo di contatto",
             "about": "À propos"
         },
         "colors": {
-            "background": "Fond du site",
-            "lightbox": "Bord des photos"
+            "background": "Colore di sfondo",
+            "lightbox": "Colore intorno alle immagini"
         },
         "links": {
-            "text": "Lien"
+            "text": "Link"
         },
         "switches": {
             "dev": "Dev",
-            "singlepage": "Page simple"
+            "singlepage": "Pagina singola"
         }
     }
 }
