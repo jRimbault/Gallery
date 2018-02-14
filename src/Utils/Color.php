@@ -27,11 +27,63 @@ class Color implements \JsonSerializable
         if (!$this->isHexColor($input)) {
             throw new \Exception(
                 "Class Color: `$input` isn't a valid color, only accepts" .
-                " `rgb` or `rrggbb`, with or without a leading `#`"
+                " `rgb` or `rrggbb`, with or without a leading `#`",
+                1
             );
         }
         $this->color = $input;
         $this->toHSL();
+    }
+
+    /**
+     * Color constructor.
+     * @param string $string rgb or rrggbb string with or without a leading '#'
+     * @throws \Exception
+     */
+    public static function withHEX(string $input): self
+    {
+        return new self($input);
+    }
+
+    /**
+     * Color constructor. Values must be between [0-255]
+     * @param int $red   red value
+     * @param int $green green value
+     * @param int $blue  blue value
+     * @throws \Exception
+     */
+    public static function withRGB(int $red, int $green, int $blue): self
+    {
+        self::isValidRGB($red, $green, $blue);
+        $hex[] = (string) dechex($red);
+        $hex[] = (string) dechex($green);
+        $hex[] = (string) dechex($blue);
+        foreach ($hex as &$e) {
+            $e = strlen($e) === 1 ? '0' . $e : $e;
+        }
+        return new self(join($hex));
+    }
+
+    private static function isValidRGB(int $red, int $green, int $blue)
+    {
+        $errors = [false, false, false];
+        if (!self::isInValidRange($red)) { $errors[0] = true; }
+        if (!self::isInValidRange($green)) { $errors[1] = true; }
+        if (!self::isInValidRange($blue)) { $errors[2] = true; }
+        if (in_array(true, $errors)) {
+            $message[] = "Value(s) should be between 0 and 255";
+            if ($errors[0]) { $message[] = "red=$red"; }
+            if ($errors[1]) { $message[] = "green=$green"; }
+            if ($errors[2]) { $message[] = "blue=$blue"; }
+            throw new \Exception(join($message, ', '), 2);
+        }
+    }
+
+    private static function isInValidRange(int $n): bool
+    {
+        if ($n < 0) return false;
+        if ($n > 255) return false;
+        return true;
     }
 
     /**
@@ -52,9 +104,9 @@ class Color implements \JsonSerializable
         if (strlen($this->color) === 3) {
             $this->color = self::doubleString($this->color);
         }
-        $this->red = hexdec(substr($this->color, 0, 1));
-        $this->green = hexdec(substr($this->color, 2, 3));
-        $this->blue = hexdec(substr($this->color, 4, 5));
+        $this->red = hexdec(substr($this->color, 0, 2));
+        $this->green = hexdec(substr($this->color, 2, 2));
+        $this->blue = hexdec(substr($this->color, 4, 2));
 
         return $this->rgb = $this->blue + ($this->green << 0x8) + ($this->red << 0x10);
     }
@@ -76,14 +128,10 @@ class Color implements \JsonSerializable
      */
     private function toHSL(): array
     {
-        $rgb = $this->toRGB();
-        $r = 0xFF & ($rgb >> 0x10);
-        $g = 0xFF & ($rgb >> 0x8);
-        $b = 0xFF & $rgb;
-
-        $r = $r / 255;
-        $g = $g / 255;
-        $b = $b / 255;
+        $this->toRGB();
+        $r = $this->red / 255;
+        $g = $this->green / 255;
+        $b = $this->blue / 255;
 
         $max = max([$r, $g, $b]);
         $min = min([$r, $g, $b]);
@@ -132,14 +180,19 @@ class Color implements \JsonSerializable
         return "rgb($this->red, $this->green, $this->blue)";
     }
 
-    public function jsonSerialize(): string
+    public function getHexString(): string
     {
         return "#$this->color";
     }
 
+    public function jsonSerialize(): string
+    {
+        return $this->getHexString();
+    }
+
     public function __toString(): string
     {
-        return "#$this->color";
+        return $this->getHexString();
     }
 
     public function getLightness(): int

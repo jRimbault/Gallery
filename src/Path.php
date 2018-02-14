@@ -66,15 +66,6 @@ class Path implements \JsonSerializable
         ]);
     }
 
-    /** Shortcut to the base view directory */
-    public static function View() {
-        return join(DIRECTORY_SEPARATOR, [
-            self::Root(),
-            'config',
-            'view',
-        ]);
-    }
-
     /** Shortcut to the front-end libraries directory */
     public static function AssetsLib() {
         return join(DIRECTORY_SEPARATOR, [
