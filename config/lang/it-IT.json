@@ -1,0 +1,27 @@
+{
+    "signature": "adapté par",
+    "configform": {
+        "section": {
+            "website": "Site",
+            "switches": "Modes",
+            "links": "Liens",
+            "colors": "Couleurs"
+        },
+        "website": {
+            "title": "Nom du site web",
+            "email": "Adresse de contact",
+            "about": "À propos"
+        },
+        "colors": {
+            "background": "Fond du site",
+            "lightbox": "Bord des photos"
+        },
+        "links": {
+            "text": "Lien"
+        },
+        "switches": {
+            "dev": "Dev",
+            "singlepage": "Page simple"
+        }
+    }
+}

@@ -16,6 +16,14 @@ class Cookie
         /** setting $_COOKIE to be used in the same php instance */
         $_COOKIE[$index] = $value;
         /** set cookie for future instances */
-        setcookie($index, $value);
+        setcookie(
+            $index,
+            $value,
+            time() + 60*60*24, // duration
+            '/', // path
+            $_SERVER['SERVER_NAME'], // domain
+            false, // https only
+            true // php only
+        );
     }
 }

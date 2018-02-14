@@ -7,7 +7,7 @@ class Path implements \JsonSerializable
 {
     private $path;
 
-    public function __construct(string $path)
+    public function __construct(string $path = '')
     {
         $this->set($path);
     }

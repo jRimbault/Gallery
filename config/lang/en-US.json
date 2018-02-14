@@ -1,0 +1,27 @@
+{
+    "signature": "adapted by",
+    "configform": {
+        "section": {
+            "website": "Website",
+            "switches": "Modes",
+            "links": "Links",
+            "colors": "Colors"
+        },
+        "website": {
+            "title": "Website name",
+            "email": "Contact email",
+            "about": "About"
+        },
+        "colors": {
+            "background": "Background",
+            "lightbox": "Lightbox"
+        },
+        "links": {
+            "text": "Link"
+        },
+        "switches": {
+            "dev": "Dev",
+            "singlepage": "Single page"
+        }
+    }
+}

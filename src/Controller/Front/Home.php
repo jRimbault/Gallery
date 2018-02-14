@@ -22,7 +22,7 @@ class Home extends Controller
 
     public static function setFrench(Request $request)
     {
-        $request->cookie()->set('language', 'fr');
+        $request->cookie()->set('language', 'fr-FR');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
@@ -34,7 +34,7 @@ class Home extends Controller
 
     public static function setEnglish(Request $request)
     {
-        $request->cookie()->set('language', 'en');
+        $request->cookie()->set('language', 'en-US');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
