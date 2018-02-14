@@ -18,6 +18,7 @@ class Kernel extends Router
         parent::__construct();
         $this->setStaticRoutes();
         $this->setDynamicRoutes();
+        $this->setLanguageRoutes();
         $this->start();
     }
 
@@ -63,6 +64,16 @@ class Kernel extends Router
         );
         $this->add(
             '/configuration', 'Gallery\\Controller\\Back\\Configuration::config', 'POST'
+        );
+    }
+
+    private function setLanguageRoutes()
+    {
+        $this->add(
+            '/fr', 'Gallery\\Controller\\Front\\Home::setFrench', ['GET', 'POST']
+        );
+        $this->add(
+            '/en', 'Gallery\\Controller\\Front\\Home::setEnglish', ['GET', 'POST']
         );
     }
 }

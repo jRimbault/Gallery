@@ -32,6 +32,15 @@ class Config
         return self::$instance;
     }
 
+    /** Writes a new configuration file */
+    public static function Write(array $conf): bool
+    {
+        $file = new Path('/config/app.json');
+        if (file_exists($file)) return false;
+        if (!self::Check($conf)) return false;
+        return (bool) Json::writeToFile($conf, $file);
+    }
+
     /**
      * Used by the magic getter method
      * Recursive method

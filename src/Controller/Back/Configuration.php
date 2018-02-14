@@ -14,46 +14,35 @@ class Configuration extends Controller
 {
     public static function form()
     {
-        $conf = Config::Instance();
-        if (file_exists(Path::Root() . '/config/app.json') && !$conf->getDev()) {
+        if (file_exists(new Path('/config/app.json')) &&
+            !Config::Instance()->getDev()) {
             Error::page(new Request());
         }
-        self::render('pages/config.html.twig', [
-            'conf'        => Config::Instance()
-        ]);
-        require new Path('/config/views/pages/config.html.php');
+        self::render('pages/config.html.twig');
     }
 
     public static function config(Request $request)
     {
         $conf = [
-            'site' => [],
-            'color' => [],
+            'site' => [
+                'title' => $request->post()->get('title') ?? '',
+                'about' => $request->post()->get('about') ?? '',
+                'email' => $request->post()->get('email') ?? '',
+            ],
+            'color' => [
+                'background' => $request->post()->get('background') ?? '',
+                'lightbox' => $request->post()->get('lightbox') ?? '',
+            ],
             'link' =>  $request->post()->get('link') ?? [],
-            'switch' => [],
+            'switch' => [
+                'dev' => ($request->post()->get('dev') == 'true'),
+                'singlepage' => ($request->post()->get('singlepage') == 'true'),
+                'theater' => true,
+            ],
         ];
-
-        $conf['site']['title'] = $request->post()->get('title') ?? '';
-        $conf['site']['about'] = $request->post()->get('about') ?? '';
-        $conf['site']['email'] = $request->post()->get('email') ?? '';
-
-        $conf['color']['background'] = $request->post()->get('background') ?? '';
-        $conf['color']['lightbox'] = $request->post()->get('lightbox') ?? '';
-
-        $conf['switch']['dev'] = ($request->post()->get('dev') == 'true');
-        $conf['switch']['singlepage'] = ($request->post()->get('singlepage') == 'true');
-        $conf['switch']['theater'] = true;
-
-        $path = new Path('/config/app.json');
-        $file = $path->__toString();
-
-        if ($written = (!file_exists($file) && Config::Check($conf))) {
-            Json::writeToFile($conf, $file);
-        }
-
         Json::Response([
-            'written' => $written,
-            'sent' => $conf
+            'status' => Config::Write($conf),
+            'received' => $_POST
         ]);
     }
 }

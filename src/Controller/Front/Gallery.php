@@ -17,7 +17,6 @@ class Gallery extends Controller
         $scanner = new Scan(Path::Gallery());
         $gallery = $request->server()->getRequest('uri');
         self::render('pages/gallery.html.twig', [
-            'conf'        => Config::Instance(),
             'galleryName' => $gallery,
             'gallery'     => $scanner->getGallery($gallery),
         ]);

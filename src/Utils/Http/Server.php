@@ -17,4 +17,9 @@ class Server
     {
         return $this->get('REQUEST_' . strtoupper($index));
     }
+
+    public function getHttp(string $index)
+    {
+        return $this->get('HTTP_' . strtoupper($index));
+    }
 }

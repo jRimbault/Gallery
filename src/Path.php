@@ -9,6 +9,11 @@ class Path implements \JsonSerializable
 
     public function __construct(string $path)
     {
+        $this->set($path);
+    }
+
+    public function set(string $path)
+    {
         $this->path = str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 
@@ -18,6 +23,11 @@ class Path implements \JsonSerializable
             return self::Root() . $this->path;
         }
         return $this->path;
+    }
+
+    public function fileExists()
+    {
+        return file_exists(self::Root() . $this->path);
     }
 
     public function jsonSerialize()
