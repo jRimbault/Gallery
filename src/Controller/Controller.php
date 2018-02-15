@@ -4,7 +4,7 @@ namespace Gallery\Controller;
 
 use Gallery\Path;
 use Twig_Environment;
-use Gallery\Utils\Lang;
+use Gallery\Utils\Language;
 use Gallery\Utils\Config;
 use Twig_Loader_Filesystem;
 
@@ -23,7 +23,7 @@ class Controller
         $loader = new Twig_Loader_Filesystem($templates->__toString());
         $twig = new Twig_Environment($loader, $options);
         $clientReturn = '';
-        $params['strings'] = Lang::Instance();
+        $params['strings'] = Language::Instance();
         $params['conf'] = Config::Instance();
         try {
             $clientReturn = $twig->render($file, $params);
