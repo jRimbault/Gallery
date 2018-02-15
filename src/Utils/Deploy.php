@@ -9,17 +9,16 @@ use Gallery\Utils\Filesystem\File;
  * This class is used by composer after the initial `composer install`.
  * It will deploy jQuery, Bootstrap, Popper.js, and ekko-lightbox
  * to the web front-end.
- * If there's no config file alreay, it will write a default one.
+ * If there's no config file already, it will write a default one.
  */
 class Deploy
 {
     /** Initialize a default configuration file */
     public static function Conf()
     {
-        $file = '/config/app.json';
-        $dst = Path::Root() . $file;
+        $file = new Path('/config/app.json');
         $ini = self::makeJsonConf();
-        if (!file_exists($dst) && file_put_contents($dst, $ini)) {
+        if (!$file->fileExists() && file_put_contents($file->get(), $ini)) {
             echo "  Configuration file: `$file`" . PHP_EOL;
         } else {
             echo "  Configuration file already exists (`$file`)" . PHP_EOL;
@@ -31,7 +30,7 @@ class Deploy
     {
         self::deployLib(
             '/vendor/components/jquery',
-            '/jquery',
+            '/public/assets/lib/jquery',
             'jQuery'
         );
     }
@@ -41,7 +40,7 @@ class Deploy
     {
         self::deployLib(
             '/vendor/twbs/bootstrap/dist',
-            '/bootstrap',
+            '/public/assets/lib/bootstrap',
             'Boostrap'
         );
     }
@@ -51,7 +50,7 @@ class Deploy
     {
         self::deployLib(
             '/vendor/FezVrasta/popper.js/dist',
-            '/popper',
+            '/public/assets/lib/popper',
             'popper.js'
         );
     }
@@ -61,7 +60,7 @@ class Deploy
     {
         self::deployLib(
             '/vendor/ashleydw/lightbox/dist',
-            '/lightbox',
+            '/public/assets/lib/lightbox',
             'ekko-lightbox'
         );
     }
@@ -71,7 +70,7 @@ class Deploy
     {
         self::deployLib(
             '/vendor/itsjavi/bootstrap-colorpicker/dist',
-            '/colorpicker',
+            '/public/assets/lib/colorpicker',
             'bootstrap-colorpicker'
         );
     }
@@ -81,9 +80,9 @@ class Deploy
      */
     private static function deployLib(string $src, string $dst, string $name)
     {
-        $src = Path::Root() . $src;
-        $dst = Path::AssetsLib() . $dst;
-        if (File::rcopy($src, $dst)) {
+        $src = new Path($src);
+        $dst = new Path($dst);
+        if (File::rcopy($src->get(), $dst->get())) {
             echo "  $name deployed" . PHP_EOL;
         } else {
             echo "  Couldn't install $name properly" . PHP_EOL;

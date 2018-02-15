@@ -14,7 +14,8 @@ class Configuration extends Controller
 {
     public static function form()
     {
-        if (file_exists(new Path('/config/app.json')) &&
+        $conf = new Path('/config/app.json');
+        if ($conf->fileExists() &&
             !Config::Instance()->getDev()) {
             Error::page(new Request());
         }

@@ -36,7 +36,7 @@ class Config
     public static function Write(array $conf): bool
     {
         $file = new Path('/config/app.json');
-        if (file_exists($file)) return false;
+        if ($file->fileExists()) return false;
         if (!self::Check($conf)) return false;
         return (bool) Json::writeToFile($conf, $file);
     }

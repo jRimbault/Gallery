@@ -27,10 +27,18 @@ class Path implements \JsonSerializable
 
     public function fileExists()
     {
-        return file_exists(self::Root() . $this->path);
+        return file_exists(join(DIRECTORY_SEPARATOR, [
+            self::Root(),
+            $this->path
+        ]));
     }
 
     public function jsonSerialize()
+    {
+        return $this->__toString();
+    }
+
+    public function get()
     {
         return $this->__toString();
     }
