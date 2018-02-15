@@ -5,9 +5,10 @@ namespace Gallery\Controller\Front;
 use Gallery\Path;
 use Gallery\Utils\Color;
 use Gallery\Utils\Config;
+use Gallery\Controller\Controller;
 
 
-class Assets
+class Assets extends Controller
 {
     public static function style()
     {
@@ -28,7 +29,7 @@ class Assets
     public static function js()
     {
         header('Content-Type: application/javascript');
-        require new Path('/config/views/assets/main.js.php');
+        self::render('assets/main.js.twig');
     }
 
     private static function defineColor(string $input): Color
