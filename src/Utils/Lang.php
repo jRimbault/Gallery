@@ -27,14 +27,14 @@ class Lang
 
     private static function parseClientLanguage(): string
     {
-        $preferredLangs = self::getClientPreferences();
+        $preferredLangs = array_map('strtolower', self::getClientPreferences());
         $file = new Path();
         foreach ($preferredLangs as $lang) {
             $file->set("/config/lang/$lang.json");
             if ($file->fileExists()) return $lang;
             error_log("Missing language pack: $lang");
         }
-        return 'en-US';
+        return 'en-us';
     }
 
     private static function getClientLanguage(): string

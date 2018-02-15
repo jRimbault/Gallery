@@ -22,7 +22,7 @@ class Home extends Controller
 
     public static function setFrench(Request $request)
     {
-        $request->cookie()->set('language', 'fr-FR');
+        $request->cookie()->set('language', 'fr-fr');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
@@ -34,7 +34,7 @@ class Home extends Controller
 
     public static function setEnglish(Request $request)
     {
-        $request->cookie()->set('language', 'en-US');
+        $request->cookie()->set('language', 'en-us');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
@@ -46,7 +46,7 @@ class Home extends Controller
 
     public static function setGerman(Request $request)
     {
-        $request->cookie()->set('language', 'de-DE');
+        $request->cookie()->set('language', 'de-de');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
@@ -58,7 +58,7 @@ class Home extends Controller
 
     public static function setItalian(Request $request)
     {
-        $request->cookie()->set('language', 'it-IT');
+        $request->cookie()->set('language', 'it-it');
         if ($request->server()->getRequest('method') !== 'GET') {
             Json::Response([
                 'status' => true,
