@@ -47,7 +47,7 @@ class Language
             '/(,|;)/',
             $this->request->server()->getHttp('accept_language')
         );
-        return array_map('strtolower', $preferences);
+        return array_filter(array_map('strtolower', $preferences));
     }
 
     private function parseClientLanguage(): string
