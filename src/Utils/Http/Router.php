@@ -24,11 +24,11 @@ class Router extends Request
     private function checkMethod($method)
     {
         if (is_string($method) &&
-            $method === $this->server()->getRequest('METHOD')) {
+            $method === $this->server()->getRequest('method')) {
             return true;
         }
         if (is_array($method) &&
-            in_array($this->server()->getRequest('METHOD'), $method)) {
+            in_array($this->server()->getRequest('method'), $method)) {
             return true;
         }
         return false;
@@ -43,7 +43,7 @@ class Router extends Request
     {
         if (is_string($uri)) {
             $uri = trim($uri, '/');
-            if ($uri === $this->server()->getRequest('URI')) {
+            if ($uri === $this->server()->getRequest('uri')) {
                 return true;
             }
         }
@@ -51,7 +51,7 @@ class Router extends Request
             array_walk($uri, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->server()->getRequest('URI'), $uri)) {
+            if (in_array($this->server()->getRequest('uri'), $uri)) {
                 return true;
             }
         }
@@ -60,11 +60,11 @@ class Router extends Request
 
     /**
      * Defines a new route
-     * @param string       $uri      route path
-     * @param string       $callback function handling the request
-     * @param string|array $method   list of methods authorized to access the ressource
+     * @param string|array $uri      route path(s)
+     * @param callable     $callback function handling the request
+     * @param string|array $method   http method(s) to access the ressource
      */
-    public function add($uri, $callback, $method = 'GET')
+    public function add($uri, callable $callback, $method = 'GET')
     {
         $this->routes[] = [
             'method'   => $method,
@@ -81,6 +81,9 @@ class Router extends Request
         $this->error = $callback;
     }
 
+    /**
+     * Search if the current request matches a route
+     */
     public function start()
     {
         foreach($this->routes as $route) {

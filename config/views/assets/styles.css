@@ -9,6 +9,9 @@ main {
 .navbar-brand {
     margin-right: 0;
 }
+.dropdown-toggle {
+    cursor: pointer;
+}
 footer {
     padding-top: 3rem;
     padding-bottom: 3rem;
