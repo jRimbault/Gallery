@@ -2,7 +2,10 @@
 
 namespace Gallery;
 
-
+/**
+ * Helper class to deal with paths
+ * Roughly inspired by the pathlib in python
+ */
 class Path implements \JsonSerializable
 {
     private $path;

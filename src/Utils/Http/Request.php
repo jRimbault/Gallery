@@ -9,7 +9,8 @@ use Gallery\Utils\Http\Server;
 
 
 /**
- * Allow operating on $_SERVER without risk of overwriting data
+ * Allow reading on superglobals without risk of overwriting data
+ * and operating on cookies
  */
 class Request
 {

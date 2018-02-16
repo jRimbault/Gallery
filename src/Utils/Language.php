@@ -13,6 +13,15 @@ class Language
     private $request;
     private static $instance;
 
+    /**
+     * This will not return an instance of the class Language
+     * It returns an array of the strings used throughout the
+     * application
+     * The singleton mode of this class serves to be sure we
+     * only read the language string file only one time
+     * by instance.
+     * @return array multidimensional array of indexed strings
+     */
     public static function Instance()
     {
         if (!isset(self::$instance)) {
@@ -21,6 +30,10 @@ class Language
         return self::$instance->getStrings();
     }
 
+    /**
+     * If want to use as a normal class, you only need the constructor
+     * and the getStrings method to be public
+     */
     private function __construct()
     {
         $this->request = new Request();

@@ -9,7 +9,9 @@ use Gallery\Utils\Filesystem\Scan;
 
 ini_set('error_log', new Path('/var/log/php_error.log'));
 
-
+/**
+ * Used to define all the routes of the application
+ */
 class Kernel extends Router
 {
     /** main */
