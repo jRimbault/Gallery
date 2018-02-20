@@ -31,4 +31,19 @@ class Request
     public function post() { return $this->_post; }
     public function server() { return $this->_server; }
     public function cookie() { return $this->_cookie; }
+
+    public function do(string $uri, string $method = 'GET', array $params = [])
+    {
+        switch (strtolower($method)) {
+            case 'post':
+                return $this->_post->do($uri, $params);
+                break;
+            case 'get':
+                return $this->_get->do($uri, $params);
+                break;
+            default:
+                return null;
+                break;
+        }
+    }
 }
