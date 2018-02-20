@@ -1,6 +1,12 @@
 {
     "name": "jrimbault/gallery",
     "description": "simple gallery website",
+    "authors": [
+        {
+            "name": "jRimbault",
+            "email": "jacques.rimbault@gmail.com"
+        }
+    ],
     "require": {
         "php": "^7.0",
         "ext-imagick": "*",
