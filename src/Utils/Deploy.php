@@ -99,8 +99,8 @@ class Deploy
                 'email' => 'email@example.org'
             ],
             'color' => [
-                'background' => '212529',
-                'lightbox' => '212529'
+                'background' => 'ffffff',
+                'lightbox' => '#ddd'
             ],
             'link' => [
                 [
@@ -116,8 +116,8 @@ class Deploy
                 ]
             ],
             'switch' => [
-                'theater' => false,
-                'dev' => true,
+                'theater' => true,
+                'dev' => false,
                 'singlepage' => false
             ]
         ];
