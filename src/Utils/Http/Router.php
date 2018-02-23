@@ -46,15 +46,11 @@ class Router
     private function checkUri($uri)
     {
         if (is_string($uri)) {
-            $uri = trim($uri, '/');
             if ($uri === $this->request->server()->getRequest('uri')) {
                 return true;
             }
         }
         if (is_array($uri)) {
-            array_walk($uri, function ($value) {
-                return trim($value, '/');
-            });
             if (in_array($this->request->server()->getRequest('uri'), $uri)) {
                 return true;
             }

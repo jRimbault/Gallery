@@ -37,7 +37,9 @@ class Kernel
     private function setDynamicRoutes()
     {
         $scanner = new Scan(Path::Gallery());
-        $galleries = $scanner->getGalleries();
+        $galleries = array_map(function ($value) {
+            return '/' . $value;
+        }, $scanner->getGalleries());
         $this->router->add(
             $galleries, 'Gallery\\Controller\\Front\\Gallery::gallery', 'POST'
         );
