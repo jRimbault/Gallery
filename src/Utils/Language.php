@@ -42,11 +42,7 @@ class Language
 
     private function getLangFile()
     {
-        $file = new Path("/config/lang/$this->lang.json");
-        if (!$file->fileExists()) {
-            $file->set("/config/lang/en-us.json");
-        }
-        return $file;
+        return new Path("/config/lang/$this->lang.json");
     }
 
     private function getStrings()
@@ -56,11 +52,12 @@ class Language
 
     private function getClientPreferences(): array
     {
-        $preferences = preg_split(
-            '/(,|;)/',
-            $this->request->server()->getHttp('accept_language')
-        );
-        return array_filter(array_map('strtolower', $preferences));
+        return array_map('strtolower', array_filter(
+            preg_split(
+                '/(,|;)/',
+                $this->request->server()->getHttp('accept_language')
+            )
+        ));
     }
 
     private function parseClientLanguage(): string
@@ -69,7 +66,9 @@ class Language
         $file = new Path();
         foreach ($preferences as $lang) {
             $file->set("/config/lang/$lang.json");
-            if ($file->fileExists()) return $lang;
+            if ($file->fileExists()) {
+                return $lang;
+            }
             error_log("Missing language pack: $lang");
         }
         return 'en-us';
@@ -77,9 +76,7 @@ class Language
 
     private function getClientLanguage(): string
     {
-        if ($this->request->cookie()->get('language')) {
-            return $this->request->cookie()->get('language');
-        }
-        return $this->parseClientLanguage();
+        return $this->request->cookie()->get('language') ??
+               $this->parseClientLanguage();
     }
 }

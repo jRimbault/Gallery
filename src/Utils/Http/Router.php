@@ -6,14 +6,18 @@ use Gallery\Path;
 use Gallery\Utils\Http\Request;
 
 
-class Router extends Request
+class Router
 {
     private $routes;
     private $error;
+    private $request;
 
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        $this->request = $request;
+        $this->error = function (Request $request) {
+            die('404');
+        };
     }
 
     /**
@@ -24,11 +28,11 @@ class Router extends Request
     private function checkMethod($method)
     {
         if (is_string($method) &&
-            $method === $this->server()->getRequest('method')) {
+            $method === $this->request->server()->getRequest('method')) {
             return true;
         }
         if (is_array($method) &&
-            in_array($this->server()->getRequest('method'), $method)) {
+            in_array($this->request->server()->getRequest('method'), $method)) {
             return true;
         }
         return false;
@@ -43,7 +47,7 @@ class Router extends Request
     {
         if (is_string($uri)) {
             $uri = trim($uri, '/');
-            if ($uri === $this->server()->getRequest('uri')) {
+            if ($uri === $this->request->server()->getRequest('uri')) {
                 return true;
             }
         }
@@ -51,7 +55,7 @@ class Router extends Request
             array_walk($uri, function ($value) {
                 return trim($value, '/');
             });
-            if (in_array($this->server()->getRequest('uri'), $uri)) {
+            if (in_array($this->request->server()->getRequest('uri'), $uri)) {
                 return true;
             }
         }
@@ -74,9 +78,9 @@ class Router extends Request
     }
 
     /**
-     * @param string $callback function handling the error
+     * @param callable $callback function handling the error
      */
-    public function error($callback)
+    public function error(callable $callback)
     {
         $this->error = $callback;
     }
@@ -89,18 +93,10 @@ class Router extends Request
         foreach($this->routes as $route) {
             if (!$this->checkMethod($route['method'])) continue;
             if (!$this->checkUri($route['uri'])) continue;
-            call_user_func($route['callback'], new Request());
+            call_user_func($route['callback'], $this->request);
             die();
         }
-        $this->notFound();
+        call_user_func($this->error, $this->request);
         die();
-    }
-
-    /**
-     * Return a 404 error to the client
-     */
-    private function notFound()
-    {
-        call_user_func($this->error, new Request());
     }
 }
