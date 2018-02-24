@@ -2,84 +2,99 @@
 
 namespace Health;
 
-/**
- * Doctor Rigor
- */
-Class Doctor
+use Health\Diagnostic;
+use Gallery\Utils\Console;
+
+
+class Doctor
 {
-    private $class;
-    private $docs;
-    private $methodsComment;
-    private $report;
+    private $count;
+    private $countMethod;
     private $score;
+    private $logtext;
+    private $classes;
 
     /**
-     * Instantiate a rigorous doctor ;)
-     * @param string $class name of the class
+     * Use the Diagnostic class to run one or several diagnostics
+     * and present a human readable report
      */
-    public function __construct(string $class)
+    public function __construct()
     {
-        $this->class = $class;
-        $this->initDocumenation();
-    }
-
-    /** Return a the report made by `analyze()` */
-    public function getReport(): array
-    {
-        return $this->report ?? $this->analyze();
-    }
-
-    /** Return a the score calculated by `score()` */
-    public function getScore(): float
-    {
-        return $this->score ?? $this->score();
+        $this->count = 0;
+        $this->countMethod = 0;
+        $this->score = 0;
+        $this->logtext = [];
+        $this->classes = [];
     }
 
     /**
-     * Gets the docs of a class
-     * @param string $class name of the class
+     * Add a class to the list of class to be diagnosed
+     * @param string $class class to diagnose
      */
-    private function initDocumenation()
+    public function add(string $class)
     {
-        $reflector = new \ReflectionClass($this->class);
-        foreach ($reflector->getMethods() as $m) {
-            $this->methodsComment[$m->name] = $reflector
-                                    ->getMethod($m->name)
-                                    ->getDocComment();
+        $doc = new Diagnostic($class);
+        $this->classes[] = $doc;
+        $this->score += $doc->getScore();
+        return $this;
+    }
+
+    /**
+     * Put the doctor to work on the current queue
+     * Empties the current queue
+     */
+    public function runDiagnostic()
+    {
+        foreach ($this->classes as $class) {
+            $this->run($class);
+            unset($class);
         }
+        return $this;
     }
 
     /**
-     * Generates a human readable report of the class
+     * Get the human readable report for the class
+     * @param Diagnostic $class class to diagnose
      */
-    private function analyze(): array
+    private function run(Diagnostic $class)
     {
-        $this->report[] = "Class `$this->class`:";
-        $undocumented = 0;
-        foreach ($this->methodsComment as $key => $value) {
-            if (empty($value)) {
-                $undocumented += 1;
-                $this->report[] = " • `$key` is missing docs";
-            }
-        }
-        $methods = count($this->methodsComment);
-        $this->report[] = "$undocumented out of $methods methods are missing docs.";
-        return $this->report;
+        $this->log(join(PHP_EOL, $class->getReport()));
+        $this->log('Score: ' . round($class->getScore() * 100) . '%');
+        $this->log();
+        return $this;
+    }
+
+    /** alias used for calculating the global percentage score */
+    private function globalScore()
+    {
+        return $this->score / count($this->classes);
+    }
+
+    /** Get the global percentage score */
+    public function getScore()
+    {
+        $this->log('Global Score: ' . round(($this->globalScore()) * 100) . '%');
+        return $this;
+    }
+
+    /** fill the report line by line */
+    private function log($message = '')
+    {
+        $this->logtext[] = $message;
     }
 
     /**
-     * Gives a health score between 0 and 1
+     * Prints the report in a human readable output format
+     * @param string $file destination file, if left null goes to STDOUT
      */
-    private function score(): float
+    public function print(string $file = '')
     {
-        $undocumented = 0;
-        foreach ($this->methodsComment as $key => $value) {
-            if (empty($value)) {
-                $undocumented += 1;
-            }
+        $text = join(PHP_EOL, $this->logtext);
+        if (!empty($file)) {
+            Console::message("Report in '".basename($file)."'");
+            file_put_contents($file, $text);
+        } else {
+            Console::message($text);
         }
-        $methods = count($this->methodsComment);
-        return $this->score = ((float)$methods - (float)$undocumented) / (float)$methods;
     }
 }
-

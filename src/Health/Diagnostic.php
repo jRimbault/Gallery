@@ -2,50 +2,90 @@
 
 namespace Health;
 
-use Health\Doctor;
-
-
-class Diagnostic
+/**
+ * Doctor Rigor
+ */
+Class Diagnostic
 {
-    private $count;
+    private $class;
+    private $docs;
+    private $methodsComment;
+    private $report;
     private $score;
-    private $logfile;
 
-    public function __construct(string $file = '')
+    /**
+     * Instantiate a rigorous doctor ;)
+     * @param string $class name of the class
+     */
+    public function __construct(string $class)
     {
-        $this->count = 0;
-        $this->score = 0;
-        if (!empty($file)) {
-            $this->logfile = $file;
-            file_put_contents($this->logfile, '');
+        $this->class = $class;
+        $this->initDocumenation();
+    }
+
+    /** Return a the report made by `analyze()` */
+    public function getReport(): array
+    {
+        return $this->report ?? $this->analyze();
+    }
+
+    /** Return a the score calculated by `score()` */
+    public function getScore(): float
+    {
+        return $this->score ?? $this->score();
+    }
+
+    /**
+     * Gets the docs of a class
+     * @param string $class name of the class
+     */
+    private function initDocumenation()
+    {
+        $reflector = new \ReflectionClass($this->class);
+        foreach ($reflector->getMethods() as $m) {
+            $this->methodsComment[$m->name] = $reflector
+                                    ->getMethod($m->name)
+                                    ->getDocComment();
         }
     }
 
-    public function run(string $class)
+    /**
+     * Generates a human readable report of the class
+     */
+    private function analyze(): array
     {
-        $doc = new Doctor($class);
-        $this->count += 1;
-        $this->score += $doc->getScore();
-        $this->log(join(PHP_EOL, $doc->getReport()));
-        $this->log('Score: ' . round($doc->getScore() * 100) . '%');
-        $this->log();
-    }
-
-    public function globalScore()
-    {
-        return $this->score / $this->count;
-    }
-
-    public function report()
-    {
-        $this->log('Global Score: ' . round(($this->globalScore()) * 100) . '%');
-    }
-
-    private function log($message = '')
-    {
-        fwrite(STDOUT, $message . PHP_EOL);
-        if (isset($this->logfile)) {
-            file_put_contents($this->logfile, $message . PHP_EOL, FILE_APPEND);
+        $this->report[] = "Class `$this->class`:";
+        $undocumented = 0;
+        foreach ($this->methodsComment as $key => $value) {
+            if (empty($value)) {
+                $undocumented += 1;
+                $this->report[] = " • `$key` is missing docs";
+            }
         }
+        $methods = $this->countMethods();
+        $this->report[] = "$undocumented out of $methods methods missing docs.";
+        return $this->report;
+    }
+
+    /** makes the number of methods accessible from exterior */
+    public function countMethods()
+    {
+        return count($this->methodsComment);
+    }
+
+    /**
+     * Gives a health score between 0 and 1
+     */
+    private function score(): float
+    {
+        $undocumented = 0;
+        foreach ($this->methodsComment as $key => $value) {
+            if (empty($value)) {
+                $undocumented += 1;
+            }
+        }
+        $methods = $this->countMethods();
+        return $this->score = ((float)$methods - (float)$undocumented) / (float)$methods;
     }
 }
+
