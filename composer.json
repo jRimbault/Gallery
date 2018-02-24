@@ -45,7 +45,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Gallery\\": "src/"
+            "Gallery\\": "src/",
+            "Health\\": "src/Health"
         }
     },
     "license": "MIT",
