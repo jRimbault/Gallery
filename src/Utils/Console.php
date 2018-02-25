@@ -12,6 +12,9 @@ class Console
 {
     private $option;
 
+    /**
+     * Displays the command line help
+     */
     private function help()
     {
 ?>

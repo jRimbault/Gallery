@@ -12,6 +12,10 @@ class Router
     private $error;
     private $request;
 
+    /**
+     * Router allows defining URI routes
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
         $this->request = $request;

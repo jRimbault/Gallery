@@ -10,17 +10,23 @@ class Path implements \JsonSerializable
 {
     private $path;
 
+    /**
+     * Helper class to deal with paths
+     * Roughly inspired by the pathlib in python
+     */
     public function __construct(string $path = '')
     {
         $this->set($path);
     }
 
+    /** change the path */
     public function set(string $path)
     {
         $this->path = str_replace('/', DIRECTORY_SEPARATOR, $path);
     }
 
-    public function __toString()
+    /** automatic translation of the path */
+    public function __toString(): string
     {
         if ($this->path[0] === DIRECTORY_SEPARATOR) {
             return self::Root() . $this->path;
@@ -28,7 +34,11 @@ class Path implements \JsonSerializable
         return $this->path;
     }
 
-    public function fileExists()
+    /**
+     * Calling file_exists directly on the object works (toString),
+     * but this is cleaner
+     */
+    public function fileExists(): bool
     {
         return file_exists(join(DIRECTORY_SEPARATOR, [
             self::Root(),
@@ -36,22 +46,28 @@ class Path implements \JsonSerializable
         ]));
     }
 
-    public function jsonSerialize()
+    /** implementation of jsonSerialize, just use toString */
+    public function jsonSerialize(): string
     {
         return $this->__toString();
     }
 
-    public function get()
+    /**
+     * Alias for explicitely calling toString
+     */
+    public function get(): string
     {
         return $this->__toString();
     }
 
-    public function name()
+    /** get the last part of the path */
+    public function name(): string
     {
         return basename($this->path);
     }
 
-    public function extension()
+    /** get the file extension at the end of the filename */
+    public function extension(): string
     {
         if (strpos($this->name(), '.') === false) {
             return $this->name();
@@ -60,7 +76,10 @@ class Path implements \JsonSerializable
         return end($array);
     }
 
-    public function atomize()
+    /**
+     * Returns the parts composing the path
+     */
+    public function atomize(): array
     {
         return array_filter(explode(
             DIRECTORY_SEPARATOR,
@@ -73,13 +92,14 @@ class Path implements \JsonSerializable
      */
 
     /** Short for the root directory of the current project */
-    public static function Root()
+    public static function Root(): string
     {
         return dirname(__DIR__);
     }
 
     /** Shortcut to the gallery directory */
-    public static function Gallery() {
+    public static function Gallery(): string
+    {
         return join(DIRECTORY_SEPARATOR, [
             self::Root(),
             'public',
@@ -88,7 +108,8 @@ class Path implements \JsonSerializable
     }
 
     /** Shortcut to the front-end libraries directory */
-    public static function AssetsLib() {
+    public static function AssetsLib(): string
+    {
         return join(DIRECTORY_SEPARATOR, [
             self::Root(),
             'public',

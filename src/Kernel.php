@@ -17,7 +17,9 @@ class Kernel
 {
     private $router;
 
-    /** main */
+    /**
+     * That is the equivalent of 'main'
+     */
     public function __construct(Request $request)
     {
         $this->router = new Router($request);
@@ -27,6 +29,7 @@ class Kernel
         $this->router->start();
     }
 
+    /** group together the static routes */
     private function setStaticRoutes()
     {
         $this->setStaticGetRoutes();
@@ -34,6 +37,7 @@ class Kernel
         $this->router->error('Gallery\\Controller\\Error::page');
     }
 
+    /** group together the dynamic routes */
     private function setDynamicRoutes()
     {
         $scanner = new Scan(Path::Gallery());
@@ -48,6 +52,7 @@ class Kernel
         );
     }
 
+    /** static GET routes */
     private function setStaticGetRoutes()
     {
         $this->router->add(
@@ -64,6 +69,7 @@ class Kernel
         );
     }
 
+    /** static POST routes */
     private function setStaticPostRoutes()
     {
         $this->router->add(
@@ -74,6 +80,7 @@ class Kernel
         );
     }
 
+    /** routes used by the user to choose a language */
     private function setLanguageRoutes()
     {
         $this->router->add(

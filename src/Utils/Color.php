@@ -64,6 +64,12 @@ class Color implements \JsonSerializable
         return new self(join($hex));
     }
 
+    /**
+     * Check if the three values are in the correct RGB range [0-255]
+     * @param int $red
+     * @param int $green
+     * @param int $blue
+     */
     private static function isValidRGB(int $red, int $green, int $blue)
     {
         $errors = [false, false, false];
@@ -79,6 +85,10 @@ class Color implements \JsonSerializable
         }
     }
 
+    /**
+     * Check if n is in [0-255]
+     * @param int $n
+     */
     private static function isInValidRange(int $n): bool
     {
         if ($n < 0) return false;
@@ -175,26 +185,31 @@ class Color implements \JsonSerializable
         return null;
     }
 
+    /** translate the color to RGB values in string format */
     public function getRgbString(): string
     {
         return "rgb($this->red, $this->green, $this->blue)";
     }
 
+    /** translate the color to its HEX encoding, with leading '#' */
     public function getHexString(): string
     {
         return "#$this->color";
     }
 
+    /** will json_encode in HEX format */
     public function jsonSerialize(): string
     {
         return $this->getHexString();
     }
 
+    /** default toString is HEX format */
     public function __toString(): string
     {
         return $this->getHexString();
     }
 
+    /** get the lightness value of the color */
     public function getLightness(): int
     {
         return $this->lightness;

@@ -9,6 +9,8 @@ class Json
      * Send a JSON payload to the client and an http responde code
      * and terminates the program
      * Shortcut method
+     * @param array $array
+     * @param int   $code  http response code
      */
     public static function Response(array $array, int $code = 200)
     {
@@ -35,6 +37,11 @@ class Json
         );
     }
 
+    /**
+     * Pretty print an array to a file
+     * @param array  $array json object
+     * @param string $file  path to the destination file
+     */
     public static function writeToFile(array $array, string $file)
     {
         return file_put_contents(
