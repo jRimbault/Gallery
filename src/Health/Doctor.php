@@ -33,11 +33,13 @@ class Doctor implements \JsonSerializable
      */
     public function getScore(): float
     {
-        $score = 0;
+        $methods = 0;
+        $undoc = 0;
         foreach ($this->classes as $class) {
-            $score += $class->getScore();
+            $methods += $class->getTotalMethods();
+            $undoc += $class->getCountOfUndocumentedMethods();
         }
-        return $score / count($this->classes);
+        return $undoc / $methods;
     }
 
     /**
