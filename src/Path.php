@@ -9,6 +9,7 @@ namespace Gallery;
 class Path implements \JsonSerializable
 {
     private $path;
+    private static $root;
 
     /**
      * Helper class to deal with paths
@@ -17,6 +18,19 @@ class Path implements \JsonSerializable
     public function __construct(string $path = '')
     {
         $this->set($path);
+    }
+
+    /**
+     * User can set an arbitrary root path to be used
+     * for absolute paths
+     * @param string $path absolute path to the project root directory
+     */
+    public static function setRoot(string $path)
+    {
+        self::$root = rtrim(
+            str_replace('/', DIRECTORY_SEPARATOR, $path),
+            DIRECTORY_SEPARATOR
+        );
     }
 
     /** change the path */
@@ -94,7 +108,7 @@ class Path implements \JsonSerializable
     /** Short for the root directory of the current project */
     public static function Root(): string
     {
-        return dirname(__DIR__);
+        return self::$root ?? dirname(__DIR__);
     }
 
     /** Shortcut to the gallery directory */
