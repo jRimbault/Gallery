@@ -3,98 +3,96 @@
 namespace Health;
 
 use Health\Diagnostic;
-use Gallery\Utils\Console;
 
 
-class Doctor
+class Doctor implements \JsonSerializable
 {
-    private $count;
-    private $countMethod;
-    private $score;
-    private $logtext;
     private $classes;
 
     /**
-     * Use the Diagnostic class to run one or several diagnostics
-     * and present a human readable report
+     * The Doctor is used to run multiple diagnosis and get full
+     * reports about multiple classes
      */
     public function __construct()
     {
-        $this->count = 0;
-        $this->countMethod = 0;
-        $this->score = 0;
-        $this->logtext = [];
         $this->classes = [];
     }
 
     /**
-     * Add a class to the list of class to be diagnosed
-     * @param string $class class to diagnose
+     * Add a class to the Doctor workbench
      */
-    public function add(string $class)
+    public function add(string $class): self
     {
-        $doc = new Diagnostic($class);
-        $this->classes[] = $doc;
-        $this->score += $doc->getScore();
+        $this->classes[] = new Diagnostic($class);
         return $this;
     }
 
     /**
-     * Put the doctor to work on the current queue
-     * Empties the current queue
+     * Get the Doctor's global opinion about his current workbench
+     * From 0 to 1
      */
-    public function runDiagnostic()
+    public function getScore(): float
     {
+        $score = 0;
         foreach ($this->classes as $class) {
-            $this->run($class);
-            unset($class);
+            $score += $class->getScore();
         }
-        return $this;
+        return $score / count($this->classes);
     }
 
     /**
-     * Get the human readable report for the class
-     * @param Diagnostic $class class to diagnose
+     * Get the Doctor's full report
      */
-    private function run(Diagnostic $class)
+    public function report(): array
     {
-        $this->log(join(PHP_EOL, $class->getReport()));
-        $this->log('Score: ' . round($class->getScore() * 100) . '%');
-        $this->log();
-        return $this;
+        $report = [];
+        foreach ($this->classes as $class) {
+            $report[] = $class->report();
+        }
+        return $report;
     }
 
-    /** alias used for calculating the global percentage score */
-    private function globalScore()
+    /** Uses the JSON serialize */
+    public function __toString(): string
     {
-        return $this->score / count($this->classes);
-    }
-
-    /** Get the global percentage score */
-    public function getScore()
-    {
-        $this->log('Global Score: ' . round(($this->globalScore()) * 100) . '%');
-        return $this;
-    }
-
-    /** fill the report line by line */
-    private function log($message = '')
-    {
-        $this->logtext[] = $message;
+        return json_encode(
+            $this->jsonSerialize(),
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
     }
 
     /**
-     * Prints the report in a human readable output format
-     * @param string $file destination file, if left null goes to STDOUT
+     * Returns the report in JSON formatted string
      */
-    public function print(string $file = '')
+    public function jsonSerialize(): array
     {
-        $text = join(PHP_EOL, $this->logtext);
-        if (!empty($file)) {
-            Console::message("Report in '".basename($file)."'");
-            file_put_contents($file, $text);
-        } else {
-            Console::message($text);
+        return $this->report();
+    }
+
+    /**
+     * The Doctor will write a human readable report
+     */
+    public function print(): string
+    {
+        $text = [];
+        foreach ($this->classes as $class) {
+            $text[] = 'Class `'.$class->getClass().'`:';
+            foreach ($class->getListOfUndocumentedMethods() as $method) {
+                $text[] = " • `$method` is missing docs";
+            }
+            $text[] = $class->getCountOfUndocumentedMethods() . ' out of ' .
+                $class->getTotalMethods() . ' methods missing docs.';
+            $text[] = 'Score: ' . $this->toPercent($class->getScore());
+            $text[] = '';
         }
+        $text[] = 'Gloabl Score: ' . $this->toPercent($this->getScore());
+        $text[] = '';
+        return join(PHP_EOL, $text);
+    }
+
+    /** does what it says ? */
+    private function toPercent(float $f): string
+    {
+        return round($f * 100) . '%';
     }
 }

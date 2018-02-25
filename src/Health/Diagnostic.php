@@ -2,37 +2,23 @@
 
 namespace Health;
 
-/**
- * Doctor Rigor
- */
-Class Diagnostic
-{
-    private $class;
-    private $docs;
-    private $methodsComment;
-    private $report;
-    private $score;
 
+Class Diagnostic implements \JsonSerializable
+{
+    private $comments;
+    private $methods;
+    private $list;
     /**
-     * Instantiate a rigorous doctor ;)
-     * @param string $class name of the class
+     * Make a diagnostics of the class
+     * @param string $class name of the class to diagnose
      */
     public function __construct(string $class)
     {
         $this->class = $class;
-        $this->initDocumenation();
-    }
-
-    /** Return a the report made by `analyze()` */
-    public function getReport(): array
-    {
-        return $this->report ?? $this->analyze();
-    }
-
-    /** Return a the score calculated by `score()` */
-    public function getScore(): float
-    {
-        return $this->score ?? $this->score();
+        $this->comments = [];
+        $this->methods = [];
+        $this->list = [];
+        $this->initDocumenation()->analyze();
     }
 
     /**
@@ -42,50 +28,95 @@ Class Diagnostic
     private function initDocumenation()
     {
         $reflector = new \ReflectionClass($this->class);
-        foreach ($reflector->getMethods() as $m) {
-            $this->methodsComment[$m->name] = $reflector
-                                    ->getMethod($m->name)
+        foreach ($reflector->getMethods() as $method) {
+            $this->comments[$method->name] = $reflector
+                                    ->getMethod($method->name)
                                     ->getDocComment();
         }
+        $this->methods = array_keys($this->comments);
+        return $this;
     }
 
     /**
-     * Generates a human readable report of the class
+     * Counts and stores the undocumented methods
      */
-    private function analyze(): array
+    private function analyze()
     {
-        $this->report[] = "Class `$this->class`:";
-        $undocumented = 0;
-        foreach ($this->methodsComment as $key => $value) {
-            if (empty($value)) {
-                $undocumented += 1;
-                $this->report[] = " • `$key` is missing docs";
+        foreach ($this->methods as $method) {
+            if (empty($this->comments[$method])) {
+                $this->list[] = $method;
             }
         }
-        $methods = $this->countMethods();
-        $this->report[] = "$undocumented out of $methods methods missing docs.";
-        return $this->report;
+        return $this;
     }
 
-    /** makes the number of methods accessible from exterior */
-    public function countMethods()
+    /**
+     * Returns an array containing a diagnosis of the class
+     */
+    public function report(): array
     {
-        return count($this->methodsComment);
+        return [
+            'class' => $this->class,
+            'count' => [
+                'all' => $this->getTotalMethods(),
+                'undocumented' => $this->getCountOfUndocumentedMethods(),
+            ],
+            'methods' => [
+                'all' => $this->methods,
+                'undocumented' => $this->getListOfUndocumentedMethods(),
+            ],
+            'score' => $this->getScore()
+        ];
+    }
+
+    /** Get the total number of methods in the class */
+    public function getTotalMethods(): int
+    {
+        return count($this->methods);
+    }
+
+    /** Get the number of undocumented methods in the class */
+    public function getCountOfUndocumentedMethods(): int
+    {
+        return count($this->list);
+    }
+
+    /** Get the list of undocumented methods */
+    public function getListOfUndocumentedMethods(): array
+    {
+        return $this->list;
     }
 
     /**
      * Gives a health score between 0 and 1
      */
-    private function score(): float
+    public function getScore(): float
     {
-        $undocumented = 0;
-        foreach ($this->methodsComment as $key => $value) {
-            if (empty($value)) {
-                $undocumented += 1;
-            }
-        }
-        $methods = $this->countMethods();
-        return $this->score = ((float)$methods - (float)$undocumented) / (float)$methods;
+        return ((float) $this->getTotalMethods() -
+            (float) $this->getCountOfUndocumentedMethods()) /
+            (float) $this->getTotalMethods();
+    }
+
+    /** Returns the diagnosed class */
+    public function getClass(): string
+    {
+        return $this->class;
+    }
+
+    /**
+     * Return JSON string
+     */
+    public function __toString(): string
+    {
+        return json_encode(
+            $this->jsonSerialize(),
+            JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+        );
+    }
+
+    /** Is the default toString */
+    public function jsonSerialize(): array
+    {
+        return $this->report();
     }
 }
-
