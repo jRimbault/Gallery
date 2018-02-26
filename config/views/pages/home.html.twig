@@ -1,14 +1,14 @@
 {% extends "templates/base.html.twig" %}
 
 {% block homelink %}
-    {% if conf.getSinglePage %}#{% else %}/{% endif %}
+    {% if config.getSinglePage %}#{% else %}/{% endif %}
 {% endblock homelink %}
 
 {% block main %}
     <div class="album text-muted">
         <div class="container">
             <div class="card-columns" id="gallery">
-                {% if not conf.getSinglePage %}
+                {% if not config.getSinglePage %}
                 {% for name in galleries %}
                 <a href='{{ name }}'>
                     <div class='card text-white bg-dark'>

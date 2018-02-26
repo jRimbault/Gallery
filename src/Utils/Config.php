@@ -6,71 +6,8 @@ use Conserto\Path;
 use Conserto\Json;
 
 
-/**
- * This class is responsible for loading a configuration file,
- * keeping it in memory, and making it *readable* from everywhere
- */
-class Config
+class Config extends \Conserto\Utils\Config
 {
-    private $conf;
-    private static $instance;
-
-    /**
-     * The constructor should only be used once by PHP instance
-     */
-    private function __construct(string $filename)
-    {
-        $this->conf = Json::DecodeFile($filename);
-    }
-
-    /**
-     * We want this class to be a singleton to keep the configuration
-     * unique for the length of the program execution
-     */
-    public static function Instance()
-    {
-        if (!isset(self::$instance)) {
-            self::$instance = new self(new Path('/config/app.json'));
-        }
-        return self::$instance;
-    }
-
-    /** Writes a new configuration file */
-    public static function Write(array $conf): bool
-    {
-        $file = new Path('/config/app.json');
-        if ($file->fileExists()) return false;
-        if (!self::Check($conf)) return false;
-        return (bool) Json::writeToFile($conf, $file);
-    }
-
-    /**
-     * Used by the magic getter method
-     * Recursive method
-     */
-    private function search($needle, $array, $params = -1)
-    {
-        if (!is_array($array)) return false;
-        $array = array_change_key_case($array, CASE_LOWER);
-        if (isset($array[$needle])) return $array[$needle];
-        foreach ($array as $item) {
-            $ret = $this->search($needle, $item, $params);
-            if ($ret) return $ret;
-        }
-        return false;
-    }
-
-    /** Magic getter method */
-    public function __call($method, $params = [])
-    {
-        $arg = $params[0] ?? -1;
-        $var = strtolower(substr($method, 3));
-        if (strncasecmp($method, 'get', 3) === 0) {
-            return $this->search($var, $this->conf, $arg);
-        }
-        return false;
-    }
-
     /** Check configuration */
     public static function Check(array $conf): bool
     {
@@ -126,5 +63,4 @@ class Config
         }
         return true;
     }
-
 }

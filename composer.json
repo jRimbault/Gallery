@@ -9,14 +9,13 @@
     ],
     "require": {
         "php": "^7.0",
-        "jrimbault/conserto": "0.1.0",
+        "jrimbault/conserto": "^0.2.0",
         "ext-imagick": "*",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1",
         "ashleydw/lightbox": "5.3.0",
         "FezVrasta/popper.js": "1.12.9",
-        "itsjavi/bootstrap-colorpicker": "^2.5",
-        "twig/twig": "^2.0"
+        "itsjavi/bootstrap-colorpicker": "^2.5"
     },
     "repositories": {
         "ekko-lightbox": {

@@ -5,9 +5,9 @@ namespace Gallery\Controller\Back;
 use Conserto\Path;
 use Conserto\Json;
 use Conserto\Server\Http\Request;
+use Conserto\Controller;
 use Gallery\Utils\Config;
 use Gallery\Controller\Error;
-use Gallery\Controller\Controller;
 
 
 class Configuration extends Controller

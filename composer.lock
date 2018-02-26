@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "85f8a2f4ab4bd10b4340ddf95dfc69f5",
-    "content-hash": "ac42efc39211472842ec8f8faae16233",
+    "hash": "b93677c484df590f69e2bc559c6fad55",
+    "content-hash": "ec3b6865443e4cc390965b257927ee33",
     "packages": [
         {
             "name": "FezVrasta/popper.js",
@@ -102,16 +102,25 @@
         },
         {
             "name": "jrimbault/conserto",
-            "version": "v0.1.0",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.jrimbault.io/jRimbault/Conserto.git",
-                "reference": "0b359ada8dba116a556a2bef203f624e054156c2"
+                "reference": "c34901dd2e63071bc826df639b2ef0342c166d4b"
+            },
+            "require": {
+                "php": "^7.0",
+                "twig/twig": "^2.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Conserto\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Conserto\\Tests\\": "tests/"
                 }
             },
             "license": [
@@ -123,7 +132,8 @@
                     "email": "jacques.rimbault@gmail.com"
                 }
             ],
-            "time": "2018-02-26 08:35:45"
+            "description": "Router, Controller and helper classes",
+            "time": "2018-02-26 16:59:49"
         },
         {
             "name": "symfony/polyfill-mbstring",

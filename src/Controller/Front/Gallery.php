@@ -4,10 +4,10 @@ namespace Gallery\Controller\Front;
 
 use Conserto\Path;
 use Conserto\Json;
+use Conserto\Controller;
 use Conserto\Server\Http\Request;
 use Gallery\Utils\Config;
 use Gallery\Utils\Filesystem\Scan;
-use Gallery\Controller\Controller;
 
 
 class Gallery extends Controller

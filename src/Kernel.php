@@ -3,8 +3,10 @@
 namespace Gallery;
 
 use Conserto\Path;
+use Conserto\Utils\Language;
 use Conserto\Server\Router;
 use Conserto\Server\Http\Request;
+use Gallery\Utils\Config;
 use Gallery\Utils\Filesystem\Scan;
 
 
@@ -22,6 +24,8 @@ class Kernel
      */
     public function __construct(Request $request)
     {
+        Language::setLanguageDir('/config/lang');
+        Config::setConfigFile('/config/app.json');
         $this->router = new Router($request);
         $this->setStaticRoutes();
         $this->setDynamicRoutes();

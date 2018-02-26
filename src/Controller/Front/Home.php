@@ -5,9 +5,9 @@ namespace Gallery\Controller\Front;
 use Conserto\Path;
 use Conserto\Json;
 use Conserto\Server\Http\Request;
+use Conserto\Controller;
 use Gallery\Utils\Config;
 use Gallery\Utils\Filesystem\Scan;
-use Gallery\Controller\Controller;
 
 
 class Home extends Controller

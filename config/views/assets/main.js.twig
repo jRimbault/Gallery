@@ -1,7 +1,7 @@
 'use strict';
 
-const theater = {{ conf.getTheater ? 'true' : 'false' }};
-const singlepage = {{ conf.getSinglePage ? 'true' : 'false' }};
+const theater = {{ config.getTheater ? 'true' : 'false' }};
+const singlepage = {{ config.getSinglePage ? 'true' : 'false' }};
 const galleryDirectory = 'gallery/';
 const thumbnailsDirectory = (name) => galleryDirectory + name + '/thumbnails/';
 

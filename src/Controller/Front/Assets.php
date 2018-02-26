@@ -3,9 +3,9 @@
 namespace Gallery\Controller\Front;
 
 use Conserto\Path;
-use Gallery\Utils\Color;
+use Conserto\Controller;
 use Gallery\Utils\Config;
-use Gallery\Controller\Controller;
+use Gallery\Utils\Color;
 
 
 class Assets extends Controller

@@ -4,10 +4,10 @@ namespace Gallery\Controller;
 
 use Conserto\Path;
 use Conserto\Json;
-use Gallery\Utils\Color;
-use Gallery\Utils\Config;
 use Conserto\Server\Http\Request;
-use Gallery\Controller\Controller;
+use Conserto\Controller;
+use Gallery\Utils\Config;
+use Gallery\Utils\Color;
 
 
 class Error extends Controller
