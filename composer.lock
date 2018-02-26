@@ -102,11 +102,11 @@
         },
         {
             "name": "jrimbault/conserto",
-            "version": "v0.2.0",
+            "version": "v0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://git.jrimbault.io/jRimbault/Conserto.git",
-                "reference": "c34901dd2e63071bc826df639b2ef0342c166d4b"
+                "reference": "64f6c0f9dfe199e6a7f9fb16ce70cc69b382dfe4"
             },
             "require": {
                 "php": "^7.0",
@@ -133,7 +133,7 @@
                 }
             ],
             "description": "Router, Controller and helper classes",
-            "time": "2018-02-26 16:59:49"
+            "time": "2018-02-26 17:57:42"
         },
         {
             "name": "symfony/polyfill-mbstring",

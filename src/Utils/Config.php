@@ -8,6 +8,16 @@ use Conserto\Json;
 
 class Config extends \Conserto\Utils\Config
 {
+
+    /** Writes a new configuration file */
+    public static function Write(array $conf): bool
+    {
+        $file = new Path('/config/app.json');
+        if ($file->fileExists()) return false;
+        if (!self::Check($conf)) return false;
+        return (bool) Json::writeToFile($conf, $file);
+    }
+
     /** Check configuration */
     public static function Check(array $conf): bool
     {
