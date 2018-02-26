@@ -3,6 +3,7 @@
 namespace Gallery;
 
 use Conserto\Path;
+use Conserto\Controller;
 use Conserto\Utils\Language;
 use Conserto\Server\Router;
 use Conserto\Server\Http\Request;
@@ -19,13 +20,21 @@ class Kernel
 {
     private $router;
 
+    private function setConsertoConfiguration()
+    {
+        Path::setRoot(dirname(__DIR__));
+        Language::setLanguageDir(new Path('/config/lang'));
+        Config::setConfigFile(new Path('/config/app.json'));
+        Controller::setCache(new Path('/var/cache'));
+        Controller::setTemplate(new Path('/config/views'));
+    }
+
     /**
      * That is the equivalent of 'main'
      */
     public function __construct(Request $request)
     {
-        Language::setLanguageDir('/config/lang');
-        Config::setConfigFile('/config/app.json');
+        $this->setConsertoConfiguration();
         $this->router = new Router($request);
         $this->setStaticRoutes();
         $this->setDynamicRoutes();
