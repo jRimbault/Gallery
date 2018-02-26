@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a398fbf7269d5e6432f24970c4b2c71e",
-    "content-hash": "7d4a9e387d781a845fbb46d4aa7e1db0",
+    "hash": "85f8a2f4ab4bd10b4340ddf95dfc69f5",
+    "content-hash": "ac42efc39211472842ec8f8faae16233",
     "packages": [
         {
             "name": "FezVrasta/popper.js",
@@ -99,6 +99,31 @@
             ],
             "description": "Fancy and customizable colorpicker plugin for Twitter Bootstrap",
             "time": "2017-02-05 18:59:49"
+        },
+        {
+            "name": "jrimbault/conserto",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.jrimbault.io/jRimbault/Conserto.git",
+                "reference": "0b359ada8dba116a556a2bef203f624e054156c2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Conserto\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "jRimbault",
+                    "email": "jacques.rimbault@gmail.com"
+                }
+            ],
+            "time": "2018-02-26 08:35:45"
         },
         {
             "name": "symfony/polyfill-mbstring",

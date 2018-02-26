@@ -2,8 +2,8 @@
 
 namespace Gallery\Utils;
 
-use Gallery\Path;
-use Gallery\Utils\Json;
+use Conserto\Path;
+use Conserto\Json;
 
 
 /**

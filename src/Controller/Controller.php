@@ -2,7 +2,7 @@
 
 namespace Gallery\Controller;
 
-use Gallery\Path;
+use Conserto\Path;
 use Twig_Environment;
 use Gallery\Utils\Language;
 use Gallery\Utils\Config;

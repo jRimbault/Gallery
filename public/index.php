@@ -1,8 +1,8 @@
 <?php
 
-use Gallery\Path;
 use Gallery\Kernel;
-use Gallery\Utils\Http\Request;
+use Conserto\Path;
+use Conserto\Server\Http\Request;
 
 
 require_once '../vendor/autoload.php';

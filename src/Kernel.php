@@ -2,9 +2,9 @@
 
 namespace Gallery;
 
-use Gallery\Path;
-use Gallery\Utils\Http\Router;
-use Gallery\Utils\Http\Request;
+use Conserto\Path;
+use Conserto\Server\Router;
+use Conserto\Server\Http\Request;
 use Gallery\Utils\Filesystem\Scan;
 
 

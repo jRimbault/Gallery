@@ -3,7 +3,7 @@
 namespace Gallery\Utils\Filesystem;
 
 use Imagick;
-use Gallery\Path;
+use Conserto\Path;
 use Gallery\Utils\Console;
 use Gallery\Utils\Filesystem\File;
 

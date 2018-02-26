@@ -9,6 +9,7 @@
     ],
     "require": {
         "php": "^7.0",
+        "jrimbault/conserto": "0.1.0",
         "ext-imagick": "*",
         "twbs/bootstrap": "4.0.0",
         "components/jquery": "3.2.1",
@@ -41,6 +42,10 @@
                     "reference": "v1.12.9"
                 }
             }
+        },
+        "conserto": {
+            "type": "vcs",
+            "url": "https://git.jrimbault.io/jRimbault/Conserto.git"
         }
     },
     "autoload": {
@@ -52,12 +57,7 @@
     "license": "MIT",
     "scripts": {
         "post-install-cmd": [
-            "Gallery\\Utils\\Deploy::Conf",
-            "Gallery\\Utils\\Deploy::jQuery",
-            "Gallery\\Utils\\Deploy::Bootstrap",
-            "Gallery\\Utils\\Deploy::popperjs",
-            "Gallery\\Utils\\Deploy::ekkoLightbox",
-            "Gallery\\Utils\\Deploy::colorpicker"
+            "Gallery\\Utils\\Deploy::Install"
         ]
     }
 }

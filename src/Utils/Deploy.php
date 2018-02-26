@@ -2,7 +2,7 @@
 
 namespace Gallery\Utils;
 
-use Gallery\Path;
+use Conserto\Path;
 use Gallery\Utils\Filesystem\File;
 
 /**
@@ -13,6 +13,17 @@ use Gallery\Utils\Filesystem\File;
  */
 class Deploy
 {
+    public static function Install()
+    {
+        Path::setRoot(dirname(dirname(__DIR__)));
+        self::Conf();
+        self::jQuery();
+        self::Bootstrap();
+        self::popperjs();
+        self::ekkoLightbox();
+        self::colorpicker();
+    }
+
     /** Initialize a default configuration file */
     public static function Conf()
     {

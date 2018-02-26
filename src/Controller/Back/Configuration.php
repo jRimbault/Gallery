@@ -2,11 +2,11 @@
 
 namespace Gallery\Controller\Back;
 
-use Gallery\Path;
-use Gallery\Utils\Json;
+use Conserto\Path;
+use Conserto\Json;
+use Conserto\Server\Http\Request;
 use Gallery\Utils\Config;
 use Gallery\Controller\Error;
-use Gallery\Utils\Http\Request;
 use Gallery\Controller\Controller;
 
 

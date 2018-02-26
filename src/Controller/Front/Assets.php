@@ -2,7 +2,7 @@
 
 namespace Gallery\Controller\Front;
 
-use Gallery\Path;
+use Conserto\Path;
 use Gallery\Utils\Color;
 use Gallery\Utils\Config;
 use Gallery\Controller\Controller;

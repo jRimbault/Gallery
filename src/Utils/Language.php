@@ -2,9 +2,9 @@
 
 namespace Gallery\Utils;
 
-use Gallery\Path;
-use Gallery\Utils\Json;
-use Gallery\Utils\Http\Request;
+use Conserto\Path;
+use Conserto\Json;
+use Conserto\Server\Http\Request;
 
 
 class Language
