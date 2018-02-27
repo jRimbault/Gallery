@@ -6,7 +6,6 @@ use Conserto\Path;
 use Conserto\Controller;
 use Conserto\Utils\Language;
 use Conserto\Server\Router;
-use Conserto\Server\Http\Request;
 use Gallery\Utils\Config;
 use Gallery\Utils\Filesystem\Scan;
 
@@ -22,7 +21,6 @@ class Kernel
 
     private function setConsertoConfiguration()
     {
-        Path::setRoot(dirname(__DIR__));
         Language::setLanguageDir(new Path('/config/lang'));
         Config::setConfigFile(new Path('/config/app.json'));
         Controller::setCache(new Path('/var/cache'));
@@ -32,10 +30,10 @@ class Kernel
     /**
      * That is the equivalent of 'main'
      */
-    public function __construct(Request $request)
+    public function __construct()
     {
         $this->setConsertoConfiguration();
-        $this->router = new Router($request);
+        $this->router = new Router();
         $this->setStaticRoutes();
         $this->setDynamicRoutes();
         $this->setLanguageRoutes();
@@ -53,7 +51,7 @@ class Kernel
     /** group together the dynamic routes */
     private function setDynamicRoutes()
     {
-        $scanner = new Scan(Path::Gallery());
+        $scanner = new Scan(new Path('/public/gallery'));
         $galleries = array_map(function ($value) {
             return '/' . $value;
         }, $scanner->getGalleries());

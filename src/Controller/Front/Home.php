@@ -14,7 +14,7 @@ class Home extends Controller
 {
     public static function page()
     {
-        $scanner = new Scan(Path::Gallery());
+        $scanner = new Scan(new Path('/public/gallery'));
         self::render('pages/home.html.twig', [
             'galleries' => $scanner->getGalleries(),
         ]);

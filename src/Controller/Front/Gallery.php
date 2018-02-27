@@ -14,7 +14,7 @@ class Gallery extends Controller
 {
     public static function page(Request $request)
     {
-        $scanner = new Scan(Path::Gallery());
+        $scanner = new Scan(new Path('/public/gallery'));
         $gallery = $request->server()->getRequest('uri');
         self::render('pages/gallery.html.twig', [
             'galleryName' => trim($gallery, '/'),

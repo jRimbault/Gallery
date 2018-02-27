@@ -24,6 +24,11 @@ class Thumbnail
         $this->image = $image;
     }
 
+    private static function getGalleryPath()
+    {
+        return new Path('/public/gallery');
+    }
+
     /**
      * Generates thumbnail using Imagemagick's php extension Imagick
      */
@@ -69,14 +74,14 @@ class Thumbnail
     private function galleryPath()
     {
         return join(DIRECTORY_SEPARATOR, [
-            Path::Gallery(),
+            self::getGalleryPath(),
             $this->gallery,
         ]);
     }
 
     public static function makeThumbnails($gallery = true)
     {
-        $scanner = new Scan(Path::Gallery());
+        $scanner = new Scan(self::getGalleryPath());
         Console::message('Scanning the galleries...');
         if ($gallery !== true) {
             self::makeThumbnailsOf($gallery, $scanner);
@@ -106,7 +111,7 @@ class Thumbnail
 
     public static function deleteThumbnails($gallery = true)
     {
-        $scanner = new Scan(Path::Gallery());
+        $scanner = new Scan(self::getGalleryPath());
         if ($gallery !== true) {
             self::deleteThumbnailsOf($gallery, $scanner);
         } else {
@@ -120,7 +125,7 @@ class Thumbnail
     {
         foreach ($scanner->getGallery($gallery) as $image) {
             $path = join(DIRECTORY_SEPARATOR, [
-                Path::Gallery(),
+                self::getGalleryPath(),
                 $gallery,
                 'thumbnails'
             ]);
