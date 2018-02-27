@@ -29,7 +29,7 @@ class Assets extends Controller
     public static function js()
     {
         header('Content-Type: application/javascript');
-        self::render('assets/main.js.twig');
+        self::render('assets/main.twig.js');
     }
 
     private static function defineColor(string $input): Color
