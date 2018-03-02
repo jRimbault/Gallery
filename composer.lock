@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5c42ca552a510c9859b4911bfff4641b",
-    "content-hash": "b7c45cdddc1ef80c25d5627b23d50950",
+    "hash": "be939dd39fd13eb57581ae04dfa1b776",
+    "content-hash": "23061dd503977c6ab706a849c67a1363",
     "packages": [
         {
             "name": "FezVrasta/popper.js",
@@ -23,7 +23,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ashleydw/lightbox",
-                "reference": "39f585ad764230954d6a6ee86247c7e0d56db995"
+                "reference": "5.3.0"
             },
             "type": "library"
         },
