@@ -23,13 +23,14 @@ class Home extends Controller
     public function homeRedirect()
     {
         header('Location: /');
+        die();
     }
 
     public function setFrench(Request $request)
     {
         $request->cookie()->set('language', 'fr-fr');
         $this->homeRedirect();
-        }
+    }
 
     public function setEnglish(Request $request)
     {
