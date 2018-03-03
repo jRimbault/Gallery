@@ -12,22 +12,20 @@ use Gallery\Utils\Color;
 
 class Error extends Controller
 {
-    public static function page(Request $request)
+    public function page(Request $request)
     {
-        self::notGet($request);
-        self::htmlError($request);
-        die();
+        return $this->notGet($request) ?? $this->htmlError($request);
     }
 
-    private static function htmlError(Request $request)
+    public function htmlError(Request $request)
     {
         http_response_code(404);
-        self::render('templates/error.html.twig', [
-            'color' => self::htmlTextColor()
+        return $this->render('templates/error.html.twig', [
+            'color' => $this->htmlTextColor()
         ]);
     }
 
-    private static function htmlTextColor(): string
+    private function htmlTextColor(): string
     {
         $conf = Config::Instance();
         $bg = new Color('#ffffff');
@@ -46,13 +44,14 @@ class Error extends Controller
     }
 
 
-    private static function notGet(Request $request)
+    private function notGet(Request $request)
     {
         if ($request->server()->getRequest('method') !== 'GET') {
-            Json::Response([
+            return Json::Response([
                 'status' => 404,
                 'message' => 'Not found',
             ], 404);
         }
+        return null;
     }
 }

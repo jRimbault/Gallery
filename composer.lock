@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "be939dd39fd13eb57581ae04dfa1b776",
-    "content-hash": "23061dd503977c6ab706a849c67a1363",
+    "hash": "514739e5b5a6486776d491c5ba8502c2",
+    "content-hash": "60302cc212f4de7bd547dfbb57ca31dc",
     "packages": [
         {
             "name": "FezVrasta/popper.js",
@@ -23,7 +23,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ashleydw/lightbox",
-                "reference": "5.3.0"
+                "reference": "39f585ad764230954d6a6ee86247c7e0d56db995"
             },
             "type": "library"
         },
@@ -102,11 +102,11 @@
         },
         {
             "name": "jrimbault/conserto",
-            "version": "v0.3.1",
+            "version": "v0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://git.jrimbault.io/jRimbault/Conserto.git",
-                "reference": "b34021186e5ed536cbc177fa8eadced428bb5863"
+                "reference": "6a7c465dad042fd5a43cd64b7d33ea9ffa39a987"
             },
             "require": {
                 "php": "^7.0",
@@ -133,7 +133,7 @@
                 }
             ],
             "description": "Router, Controller and helper classes",
-            "time": "2018-02-27 20:10:15"
+            "time": "2018-03-03 18:22:24"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -247,16 +247,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v2.4.4",
+            "version": "v2.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "eddb97148ad779f27e670e1e3f19fb323aedafeb"
+                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/eddb97148ad779f27e670e1e3f19fb323aedafeb",
-                "reference": "eddb97148ad779f27e670e1e3f19fb323aedafeb",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/d2117ec118c1ff3d28ccddca8212d82787a4809f",
+                "reference": "d2117ec118c1ff3d28ccddca8212d82787a4809f",
                 "shasum": ""
             },
             "require": {
@@ -309,7 +309,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-09-27 18:10:31"
+            "time": "2018-03-03 16:23:01"
         }
     ],
     "packages-dev": [],

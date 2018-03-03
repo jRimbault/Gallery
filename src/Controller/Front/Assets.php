@@ -10,26 +10,27 @@ use Gallery\Utils\Color;
 
 class Assets extends Controller
 {
-    public static function style()
+    public function style()
     {
         header('Content-Type: text/css');
-        require new Path('/config/views/assets/styles.css');
         $conf = Config::Instance();
         $bg = self::defineColor($conf->getBackground());
         $lb = self::defineColor($conf->getLightbox());
-        echo self::backgroundColorRule('.bg-dark', $bg->__toString());
-        echo self::backgroundColorRule('.ekko-lightbox .modal-content', $lb->__toString());
+        $css[] = file_get_contents(new Path('/config/views/assets/styles.css'));
+        $css[] = self::backgroundColorRule('.bg-dark', $bg->__toString());
+        $css[] = self::backgroundColorRule('.ekko-lightbox .modal-content', $lb->__toString());
         if ($bg->getLightness() > 200) {
-            echo self::textColorRule('ul li a.text-white', '#000000');
-            echo self::textColorRule('.navbar .navbar-brand', '#000000');
-            echo self::backgroundColorRule('.navbar-dark .navbar-toggler', '#c4c4c4');
+            $css[] = self::textColorRule('ul li a.text-white', '#000000');
+            $css[] = self::textColorRule('.navbar .navbar-brand', '#000000');
+            $css[] = self::backgroundColorRule('.navbar-dark .navbar-toggler', '#c4c4c4');
         }
+        return join(PHP_EOL, $css);
     }
 
-    public static function js()
+    public function js()
     {
         header('Content-Type: application/javascript');
-        self::render('assets/main.twig.js');
+        return $this->render('assets/main.twig.js');
     }
 
     private static function defineColor(string $input): Color
@@ -47,11 +48,11 @@ class Assets extends Controller
 
     private static function backgroundColorRule(string $selector, string $color): string
     {
-        return "$selector { background-color: $color !important; }" . PHP_EOL;
+        return "$selector { background-color: $color !important; }";
     }
 
     private static function textColorRule(string $selector, string $color): string
     {
-        return "$selector { color: $color !important; }" . PHP_EOL;
+        return "$selector { color: $color !important; }";
     }
 }

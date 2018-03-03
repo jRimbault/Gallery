@@ -12,28 +12,28 @@ use Gallery\Utils\Filesystem\Scan;
 
 class Gallery extends Controller
 {
-    public static function page(Request $request)
+    public function page(Request $request)
     {
         $scanner = new Scan(new Path('/public/gallery'));
         $gallery = $request->server()->getRequest('uri');
-        self::render('pages/gallery.html.twig', [
+        return $this->render('pages/gallery.html.twig', [
             'galleryName' => trim($gallery, '/'),
             'gallery'     => $scanner->getGallery($gallery),
         ]);
     }
 
-    public static function galleries()
+    public function galleries()
     {
-        $scanner = new Scan(Path::Gallery());
-        Json::Response(array_map(function($value) {
+        $scanner = new Scan(new Path('/public/gallery'));
+        return Json::Response(array_map(function($value) {
             return $value . '.jpg';
         }, $scanner->getGalleries()));
     }
 
-    public static function gallery(Request $request)
+    public function gallery(Request $request)
     {
-        $scanner = new Scan(Path::Gallery());
-        Json::Response(
+        $scanner = new Scan(new Path('/public/gallery'));
+        return Json::Response(
             $scanner->getGallery(
                 $request->server()->getRequest('uri')
             )

@@ -12,59 +12,40 @@ use Gallery\Utils\Filesystem\Scan;
 
 class Home extends Controller
 {
-    public static function page()
+    public function page()
     {
         $scanner = new Scan(new Path('/public/gallery'));
-        self::render('pages/home.html.twig', [
+        return $this->render('pages/home.html.twig', [
             'galleries' => $scanner->getGalleries(),
         ]);
     }
 
-    public static function setFrench(Request $request)
+    public function homeRedirect()
+    {
+        header('Location: /');
+    }
+
+    public function setFrench(Request $request)
     {
         $request->cookie()->set('language', 'fr-fr');
-        if ($request->server()->getRequest('method') !== 'GET') {
-            Json::Response([
-                'status' => true,
-                'message' => 'Language changed'
-            ]);
+        $this->homeRedirect();
         }
-        self::page();
-    }
 
-    public static function setEnglish(Request $request)
+    public function setEnglish(Request $request)
     {
         $request->cookie()->set('language', 'en-us');
-        if ($request->server()->getRequest('method') !== 'GET') {
-            Json::Response([
-                'status' => true,
-                'message' => 'Language changed'
-            ]);
-        }
-        self::page();
+        $this->homeRedirect();
     }
 
-    public static function setGerman(Request $request)
+    public function setGerman(Request $request)
     {
         $request->cookie()->set('language', 'de-de');
-        if ($request->server()->getRequest('method') !== 'GET') {
-            Json::Response([
-                'status' => true,
-                'message' => 'Language changed'
-            ]);
-        }
-        self::page();
+        $this->homeRedirect();
     }
 
-    public static function setItalian(Request $request)
+    public function setItalian(Request $request)
     {
         $request->cookie()->set('language', 'it-it');
-        if ($request->server()->getRequest('method') !== 'GET') {
-            Json::Response([
-                'status' => true,
-                'message' => 'Language changed'
-            ]);
-        }
-        self::page();
+        $this->homeRedirect();
     }
 }

@@ -4,10 +4,15 @@ namespace Gallery;
 
 use Conserto\Path;
 use Conserto\Controller;
-use Conserto\Utils\Language;
 use Conserto\Server\Router;
+use Conserto\Utils\Language;
 use Gallery\Utils\Config;
 use Gallery\Utils\Filesystem\Scan;
+use Gallery\Controller\Error;
+use Gallery\Controller\Front\Home;
+use Gallery\Controller\Front\Assets;
+use Gallery\Controller\Front\Gallery;
+use Gallery\Controller\Back\Configuration;
 
 
 ini_set('error_log', new Path('/var/log/php_error.log'));
@@ -37,7 +42,11 @@ class Kernel
         $this->setStaticRoutes();
         $this->setDynamicRoutes();
         $this->setLanguageRoutes();
-        $this->router->start();
+    }
+
+    public function start()
+    {
+        return $this->router->start();
     }
 
     /** group together the static routes */
@@ -45,66 +54,46 @@ class Kernel
     {
         $this->setStaticGetRoutes();
         $this->setStaticPostRoutes();
-        $this->router->error('Gallery\\Controller\\Error::page');
+        $this->router->error(Error::class, 'page');
     }
 
     /** group together the dynamic routes */
     private function setDynamicRoutes()
     {
         $scanner = new Scan(new Path('/public/gallery'));
+
         $galleries = array_map(function ($value) {
             return '/' . $value;
         }, $scanner->getGalleries());
-        $this->router->add(
-            $galleries, 'Gallery\\Controller\\Front\\Gallery::gallery', 'POST'
-        );
-        $this->router->add(
-            $galleries, 'Gallery\\Controller\\Front\\Gallery::page', 'GET'
-        );
+
+        foreach ($galleries as $gallery) {
+            $this->router->add($gallery, Gallery::class, 'gallery', 'POST');
+            $this->router->add($gallery, Gallery::class, 'page');
+        }
     }
 
     /** static GET routes */
     private function setStaticGetRoutes()
     {
-        $this->router->add(
-            '/', 'Gallery\\Controller\\Front\\Home::page', 'GET'
-        );
-        $this->router->add(
-            '/assets/css/styles.css', 'Gallery\\Controller\\Front\\Assets::style', 'GET'
-        );
-        $this->router->add(
-            '/assets/js/main.js', 'Gallery\\Controller\\Front\\Assets::js', 'GET'
-        );
-        $this->router->add(
-            '/configuration', 'Gallery\\Controller\\Back\\Configuration::form', 'GET'
-        );
+        $this->router->add('/', Home::class, 'page');
+        $this->router->add('/assets/css/styles.css', Assets::class, 'style');
+        $this->router->add('/assets/js/main.js', Assets::class, 'js');
+        $this->router->add('/configuration', Configuration::class, 'form');
     }
 
     /** static POST routes */
     private function setStaticPostRoutes()
     {
-        $this->router->add(
-            '/galleries', 'Gallery\\Controller\\Front\\Gallery::galleries', 'POST'
-        );
-        $this->router->add(
-            '/configuration', 'Gallery\\Controller\\Back\\Configuration::config', 'POST'
-        );
+        $this->router->add('/galleries', Gallery::class, 'galleries', 'POST');
+        $this->router->add('/configuration', Configuration::class, 'config', 'POST');
     }
 
     /** routes used by the user to choose a language */
     private function setLanguageRoutes()
     {
-        $this->router->add(
-            '/fr', 'Gallery\\Controller\\Front\\Home::setFrench', ['GET', 'POST']
-        );
-        $this->router->add(
-            '/en', 'Gallery\\Controller\\Front\\Home::setEnglish', ['GET', 'POST']
-        );
-        $this->router->add(
-            '/de', 'Gallery\\Controller\\Front\\Home::setGerman', ['GET', 'POST']
-        );
-        $this->router->add(
-            '/it', 'Gallery\\Controller\\Front\\Home::setItalian', ['GET', 'POST']
-        );
+        $this->router->add('/fr', Home::class, 'setFrench');
+        $this->router->add('/en', Home::class, 'setEnglish');
+        $this->router->add('/de', Home::class, 'setGerman');
+        $this->router->add('/it', Home::class, 'setItalian');
     }
 }
